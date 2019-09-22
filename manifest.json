@@ -50,6 +50,7 @@
 	    "usingComponents" : true
 	},
 	"h5" : {
+		"template" : "./static/template/index.html",
 	    "router" : {
 	        "mode" : "hash"
 	    },

@@ -1,0 +1,2 @@
+MacPlayer.Html = '<div style="width:100%; height:100%; background:url(https://t1.picb.cc/uploads/2018/11/22/JBXpJD.png) no-repeat bottom center; background-size:100%"><div style="width: 150px; height: 50px; position: absolute; top: 50%; left: 150px; background: #00a7e0; border-radius: 10px; font-size: 30px; text-align: center;"><a href="'+MacPlayer.PlayUrl+'" target="_blank">点击跳转</a></div></div>'
+MacPlayer.Show();
