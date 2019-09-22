@@ -1,9 +1,9 @@
 <template>
 	<view>
 		<cu-custom bgColor="bg-gradual-blue" :isBack="true"><block slot="backText"></block><block slot="content">播放正片</block></cu-custom>
-		<web-view src="../../static/template/macplayer.html" style="height: 422upx;"></web-view>
-		<view class="bg-video flex align-center" style="height: 422upx;">
-			<!-- <video src="https://www.629055.com/m3u8.php?url=https://doubanzyv1.tyswmp.com/2018/09/21/EgvFPR0jopH0XZbN/playlist.m3u8" :autoplay="false" loop muted :show-play-btn="false"
+		<web-view  :src="url" style="height: 522upx;" @message="handleMessage"></web-view>
+		<!-- <view class="bg-video flex align-center" style="height: 422upx;">
+			<video src="https://www.629055.com/m3u8.php?url=https://doubanzyv1.tyswmp.com/2018/09/21/EgvFPR0jopH0XZbN/playlist.m3u8" :autoplay="false" loop muted :show-play-btn="false"
 			 :controls="false" objectFit="cover"></video>
 			<cover-view class="padding-xl text-white ">
 				<cover-view class="padding-xs  text-xxl text-bold">
@@ -12,8 +12,8 @@
 				<cover-view class="padding-xs">
 					我必须连同希望一起毁坏……
 				</cover-view>
-			</cover-view> -->
-		</view>
+			</cover-view>
+		</view> -->
 		<view class="shadow-warp bg-black ">
 			<view class="flex justify-between ">
 				<view class="padding-sm margin-xs radius text-xxl"><text class="">快处快赔</text></view>
@@ -119,6 +119,10 @@
 				weekData:[],//一周更新
 				wallpapers:[],
 				showinfo:false,
+				animateid:"",
+				season: "",
+				playnum: "",
+				url: "",
 			};
 		},
 		/* onReady() {  
@@ -136,6 +140,10 @@
 		}, */
 		onLoad() {
 			this.setshareimg();
+			this.animateid = "1";
+			this.season = "1";
+			this.playnum = "1";
+			this.url = "../../hybrid/html/macplayer.html?animateid="+this.animateid+"&season="+this.season+"&playnum="+this.playnum;
 		},		 
 		methods: {
 			tabSelect(e) {
@@ -245,7 +253,10 @@
 					this.showinfo = true;
 				}
 				
-			}
+			},
+			handleMessage(evt) {  
+			    console.log('接收到的消息：' + JSON.stringify(evt.detail.data));  
+			}  
 		}
 	}
 </script>

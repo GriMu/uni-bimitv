@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<title>
+			Bimi
+		</title>
+		<meta name="Generator" content="EditPlus">
+		<meta name="Author" content="">
+		<meta name="Keywords" content="">
+		<meta name="Description" content="">
+		<!-- 微信 JS-SDK 如果不需要兼容小程序，则无需引用此 JS 文件。 -->  
+		<script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>  
+		<!-- uni 的 SDK，必须引用。 -->  
+		<script type="text/javascript" src="//js.cdn.aliyun.dcloud.net.cn/dev/uni-app/uni.webview.0.1.52.js"></script>
+		<script src="./js/jquery.min.js"></script>
+		<script>var maccms={"path":"","mid":"1","url":"www.bimibimi.tv","wapurl":"m.bimibimi.tv","mob_status":"2"};</script>
+	</head>
+	<body>
+		<div style="height:250px;" id="video">
+			<script type="text/javascript">
+				document.addEventListener('UniAppJSBridgeReady', function() {  
+					uni.getEnv(function(res) {  
+						console.log('当前环境：' + JSON.stringify(res));  
+					});  
+				});
+				function getQuery(name) {
+				    // 正则：[找寻'&' + 'url参数名字' = '值' + '&']（'&'可以不存在）
+				    let reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+				    let r = window.location.search.substr(1).match(reg);
+				    if(r != null) {
+				        // 对参数值进行解码
+				        return unescape(r[2]);
+				    }
+				    return null;
+				}
+				$(document).ready(function() {
+					debugger
+					console.log(getQuery('animateid'));  //获取 uni-app 传来的值
+				    var jstr = new Array();
+				    jstr.push("./js/playerconfig.js");
+				    jstr.push("./js/player.js?v=1.0");
+					var str 
+				    for (var i = 0; i < 3; i++) {
+				        var new_element = document.createElement("script");
+				        new_element.setAttribute("type", "text/javascript");
+						if (i==0) {
+							new_element.innerHTML='var player_data = {'+
+													'"flag": "play",'+
+													'"encrypt": 1,'+
+													'"trysee": 0,'+
+													'"points": 0,'+
+													'"link": "\/bangumi\/669\/play\/1\/1\/",'+
+													'"link_next": "\/bangumi\/669\/play\/1\/2\/",'+
+													'"link_pre": "",'+
+													'"url": "%37%33%31%31%62%30%64%35%66%63%39%39%31%37%33%39%2E%6D%70%34",'+
+													'"url_next": "%38%63%31%61%65%39%34%35%36%33%37%62%38%35%33%38%2E%6D%70%34",'+
+													'"from": "niux",'+
+													'"server": "no",'+
+													'"note": ""'+
+												'}';
+						} else{
+							 new_element.setAttribute("src", jstr[i-1]);
+						}
+						// document.head.appendChild(new_element);
+				        document.getElementById("video").appendChild(new_element);
+				    }
+				})
+			</script>
+			<div id="macplayer">
+			</div>
+			<!-- <script type="text/javascript" src="./js/playerconfig.js">
+			</script>
+			<script type="text/javascript" src="./js/player.js?v=1.0">
+			</script> -->
+		</div>
+	</body>
+
+</html>
