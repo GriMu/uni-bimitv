@@ -67,6 +67,11 @@
 				    "target" : "http://service.picasso.adesk.com/",
 				    "changeOrigin" : true,
 				    "secure" : false
+				},
+				"/animatePlay" : {
+				    "target" : "http://chengzc.club:3000/",
+				    "changeOrigin" : true,
+				    "secure" : false
 				}
 	        }
 	    }

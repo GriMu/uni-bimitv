@@ -156,10 +156,21 @@ var MacPlayer = {
         $('#install').show()
     },
     'Play': function() {
-        document.getElementById("macplayer").innerHTML = '<style>.MacPlayer{background: #000000;font-size:14px;color:#F6F6F6;margin:0px;padding:0px;position:relative;overflow:hidden;width:' + this.Width + ';height:' + this.Height + ';min-height:100px;}.MacPlayer table{width:100%;height:100%;}.MacPlayer #playleft{position:inherit;!important;width:100%;height:100%;}</style><div class="MacPlayer">' + '<iframe id="buffer" src="" frameBorder="0" scrolling="no" width="100%" height="100%" style="position:absolute;z-index:99998;"></iframe><iframe id="install" src="" frameBorder="0" scrolling="no" width="100%" height="100%" style="position:absolute;z-index:99998;display:none;"></iframe>' + '<table border="0" cellpadding="0" cellspacing="0"><tr><td id="playleft" valign="top" style="">&nbsp;</td></table></div>';
+		/* var new_element = document.createElement("div");
+		new_element.setAttribute("id", "macplayer");
+		new_element.setAttribute("height", "250");
+		new_element.innerHTML='<style>.MacPlayer{background: #000000;font-size:14px;color:#F6F6F6;margin:0px;padding:0px;position:relative;overflow:hidden;width:' + this.Width + ';height:' + this.Height + ';min-height:100px;}.MacPlayer table{width:100%;height:100%;}.MacPlayer #playleft{position:inherit;!important;width:100%;height:100%;}</style><div class="MacPlayer">' + '<iframe id="buffer" src="" frameBorder="0" scrolling="no" width="100%" height="100%" style="position:absolute;z-index:99998;"></iframe><iframe id="install" src="" frameBorder="0" scrolling="no" width="100%" height="100%" style="position:absolute;z-index:99998;display:none;"></iframe>' + '<table border="0" cellpadding="0" cellspacing="0"><tr><td id="playleft" valign="top" style="">&nbsp;</td></table></div>';
+        document.body.appendChild(new_element);
+		// document.getElementById("macplayer").appendChild();
         this.offsetHeight = $('.MacPlayer').get(0).offsetHeight;
         this.offsetWidth = $('.MacPlayer').get(0).offsetWidth;
-        document.getElementById("macplayer").innerHTML = '<scr' + 'ipt src=".' + this.Path + this.PlayFrom + '.js"></scr' + 'ipt>';
+		var new_element1 = document.createElement("script");
+		new_element1.setAttribute("src", './'+this.Path + this.PlayFrom + '.js');
+        document.getElementById("macplayer").appendChild(new_element1); */
+		document.write('<style>.MacPlayer{background: #000000;font-size:14px;color:#F6F6F6;margin:0px;padding:0px;position:relative;overflow:hidden;width:' + this.Width + ';height:' + this.Height + ';min-height:100px;}.MacPlayer table{width:100%;height:100%;}.MacPlayer #playleft{position:inherit;!important;width:100%;height:100%;}</style><div class="MacPlayer">' + '<iframe id="buffer" src="" frameBorder="0" scrolling="no" width="100%" height="100%" style="position:absolute;z-index:99998;"></iframe><iframe id="install" src="" frameBorder="0" scrolling="no" width="100%" height="100%" style="position:absolute;z-index:99998;display:none;"></iframe>' + '<table border="0" cellpadding="0" cellspacing="0"><tr><td id="playleft" valign="top" style="">&nbsp;</td></table></div>');
+		this.offsetHeight = $('.MacPlayer').get(0).offsetHeight;
+		this.offsetWidth = $('.MacPlayer').get(0).offsetWidth;
+		document.write('<scr' + 'ipt src="./' + this.Path + this.PlayFrom + '.js"></scr' + 'ipt>')
     },
     'Down': function() {},
     'Init': function() {

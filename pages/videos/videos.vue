@@ -8,7 +8,7 @@
 				</view>
 			</scroll-view>
 		</view>
-		<view class="cu-card no-card case bg-white margin-top" v-for="(item,index) in weekData" @tap="toChild" data-url="../plays/plays">
+		<view class="cu-card no-card case bg-white margin-top" v-for="(item,index) in weekData" :key="index" @tap="toChild" data-url="../plays/plays">
 			<view class="cu-item shadow  animation-slide-left"  :style="[{animationDelay: (index*0.1 + 1)*0.2 + 's'}]">
 				<view class="bg-img bg-mask flex align-center "  :style="{backgroundImage:'url('+item.url+')',height: '414upx'}">
 					<view class="padding-xl text-white">

@@ -1,7 +1,9 @@
 <template>
 	<view>
 		<cu-custom bgColor="bg-gradual-blue" :isBack="true"><block slot="backText"></block><block slot="content">播放正片</block></cu-custom>
-		<web-view  :src="url" style="height: 522upx;" @message="handleMessage"></web-view>
+		<view class="bg-video flex align-center" style="height: 500upx;">
+			<web-view  :src="url"  @message="handleMessage"></web-view>
+		</view>	
 		<!-- <view class="bg-video flex align-center" style="height: 422upx;">
 			<video src="https://www.629055.com/m3u8.php?url=https://doubanzyv1.tyswmp.com/2018/09/21/EgvFPR0jopH0XZbN/playlist.m3u8" :autoplay="false" loop muted :show-play-btn="false"
 			 :controls="false" objectFit="cover"></video>
@@ -20,12 +22,18 @@
 				<view class="padding-sm margin-xs radius" @tap="showVideoInfo"><text class="margin-right-xs">简介</text><text :class="showinfo?'cuIcon-fold':'cuIcon-unfold'"></text></view>
 			</view>
 		</view>
+		<view class="cu-form-group margin-top bg-black">
+			<view class="title">普通选择</view>
+			<picker @change="PickerChange" :value="index" :range="picker">
+				<view class="picker">
+					{{index>-1?picker[index]:'卡顿请重新选择节点'}}
+				</view>
+			</picker>
+		</view>
 		<view class="cu-list menu sm-border" >
 			<view class="cu-item" style="background-color: #333333">
 				<view class="content padding-tb-sm">
-					<view>
 						<text class="margin-right-xs text-gray">会员22点跟播卫视，非会员次日更新</text>
-					</view>
 					<view class="text-gray text-sm padding">
 						<text class="margin-right-xs">9.3分</text>
 						 <text class="cuIcon-title margin-right-xs" ></text>
@@ -122,7 +130,8 @@
 				animateid:"",
 				season: "",
 				playnum: "",
-				url: "",
+				url: "../../hybrid/html/macplayer.html",
+				picker: ['Danma U', 'Danma C'],
 			};
 		},
 		/* onReady() {  
@@ -140,10 +149,10 @@
 		}, */
 		onLoad() {
 			this.setshareimg();
-			this.animateid = "1";
-			this.season = "1";
+			this.animateid = "669";
+			this.season = "2";
 			this.playnum = "1";
-			this.url = "../../hybrid/html/macplayer.html?animateid="+this.animateid+"&season="+this.season+"&playnum="+this.playnum;
+			// this.url = "../../hybrid/html/macplayer.html?animateid="+this.animateid+"&season="+this.season+"&playnum="+this.playnum;
 		},		 
 		methods: {
 			tabSelect(e) {
@@ -241,6 +250,7 @@
 						if(res.data.res!=null&&res.data.res.vertical!=null){
 							this.wallpapers = res.data.res.vertical;
 							this.getWeekData();
+							this.getVideo();
 						}	
 					}
 				});
@@ -256,7 +266,27 @@
 			},
 			handleMessage(evt) {  
 			    console.log('接收到的消息：' + JSON.stringify(evt.detail.data));  
-			}  
+			},
+			getVideo:function(){
+				var linkurl = dateutil.getUri('http://chengzc.club:3000/','animatePlay/?animateid='+this.animateid+'&season='+this.season+'&playnum='+this.playnum);
+				uni.request({
+					// url:'http://wallpaper.apc.360.cn/index.php?c=WallPaper&a=search&kw=%E9%A3%8E%E6%99%AF&start=0&count=99',
+					url:linkurl,
+					success:(res)=> {
+						// var index = Math.floor(Math.random()*99);
+						// this.shareimg= res.data.data[index].thumb;
+						if(res.data.player_data!=null){
+							uni.setStorage({
+								key: 'videoData',
+								data: res.data
+							})
+						}	
+					}
+				});
+			},
+			PickerChange(e) {
+				this.index = e.detail.value
+			},
 		}
 	}
 </script>
