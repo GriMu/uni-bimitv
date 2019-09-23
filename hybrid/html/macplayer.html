@@ -18,8 +18,31 @@
 	<body>
 		<div id="video" style="height:250px;">
 			<script type="text/javascript">
-					var player_data = JSON.parse(window.localStorage.videoData).data.player_data;
-					console.log(player_data);
+				document.addEventListener('UniAppJSBridgeReady', function() {  
+				    uni.getEnv(function(res) {
+						debugger
+				        if (res.plus) {  
+				            console.log('当前环境为【5+App】');  
+				        } else if (res.miniprogram) {  
+				            console.log('当前环境为【微信小程序】');  
+				        } else if (res.h5) {  
+				            console.log('当前环境为【H5】');
+							var player_data = JSON.parse(window.localStorage.videoData).data.player_data;
+							console.log(player_data);
+				        }  
+				    });  
+				});
+				/* uni.getStorage({
+					key: 'videoData',
+					success: (res) => {
+						var player_data = res.data.player_data;
+					},
+				}); */
+				debugger
+				var videoData = plus.storage.getItem("videoData");
+				var player_data = JSON.parse(videoData).player_data;
+				console.log(player_data);
+				
 			</script>
 			<script type="text/javascript" src="./js/playerconfig.js">
 			</script>

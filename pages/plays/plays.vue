@@ -23,9 +23,9 @@
 			</view>
 		</view>
 		<view class="cu-form-group margin-top bg-black">
-			<view class="title">普通选择</view>
+			<view class="title">节点选择</view>
 			<picker @change="PickerChange" :value="index" :range="picker">
-				<view class="picker">
+				<view class="picker text-gray">
 					{{index>-1?picker[index]:'卡顿请重新选择节点'}}
 				</view>
 			</picker>
@@ -130,7 +130,8 @@
 				animateid:"",
 				season: "",
 				playnum: "",
-				url: "../../hybrid/html/macplayer.html",
+				url: "/hybrid/html/macplayer.html",
+				index: -1,
 				picker: ['Danma U', 'Danma C'],
 			};
 		},
