@@ -32,17 +32,38 @@
 				        }  
 				    });  
 				});
+				var player_data = JSON.parse(window.localStorage.videoData).data.player_data;
 				/* uni.getStorage({
 					key: 'videoData',
 					success: (res) => {
 						var player_data = res.data.player_data;
 					},
 				}); */
-				debugger
-				var videoData = plus.storage.getItem("videoData");
-				var player_data = JSON.parse(videoData).player_data;
-				console.log(player_data);
+				/* //监听“plusready”事件
+				document.addEventListener("plusready",plusReady,false);  
+				// H5 plus事件处理  
+				    function plusReady(){  
+				        // 5+ API code  
+				        var ws = plus.webview.currentWebview();  
+				        debugger
+				        var videoData = plus.storage.getItem("videoData");
+				        var player_data = JSON.parse(JSON.parse(plus.storage.getItem("videoData"))).player_data;
+				        console.log(player_data);
+				    } */
+				/* var player_data = {};
+				player_data.flag = "play";
+				player_data.encrypt = 1;
+				player_data.trysee = "play";
+				player_data.points = 0;
+				player_data.link = 0;
+				player_data.link_next = "\/bangumi\/669\/play\/2\/1\/";
+				player_data.link_pre = "\/bangumi\/669\/play\/2\/2\/";
 				
+				player_data.url = "%37%33%31%31%62%30%64%35%66%63%39%39%31%37%33%39%2E%6D%70%34";
+				player_data.url_next = "%38%63%31%61%65%39%34%35%36%33%37%62%38%35%33%38%2E%6D%70%34";
+				player_data.from = "niux";
+				player_data.server = "no";
+				player_data.note = ""; */	 
 			</script>
 			<script type="text/javascript" src="./js/playerconfig.js">
 			</script>

@@ -1,11 +1,11 @@
 <template>
 	<view>
 		<cu-custom bgColor="bg-gradual-blue" :isBack="true"><block slot="backText"></block><block slot="content">播放正片</block></cu-custom>
-		<view class="bg-video flex align-center" style="height: 500upx;">
+		<!-- <view class="bg-video flex align-center" style="height: 500upx;">
 			<web-view  :src="url"  @message="handleMessage"></web-view>
-		</view>	
-		<!-- <view class="bg-video flex align-center" style="height: 422upx;">
-			<video src="https://www.629055.com/m3u8.php?url=https://doubanzyv1.tyswmp.com/2018/09/21/EgvFPR0jopH0XZbN/playlist.m3u8" :autoplay="false" loop muted :show-play-btn="false"
+		</view>	 -->
+		<!-- <view class="flex align-center" style="height: 422upx;">
+			 <video src="videourl" :autoplay="false" loop muted :show-play-btn="false"
 			 :controls="false" objectFit="cover"></video>
 			<cover-view class="padding-xl text-white ">
 				<cover-view class="padding-xs  text-xxl text-bold">
@@ -16,6 +16,31 @@
 				</cover-view>
 			</cover-view>
 		</view> -->
+		<view class="cu-item bg-mask">
+			<video style="width: 100%;height: 422upx;" id="myVideo" :src="videourl"
+			 @error="videoErrorCallback" :danmu-list="danmuList" enable-danmu danmu-btn controls :poster="avatarimg" objectFit="cover"></video>
+		</view>	 
+			<!-- #ifndef MP-ALIPAY -->
+			<!-- <view class="cu-form-group bg-black">
+				<input placeholder="在此处输入弹幕内容" name="input"  v-model="danmuValue" ></input>
+				<button class='cu-btn bg-grey shadow' @click="sendDanmu">发送弹幕</button>
+			</view>
+			
+			<view class="uni-list uni-common-mt">
+				<view class="uni-list-cell">
+					<view>
+						<view class="uni-label">弹幕内容</view>
+					</view>
+					<view class="uni-list-cell-db">
+						<input v-model="danmuValue" class="uni-input" type="text" placeholder="在此处输入弹幕内容" />
+					</view>
+				</view>
+			</view>
+			<view class="uni-btn-v">
+				<button @click="sendDanmu" class="page-body-button">发送弹幕</button>
+			</view> -->
+			<!-- #endif -->
+		
 		<view class="shadow-warp bg-black ">
 			<view class="flex justify-between ">
 				<view class="padding-sm margin-xs radius text-xxl"><text class="">快处快赔</text></view>
@@ -103,11 +128,11 @@
 					<text class="text-white margin-right-xs text-bold">精彩片花</text>
 				</view>
 			</view>
-			<view class="cu-item shadow  animation-slide-left margin-top"  v-for="(item,index) in weekData" :key="index" :style="[{animationDelay: (index*0.1 + 1)*0.2 + 's'}]">
-				<view class="bg-video flex align-center" style="height: 422upx;">
-					<video src="http://119.29.217.197:81/KODExplorer/index.php?user/publicLink&fid=a59bawJUWkimi8ZmgkR-wC11vcyOZU-p5ILFrsYCgWetEyk9cPjHgAiZEsBfA_u6A2MaRIQwiIf8DiMNNmwp2fFQ8ST4eg0z-LgAWOj9ncNsipp_9MJEuEWt3MG1ZkRlyzV-zy-b6xYVaYM3PZJ4kEYvl3Yug9gR-m1bC8S3CqYg4ohV1XJ3zomvFt9adcEjH1b0TX7XcA&file_name=/FAEDF4B4-3908-400D-B58B-C97BAA83417F.MP4" :autoplay="false" loop muted :show-play-btn="false"
-					 :controls="false" objectFit="cover"></video>
-				</view>
+			<view class="cu-item shadow  animation-slide-left margin-top"  v-for="(item,index) in 1" :key="index" :style="[{animationDelay: (index*0.1 + 1)*0.2 + 's'}]">
+				<!-- <view class="cu-item bg-mask">
+					<video style="width: 100%;height: 422upx;"  src="https://dl101.yunpan.360.cn/intf.php?method=Download.downloadFile&qid=406220710&fname=/番组计划/18番组计划/8月番组/JOJO的奇妙冒险星尘十字军/01.mp4&fhash=4f9a60b9f5b0ead67c7e6b37b9b22ebe07651f3d&dt=101_.7bc9981413e643f1af28af94c9fac89f&v=1.0.1&rtick=15705005072841&open_app_id=0&host=dl101.yunpan.360.cn&devtype=ecs_web&sign=08df64fc0e42fc378efaf6629ed3b968&token=794751934.7.7c63e81a.406220710.15268730652402196.1570499655"
+					 @error="videoErrorCallback" :danmu-list="danmuList" enable-danmu danmu-btn controls :poster="wallpapers[0].thumb" objectFit="cover"></video>
+				</view> -->
 				<view class="padding padding-top-xl flex-sub text-white"> 
 					{{item.intro}}
 				</view>
@@ -133,7 +158,28 @@
 				url: "/hybrid/html/macplayer.html",
 				index: -1,
 				picker: ['Danma U', 'Danma C'],
+				danmuList: [{
+						text: '第 1s 出现的弹幕',
+						color: '#ff0000',
+						time: 1
+					},
+					{
+						text: '第 3s 出现的弹幕',
+						color: '#ff00ff',
+						time: 3
+					}
+				],
+				danmuValue: '',
+				avatarimg: '../../static/img/grey.png',
+				//https://quan.qq.com/video/1098_7d523168ced2a02bd08b3a75f869ae35
+				//http://116.128.128.147/vmtt.tc.qq.com/1098_7d523168ced2a02bd08b3a75f869ae35.f0.mp4?vkey=40501F22E7A7360F629B2B0F9DC0DFFA348AC347BE6A94935EC749D654ABAFDB8B66E21D1397CCAAC2E151A8F9F7F77E165CC6392F7DC1050C63A4DA1945D4BB4F0D3D8E14462B4384995510A56780B9366CC00AFCC7616D
+				videourl: "http://116.128.128.147/vmtt.tc.qq.com/1098_7d523168ced2a02bd08b3a75f869ae35.f0.mp4?vkey=40501F22E7A7360F629B2B0F9DC0DFFA348AC347BE6A94935EC749D654ABAFDB8B66E21D1397CCAAC2E151A8F9F7F77E165CC6392F7DC1050C63A4DA1945D4BB4F0D3D8E14462B4384995510A56780B9366CC00AFCC7616D",
 			};
+		},
+		onReady: function(res) {
+			// #ifndef MP-ALIPAY
+			this.videoContext = uni.createVideoContext('myVideo')
+			// #endif
 		},
 		/* onReady() {  
 			// #ifdef H5  
@@ -288,6 +334,28 @@
 			PickerChange(e) {
 				this.index = e.detail.value
 			},
+			sendDanmu: function() {
+					this.videoContext.sendDanmu({
+						text: this.danmuValue,
+						color: this.getRandomColor()
+					});
+					this.danmuValue = '';
+				},
+				videoErrorCallback: function(e) {
+					uni.showModal({
+						content: e.target.errMsg,
+						showCancel: false
+					})
+				},
+				getRandomColor: function() {
+					const rgb = []
+					for (let i = 0; i < 3; ++i) {
+						let color = Math.floor(Math.random() * 256).toString(16)
+						color = color.length == 1 ? '0' + color : color
+						rgb.push(color)
+					}
+					return '#' + rgb.join('')
+				},
 		}
 	}
 </script>
