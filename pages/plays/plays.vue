@@ -43,7 +43,7 @@
 		
 		<view class="shadow-warp bg-black ">
 			<view class="flex justify-between ">
-				<view class="padding-sm margin-xs radius text-xxl"><text class="">快处快赔</text></view>
+				<view class="padding-sm margin-xs radius text-xxl"><text class="">{{animateinfo.name}}</text></view>
 				<view class="padding-sm margin-xs radius" @tap="showVideoInfo"><text class="margin-right-xs">简介</text><text :class="showinfo?'cuIcon-fold':'cuIcon-unfold'"></text></view>
 			</view>
 		</view>
@@ -58,14 +58,14 @@
 		<view class="cu-list menu sm-border" >
 			<view class="cu-item" style="background-color: #333333">
 				<view class="content padding-tb-sm">
-						<text class="margin-right-xs text-gray">会员22点跟播卫视，非会员次日更新</text>
+						<text class="margin-right-xs text-gray">{{animateinfo.name}}第<text class="margin-right-xs text-orange" >{{animateinfo.curnum}}</text>话</text>
 					<view class="text-gray text-sm padding">
 						<text class="margin-right-xs">9.3分</text>
-						 <text class="cuIcon-title margin-right-xs" ></text>
-						 <text class="margin-right-xs text-orange" >VIP</text>
-						 <text class="cuIcon-title margin-right-xs ">家庭</text>
-						 <text class="cuIcon-title margin-right-xs ">全49集</text>
-						 <text class="cuIcon-title margin-right-xs ">20.6亿</text>
+						 <text class="cuIcon-title margin-right-xs" >{{animateDetail.kaibo}}</text>
+						 <text class="cuIcon-title margin-right-xs text-orange" >{{animateDetail.updatenums}}</text>
+						 <text class="cuIcon-title margin-right-xs ">{{animateDetail.year}}</text>
+						 <text class="cuIcon-title margin-right-xs ">{{animateDetail.language}}</text>
+						 <text class="cuIcon-title margin-right-xs ">{{animateDetail.updatetime}}</text>
 					</view>
 				</view>
 			</view>
@@ -73,10 +73,10 @@
 		<view class="cu-list menu sm-border" :style="{display:showinfo?'':'none'}">
 			<view class="cu-item" style="background-color: #333333">
 				<scroll-view scroll-x class="nav" scroll-with-animation :scroll-left="scrollLeft">
-					<view class="cu-item" style="border-bottom: 0upx;" :class="index==TabCur?'cur':''" v-for="(item,index) in 10" :key="index" @tap="tabSelect" :data-id="index">
+					<view class="cu-item" style="border-bottom: 0upx;" :class="index==TabCur?'cur':''" v-for="(item,index) in animateDetail.voicelsit" :key="index" @tap="tabSelect" :data-id="index">
 						<view class="cu-avatar round lg margin-top-sm" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);"></view>
 						<view>
-							<text class="padding-left-sm text-gray">王俊</text>
+							<text class="padding-left-sm text-gray">{{item.voiceactor}}</text>
 						</view>
 					</view>
 				</scroll-view>
@@ -85,7 +85,7 @@
 				<view class="content padding-tb-sm">
 					<view class="cardTitle"><view class="text-cut text-white">简介</view></view>
 					<view>
-						<text class="margin-right-xs text-gray">折磨生出苦难，苦难又会加剧折磨，凡间这无穷的循环，将有我来终结！真正的恩典因不完整而美丽，因情感而真诚，因脆弱而自由！</text>
+						<text class="margin-right-xs text-gray">{{animateDetail.intro}}</text>
 					</view>
 				</view>
 			</view>
@@ -108,14 +108,14 @@
 					<text class="text-white margin-right-xs text-bold">剧集</text>
 				</view>
 				<view class="action">
-					<view class="text-gray">会员22点跟播卫视，非会员次日更新</view>
+					<view class="text-gray">{{animateDetail.updatenums}}</view>
 				</view>
 			</view>
 			<view class="cu-item" >
 				<scroll-view scroll-x class="nav" scroll-with-animation :scroll-left="scrollLeft">
-					<view class="cu-item"  v-for="(item,index) in 30" :key="index" @tap="tabSelect" :data-id="index">
+					<view class="cu-item"  v-for="(item,index) in animateDetail.playlist[0]" :key="index" @tap="tabSelect" :data-id="index">
 						<view class="cu-avatar radius lg" :class="index==TabCur?'bg-gray text-orange':'bg-black'" style="width: 70upx;height: 70upx;">
-							<text>{{index+1}}</text>
+							<text>{{item.playnum.substring(item.playnum.indexOf("第")+1,item.playnum.indexOf("话"))}}</text>
 						</view>
 					</view>
 				</scroll-view>
@@ -125,17 +125,43 @@
 		<view class="cu-card no-card case  margin-top" >
 			<view class="cu-item arrow" >
 				<view class="content" style="margin-left: 32upx;font-size: 32upx;">
-					<text class="text-white margin-right-xs text-bold">精彩片花</text>
+					<text class="text-white margin-right-xs text-bold">你可能喜欢</text>
 				</view>
 			</view>
-			<view class="cu-item shadow  animation-slide-left margin-top"  v-for="(item,index) in 1" :key="index" :style="[{animationDelay: (index*0.1 + 1)*0.2 + 's'}]">
+			<view class="cu-item shadow  animation-slide-left margin-top"  v-for="(item,index) in animateDetail.recommendlist" :key="index" :style="[{animationDelay: (index*0.1 + 1)*0.2 + 's'}]">
 				<!-- <view class="cu-item bg-mask">
 					<video style="width: 100%;height: 422upx;"  src="https://dl101.yunpan.360.cn/intf.php?method=Download.downloadFile&qid=406220710&fname=/番组计划/18番组计划/8月番组/JOJO的奇妙冒险星尘十字军/01.mp4&fhash=4f9a60b9f5b0ead67c7e6b37b9b22ebe07651f3d&dt=101_.7bc9981413e643f1af28af94c9fac89f&v=1.0.1&rtick=15705005072841&open_app_id=0&host=dl101.yunpan.360.cn&devtype=ecs_web&sign=08df64fc0e42fc378efaf6629ed3b968&token=794751934.7.7c63e81a.406220710.15268730652402196.1570499655"
 					 @error="videoErrorCallback" :danmu-list="danmuList" enable-danmu danmu-btn controls :poster="wallpapers[0].thumb" objectFit="cover"></video>
 				</view> -->
-				<view class="padding padding-top-xl flex-sub text-white"> 
-					{{item.intro}}
-				</view>
+					<view class="bg-img bg-mask flex align-center "  :style="{backgroundImage:'url('+item.img+')',height: '414upx'}">
+						<view class="padding-xl text-white">
+							<view class="padding-xs text-xxl text-bold">
+								{{item.name}}
+							</view>
+							<view class="padding-xs text-lg">
+								<view class="text-cut padding" style="width:220px">{{item.info}}</view>
+							</view>
+						</view>
+					</view>
+					<view class="cu-list menu-avatar comment solids-top">
+						<view class="cu-item">
+							<view class="cu-avatar round margin-top-xs bg-gray" >
+								{{item.name.substring(0,1)}}
+							</view>
+							<view class="content">
+								<view class="text-grey border-title">
+									<view class="text-sm text-bold">youxihenshao</view>
+								</view>
+								<view class="text-grey border-title">
+									<view class="text-sm text-bold">{{item.views}}</view>
+								</view>
+							</view>
+							<view class="action text-xl">
+								<text class="cuIcon-share padding-xs"></text>
+								<text class="cuIcon-delete padding-xs"></text>
+							</view>
+						</view>
+					</view>
 				<view class="bottom-tv" v-if="index<(weekData.length-1)">  </view>
 			</view>
 		</view>	
@@ -175,6 +201,9 @@
 				//http://116.128.128.147/vmtt.tc.qq.com/1098_7d523168ced2a02bd08b3a75f869ae35.f0.mp4?vkey=40501F22E7A7360F629B2B0F9DC0DFFA348AC347BE6A94935EC749D654ABAFDB8B66E21D1397CCAAC2E151A8F9F7F77E165CC6392F7DC1050C63A4DA1945D4BB4F0D3D8E14462B4384995510A56780B9366CC00AFCC7616D
 				videourl: "",
 				videotype: "",
+				animateinfo:{},
+				animateDetail:{},
+				
 			};
 		},
 		onReady: function(res) {
@@ -298,7 +327,8 @@
 						// this.shareimg= res.data.data[index].thumb;
 						if(res.data.res!=null&&res.data.res.vertical!=null){
 							this.wallpapers = res.data.res.vertical;
-							this.getWeekData();
+							// this.getWeekData();
+							this.getVideoInfo();
 							this.getVideo();
 						}	
 					}
@@ -322,10 +352,10 @@
 					// url:'http://wallpaper.apc.360.cn/index.php?c=WallPaper&a=search&kw=%E9%A3%8E%E6%99%AF&start=0&count=99',
 					url:linkurl,
 					success:(res)=> {
-						debugger
 						// var index = Math.floor(Math.random()*99);
 						// this.shareimg= res.data.data[index].thumb;
 						if(res.data.playurl!=null){
+							this.animateinfo = res.data;
 							uni.setStorage({
 								key: 'videoData',
 								data: res.data
@@ -352,7 +382,24 @@
 						}
 					}
 				});
-			},	
+			},
+			getVideoInfo:function(){
+				var linkurl = dateutil.getUri('http://chengzc.club:3000/','animateDetail/?page='+this.animateid);
+				uni.request({
+					url:linkurl,
+					success:(res)=> {
+						if(res.data.title!=null){
+							this.animateDetail = res.data;
+						}
+						else{
+							uni.showModal({
+								content: "网络异常！",
+								showCancel: false
+							})
+						}
+					}
+				});
+			},
 			PickerChange(e) {
 				this.index = e.detail.value
 			},
@@ -363,12 +410,12 @@
 					});
 					this.danmuValue = '';
 				},
-				/* videoErrorCallback: function(e) {
-					uni.showModal({
+				videoErrorCallback: function(e) {
+					/* uni.showModal({
 						content: e.target.errMsg,
 						showCancel: false
-					})
-				}, */
+					}) */
+				},
 				getRandomColor: function() {
 					const rgb = []
 					for (let i = 0; i < 3; ++i) {
