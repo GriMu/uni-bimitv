@@ -173,7 +173,8 @@
 				avatarimg: '../../static/img/grey.png',
 				//https://quan.qq.com/video/1098_7d523168ced2a02bd08b3a75f869ae35
 				//http://116.128.128.147/vmtt.tc.qq.com/1098_7d523168ced2a02bd08b3a75f869ae35.f0.mp4?vkey=40501F22E7A7360F629B2B0F9DC0DFFA348AC347BE6A94935EC749D654ABAFDB8B66E21D1397CCAAC2E151A8F9F7F77E165CC6392F7DC1050C63A4DA1945D4BB4F0D3D8E14462B4384995510A56780B9366CC00AFCC7616D
-				videourl: "http://116.128.128.147/vmtt.tc.qq.com/1098_7d523168ced2a02bd08b3a75f869ae35.f0.mp4?vkey=40501F22E7A7360F629B2B0F9DC0DFFA348AC347BE6A94935EC749D654ABAFDB8B66E21D1397CCAAC2E151A8F9F7F77E165CC6392F7DC1050C63A4DA1945D4BB4F0D3D8E14462B4384995510A56780B9366CC00AFCC7616D",
+				videourl: "",
+				videotype: "",
 			};
 		},
 		onReady: function(res) {
@@ -292,6 +293,7 @@
 					// url:'http://wallpaper.apc.360.cn/index.php?c=WallPaper&a=search&kw=%E9%A3%8E%E6%99%AF&start=0&count=99',
 					url:linkurl,
 					success:(res)=> {
+						debugger
 						// var index = Math.floor(Math.random()*99);
 						// this.shareimg= res.data.data[index].thumb;
 						if(res.data.res!=null&&res.data.res.vertical!=null){
@@ -315,22 +317,42 @@
 			    console.log('接收到的消息：' + JSON.stringify(evt.detail.data));  
 			},
 			getVideo:function(){
-				var linkurl = dateutil.getUri('http://chengzc.club:3000/','animatePlay/?animateid='+this.animateid+'&season='+this.season+'&playnum='+this.playnum);
+				var linkurl = dateutil.getUri('http://chengzc.club:3000/','animatePlayByPT/?animateid='+this.animateid+'&season='+this.season+'&playnum='+this.playnum);
 				uni.request({
 					// url:'http://wallpaper.apc.360.cn/index.php?c=WallPaper&a=search&kw=%E9%A3%8E%E6%99%AF&start=0&count=99',
 					url:linkurl,
 					success:(res)=> {
+						debugger
 						// var index = Math.floor(Math.random()*99);
 						// this.shareimg= res.data.data[index].thumb;
-						if(res.data.player_data!=null){
+						if(res.data.playurl!=null){
 							uni.setStorage({
 								key: 'videoData',
 								data: res.data
-							})
+							});
+							this.getRealPyerUrl(res.data.playurl);
 						}	
 					}
 				});
 			},
+			getRealPyerUrl:function(relurl){
+				var linkurl = dateutil.getUri('http://chengzc.club:3000/','animateGetRealUrl/?relurl='+relurl);
+				uni.request({
+					url:linkurl,
+					success:(res)=> {
+						if(res.data.playurl!=null){
+							this.videourl = res.data.playurl;
+							this.videotype = res.data.type;
+						}
+						else{
+							uni.showModal({
+								content: "网络异常！",
+								showCancel: false
+							})
+						}
+					}
+				});
+			},	
 			PickerChange(e) {
 				this.index = e.detail.value
 			},
@@ -341,12 +363,12 @@
 					});
 					this.danmuValue = '';
 				},
-				videoErrorCallback: function(e) {
+				/* videoErrorCallback: function(e) {
 					uni.showModal({
 						content: e.target.errMsg,
 						showCancel: false
 					})
-				},
+				}, */
 				getRandomColor: function() {
 					const rgb = []
 					for (let i = 0; i < 3; ++i) {
