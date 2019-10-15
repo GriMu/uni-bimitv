@@ -169,7 +169,7 @@
 </template>
 
 <script>
-	import dateutil from '../../common/util.js';
+	import commonutil from '../../common/util.js';
 	export default {
 		data() {
 			return {
@@ -239,7 +239,7 @@
 			getWeekData: function() {
 				this.loadModal = true;
 				var url = 'api/b/animation/recent?isWeek=true';
-				var linkurl = dateutil.getUri('http://www.youxihenshao.com/',url);
+				var linkurl = commonutil.getUri(commonutil.testurl,url);
 				setTimeout(()=>{
 					uni.request({
 						url:linkurl,
@@ -317,7 +317,7 @@
 			},
 			setshareimg()
 			{
-				var linkurl = dateutil.getUri('http://service.picasso.adesk.com/','v1/vertical/category/4e4d610cdf714d2966000002/vertical?limit=40&adult=false&first=1&order=new');
+				var linkurl = commonutil.getUri(commonutil.imgurl,'v1/vertical/category/4e4d610cdf714d2966000002/vertical?limit=40&adult=false&first=1&order=new');
 				uni.request({
 					// url:'http://wallpaper.apc.360.cn/index.php?c=WallPaper&a=search&kw=%E9%A3%8E%E6%99%AF&start=0&count=99',
 					url:linkurl,
@@ -347,7 +347,7 @@
 			    console.log('接收到的消息：' + JSON.stringify(evt.detail.data));  
 			},
 			getVideo:function(){
-				var linkurl = dateutil.getUri('http://chengzc.club:3000/','animatePlayByPT/?animateid='+this.animateid+'&season='+this.season+'&playnum='+this.playnum);
+				var linkurl = commonutil.getUri(commonutil.apiurl,'bimianimate/animatePlayByPT/?animateid='+this.animateid+'&season='+this.season+'&playnum='+this.playnum);
 				uni.request({
 					// url:'http://wallpaper.apc.360.cn/index.php?c=WallPaper&a=search&kw=%E9%A3%8E%E6%99%AF&start=0&count=99',
 					url:linkurl,
@@ -366,7 +366,7 @@
 				});
 			},
 			getRealPyerUrl:function(relurl){
-				var linkurl = dateutil.getUri('http://chengzc.club:3000/','animateGetRealUrl/?relurl='+relurl);
+				var linkurl = commonutil.getUri(commonutil.apiurl,'bimianimate/animateGetRealUrl/?relurl='+relurl);
 				uni.request({
 					url:linkurl,
 					success:(res)=> {
@@ -384,7 +384,7 @@
 				});
 			},
 			getVideoInfo:function(){
-				var linkurl = dateutil.getUri('http://chengzc.club:3000/','animateDetail/?page='+this.animateid);
+				var linkurl = commonutil.getUri(commonutil.apiurl,'bimianimate/animateDetail/?page='+this.animateid);
 				uni.request({
 					url:linkurl,
 					success:(res)=> {

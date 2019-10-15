@@ -1,3 +1,8 @@
+// api接口地址
+var apiurl = 'http://chengzc.club:3000/';
+var imgurl = 'http://service.picasso.adesk.com/';
+var testurl = 'http://www.youxihenshao.com/';
+
 function formateDate(sj)
 {
 	var now = new Date(sj*1000);
@@ -62,8 +67,19 @@ const getUserInfo = ()=>{
 		}
 	})
 }	
-module.exports = {
+/* module.exports = {
 	formateDate: formateDate,
 	getUri:getUri,
+	apiurl:apiurl,
+	imgurl:imgurl,
+	testurl:testurl,
 	// getUserInfo: getUserInfo,
-}
+} */
+
+export default {
+	apiurl,
+	imgurl,
+	testurl,
+	formateDate,
+	getUri,
+};

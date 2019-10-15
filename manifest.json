@@ -83,21 +83,11 @@
                     "changeOrigin" : true,
                     "secure" : false
                 },
-                "/animatePlayByPT" : {
+                "/bimianimate" : {
                     "target" : "http://chengzc.club:3000/",
                     "changeOrigin" : true,
                     "secure" : false
-                },
-                "/animateGetRealUrl" : {
-                    "target" : "http://chengzc.club:3000/",
-                    "changeOrigin" : true,
-                    "secure" : false
-                },
-				"/animateDetail" : {
-				    "target" : "http://chengzc.club:3000/",
-				    "changeOrigin" : true,
-				    "secure" : false
-				}
+                }
             }
         },
         "domain" : "http://chengzc.club:87/"

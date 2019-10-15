@@ -17,6 +17,50 @@
 				<text class="cuIcon-search xl"></text>
 			</view>
 		</view>
+		<!--频道分类-->
+		<view class="cu-bar bg-white solid-bottom margin-top">
+			<view class="action">
+				<text class="cuIcon-title text-orange "></text> 宫格列表
+			</view>
+			<view class="action">
+				<button class="cu-btn bg-green shadow" @tap="showModal" data-target="gridModal">设置</button>
+			</view>
+		</view>
+		<!-- <view class="cu-modal" :class="modalName=='gridModal'?'show':''" @tap="hideModal">
+			<view class="cu-dialog" @tap.stop>
+				<radio-group class="block" @change="Gridchange">
+					<view class="cu-list menu text-left">
+						<view class="cu-item" v-for="(item,index) in 3" :key="index">
+							<label class="flex justify-between align-center flex-sub">
+								<view class="flex-sub">{{index +3}} 列</view>
+								<radio class="round" :value="(index + 3) + ''" :class="gridCol==index+3?'checked':''" :checked="gridCol==index+3"></radio>
+							</label>
+						</view>
+					</view>
+				</radio-group>
+				<view class="cu-list menu text-left solid-top">
+					<view class="cu-item">
+						<view class="content">
+							<text class="text-grey">边框</text>
+						</view>
+						<view class="action">
+							<switch @change="Gridswitch" :class="gridBorder?'checked':''" :checked="gridBorder?true:false"></switch>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view> -->
+		<view class="cu-list grid" :class="['col-' + gridCol,gridBorder?'':'no-border']">
+			<view class="cu-item" v-for="(item,index) in cuIconList" :key="index" v-if="index<gridCol*2">
+				<view :class="['cuIcon-' + item.cuIcon,'text-' + item.color]">
+					<view class="cu-tag badge" v-if="item.badge!=0">
+						<block v-if="item.badge!=1">{{item.badge>99?'99+':item.badge}}</block>
+					</view>
+				</view>
+				<text>{{item.name}}</text>
+			</view>
+		</view>
+		
 		<view class="cu-card case bg-white">
 			<view class="cu-item shadow">
 			<swiper class="screen-swiper" :class="dotStyle?'square-dot':'round-dot'" :indicator-dots="true" :circular="true"
@@ -136,19 +180,19 @@
 			</swiper>
 			</view>
 			<scroll-view scroll-x class="bg-white nav" scroll-with-animation :scroll-left="wscrollLeft">
-				<view class="cu-item" :class="index==wTabCur?'text-blue cur':''" v-for="(item,index) in weekday" :key="index" @tap="weekDaySelect" :data-id="index">
+				<view class="cu-item" :class="index==wTabCur?'text-blue cur':''" v-for="(item,index) in animateontime" :key="index" @tap="weekDaySelect" :data-id="index">
 					{{item}}
 				</view>
 			</scroll-view>
 			<view class="cu-timeline">
 				<view class="cu-time">{{curday}}</view>
-				<view class="cu-item cur cuIcon-time" v-for="(item,index) in todayData" :key="index">
+				<view class="cu-item cur cuIcon-time" v-for="(item,index) in recentonanimate" :key="index">
 					<view class="shadow-blur bg-white">
 						<view class="grid col-2">
 							<view class="cu-card case no-card"  >
 								<view class="cu-item shadow">
 									<view class="image">
-										<image :src="item.url" mode="scaleToFill" style="height: 300upx;border-radius: 10upx;"></image>
+										<image :src="item.img" mode="scaleToFill" style="height: 300upx;border-radius: 10upx;"></image>
 									</view>
 									<view class="cu-bar"> 
 										<text class="text-cut cuIcon-titles padding-left-sm">{{item.name}}</text>
@@ -159,10 +203,10 @@
 								<view class="cu-item shadow">
 									<view class="content padding-top-sm">
 										<view class="desc">
-											<view class="text-content margin-top-xs">{{item.intro}}</view>
+											<view class="text-content margin-top-xs">{{item.plot}}</view>
 											<view class="text-gray text-sm text-right padding">
-												<text class="cuIcon-timefill margin-lr-xs "></text> {{item.updateToTime}}
-												<text class="cuIcon-likefill margin-lr-xs padding-left"></text> {{item.followCount}}
+												<text class="cuIcon-timefill margin-lr-xs "></text> {{item.updatenums}}
+												<text class="cuIcon-likefill margin-lr-xs padding-left"></text>评分 {{item.score}}
 											</view>
 										</view>
 									</view>
@@ -191,26 +235,132 @@
 				</view> -->
 			</view>
 		</view>
-		<view class="cu-bar bg-white solid-bottom margin-top">
-			<view class="action">
-				<text class="cuIcon-titles text-blue"></text> 防御利奇马，追剧不出门
-			</view>
-		</view>
-		<view class="cu-card case bg-white">
-			<view class="cu-item shadow">
-				<view class="image">
-					<image :src="todayhot.url" mode="scaleToFill" style="height: 414upx;"></image>
-					<view class="cu-tag bg-blue">{{todayhot.name}}</view>
-					<view class="cu-bar bg-shadeBottom"> <text class="text-cut">{{todayhot.intro}}</text></view>
+		<view v-for="(item,index) in animateRankinfos" :key="index">
+			<view class="cu-bar bg-white solid-bottom margin-top">
+				<view class="action">
+					<text class="cuIcon-titles text-blue"></text> {{item}}
 				</view>
 			</view>
-			<view class="grid col-2 padding-sm">
-				<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item,index) in recom" :key="index">
-					<view class="cu-item shadow">
-						<view class="image">
-							<image :src="item.url" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+			<view class="cu-card case bg-white">
+				<view class="cu-item shadow">
+					<view class="image">
+						<image :src="todayhot.url" mode="scaleToFill" style="height: 414upx;"></image>
+						<view class="cu-tag bg-blue">{{todayhot.name}}</view>
+						<view class="cu-bar bg-shadeBottom"> <text class="text-cut">{{todayhot.intro}}</text></view>
+					</view>
+				</view>
+				<view class="grid col-2 padding-sm">
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in newAnimateRank" :key="index1" v-if="index==0">
+						<view class="cu-item shadow">
+							<view class="image">
+								<image :src="item1.url" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+							</view>
+							<view class="cu-bar "> 
+								<text class="cu-avatar radius sm bg-pink" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+								<text class="text-cut cuIcon-titles">{{item1.title}}</text>
+							</view>
+							<view class="solid-bottom text-sm">
+								<text class="text-grey">评分:{{item1.score}}</text>
+							</view>
 						</view>
-						<view class="cu-bar "> <text class="text-cut cuIcon-titles">{{item.name}}</text></view>
+					</view>
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in chinaAnimateRank" :key="index1" v-else-if="index==1">
+						<view class="cu-item shadow">
+							<view class="image">
+								<image :src="item1.url" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+							</view>
+							<view class="cu-bar "> 
+								<text class="cu-avatar radius sm bg-pink" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+								<text class="text-cut cuIcon-titles">{{item1.title}}</text>
+							</view>
+							<view class="solid-bottom text-sm">
+								<text class="text-grey">评分:{{item1.score}}</text>
+							</view>
+						</view>
+					</view>
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in animatePlanRank" :key="index1" v-else-if="index==2">
+						<view class="cu-item shadow">
+							<view class="image">
+								<image :src="item1.url" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+							</view>
+							<view class="cu-bar "> 
+								<text class="cu-avatar radius sm bg-pink" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+								<text class="text-cut cuIcon-titles">{{item1.title}}</text>
+							</view>
+							<view class="solid-bottom text-sm">
+								<text class="text-grey">评分:{{item1.score}}</text>
+							</view>
+						</view>
+					</view>
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in movieAnimateRank" :key="index1" v-else-if="index==3">
+						<view class="cu-item shadow">
+							<view class="image">
+								<image :src="item1.url" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+							</view>
+							<view class="cu-bar "> 
+								<text class="cu-avatar radius sm bg-pink" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+								<text class="text-cut cuIcon-titles">{{item1.title}}</text>
+							</view>
+							<view class="solid-bottom text-sm">
+								<text class="text-grey">评分:{{item1.score}}</text>
+							</view>
+						</view>
+					</view>
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in newAnimateScore" :key="index1" v-else-if="index==4">
+						<view class="cu-item shadow">
+							<view class="image">
+								<image :src="item1.url" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+							</view>
+							<view class="cu-bar "> 
+								<text class="cu-avatar radius sm bg-pink" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+								<text class="text-cut cuIcon-titles">{{item1.title}}</text>
+							</view>
+							<view class="solid-bottom text-sm">
+								<text class="text-grey">评分:{{item1.score}}</text>
+							</view>
+						</view>
+					</view>
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in chinaAnimateScore" :key="index1" v-else-if="index==5">
+						<view class="cu-item shadow">
+							<view class="image">
+								<image :src="item1.url" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+							</view>
+							<view class="cu-bar "> 
+								<text class="cu-avatar radius sm bg-pink" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+								<text class="text-cut cuIcon-titles">{{item1.title}}</text>
+							</view>
+							<view class="solid-bottom text-sm">
+								<text class="text-grey">评分:{{item1.score}}</text>
+							</view>
+						</view>
+					</view>
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in animatePlanScore" :key="index1" v-else-if="index==6">
+						<view class="cu-item shadow">
+							<view class="image">
+								<image :src="item1.url" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+							</view>
+							<view class="cu-bar "> 
+								<text class="cu-avatar radius sm bg-pink" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+								<text class="text-cut cuIcon-titles">{{item1.title}}</text>
+							</view>
+							<view class="solid-bottom text-sm">
+								<text class="text-grey">评分:{{item1.score}}</text>
+							</view>
+						</view>
+					</view>
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in movieAnimateScore" :key="index1" v-else-if="index==7">
+						<view class="cu-item shadow">
+							<view class="image">
+								<image :src="item1.url" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+							</view>
+							<view class="cu-bar "> 
+								<text class="cu-avatar radius sm bg-pink" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+								<text class="text-cut cuIcon-titles">{{item1.title}}</text>
+							</view>
+							<view class="solid-bottom text-sm">
+								<text class="text-grey">评分:{{item1.score}}</text>
+							</view>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -235,7 +385,7 @@
 </template>
 
 <script>
-	import dateutil from '../../common/util.js';
+	import commonutil from '../../common/util.js';
 	export default {
 		data() {
 			return {
@@ -302,6 +452,83 @@
 				todayData:[],
 				weekData:[],//一周更新
 				curday:'',
+				// bimi数据开始
+				gridCol: 3,
+				gridBorder: false,
+				cuIconList: [{
+					cuIcon: 'newsfill',
+					color: 'red',
+					badge: 120,
+					name: '新闻咨询'
+				}, {
+					cuIcon: 'hotfill',
+					color: 'orange',
+					badge: 1,
+					name: '新番发送'
+				}, {
+					cuIcon: 'picfill',
+					color: 'yellow',
+					badge: 0,
+					name: '番组计划'
+				}, {
+					cuIcon: 'recordfill',
+					color: 'olive',
+					badge: 22,
+					name: '国产动漫'
+				}, {
+					cuIcon: 'upstagefill',
+					color: 'cyan',
+					badge: 0,
+					name: '剧场动画'
+				}, {
+					cuIcon: 'videofill',
+					color: 'blue',
+					badge: 0,
+					name: '影视剧集'
+				}, {
+					cuIcon: 'discoverfill',
+					color: 'purple',
+					badge: 0,
+					name: '发现'
+				}, {
+					cuIcon: 'questionfill',
+					color: 'mauve',
+					badge: 0,
+					name: '帮助'
+				}, {
+					cuIcon: 'commandfill',
+					color: 'purple',
+					badge: 0,
+					name: '问答'
+				}, {
+					cuIcon: 'brandfill',
+					color: 'mauve',
+					badge: 0,
+					name: '版权'
+				}],
+				latestShowAnimatedata:[],
+				animateRankdata:{
+					'newAnimateRank':[],
+					'chinaAnimateRank':[],
+					'animatePlanRank':[],
+					'movieAnimateRank':[],
+					'newAnimateScore':[],
+					'chinaAnimateScore':[],
+					'animatePlanScore':[],
+					'movieAnimateScore':[],
+				},
+				newAnimateRank:[],
+				chinaAnimateRank:[],
+				animatePlanRank:[],
+				movieAnimateRank:[],
+				newAnimateScore:[],
+				chinaAnimateScore:[],
+				animatePlanScore:[],
+				movieAnimateScore:[],
+				animateRankinfos:['新番发送排行榜','国产动漫排行榜','番组计划排行榜','剧场动画排行榜','新番发送评分榜','国产动漫评分榜','番组计划评分榜','剧场动画评分榜'],
+				recentonanimate:[],
+				animateontime:['昨日上映','今日上映','明日上映'],
+				// bimi数据结束
 			};
 		},
 		onLoad() {
@@ -319,7 +546,7 @@
 			},
 			getRecomData: function() {
 				var url = 'api/b/animation/recommend';
-				var linkurl = dateutil.getUri('http://www.youxihenshao.com/',url);
+				var linkurl = commonutil.getUri(commonutil.testurl,url);
 				uni.request({
 					url:linkurl,
 					success: (res) => {
@@ -355,7 +582,7 @@
 			},
 			getLastPartUpdate: function() {
 				var url = 'api/b/animation/lastPartUpdate';
-				var linkurl = dateutil.getUri('http://www.youxihenshao.com/',url);
+				var linkurl = commonutil.getUri(commonutil.testurl,url);
 				uni.request({
 					url:linkurl,
 					success: (res) => {
@@ -394,7 +621,7 @@
 			},
 			getYearGroup: function() {
 				var url = 'api/b/animation/yearGroup';
-				var linkurl = dateutil.getUri('http://www.youxihenshao.com/',url);
+				var linkurl = commonutil.getUri(commonutil.testurl,url);
 				uni.request({
 					url:linkurl,
 					success: (res) => {
@@ -449,7 +676,7 @@
 			},
 			setshareimg()
 			{
-				var linkurl = dateutil.getUri('http://service.picasso.adesk.com/','v1/vertical/category/4e4d610cdf714d2966000002/vertical?limit=40&adult=false&first=1&order=new');
+				var linkurl = commonutil.getUri(commonutil.imgurl,'v1/vertical/category/4e4d610cdf714d2966000002/vertical?limit=40&adult=false&first=1&order=new');
 				uni.request({
 					url:linkurl,
 					success:(res)=> {
@@ -458,10 +685,11 @@
 							this.getRecomData();
 							this.getLastPartUpdate();
 							this.getYearGroup();
-							this.getWeekData();
+							// this.getWeekData();
 							// this.getPartData();
 							// this.getLastUpdate();
-							
+							this.getlatestShowAnimate();
+							this.getanimateRank();
 						}
 					}
 				});
@@ -502,7 +730,7 @@
 			},
 			getWeekData: function() {
 				var url = 'api/b/animation/recent?isWeek=true';
-				var linkurl = dateutil.getUri('http://www.youxihenshao.com/',url);
+				var linkurl = commonutil.getUri(commonutil.testurl,url);
 				uni.request({
 					url:linkurl,
 					success: (res) => {
@@ -589,7 +817,7 @@
 					}
 				})
 			},
-			weekDaySelect: function(e) {
+			weekDaySelect_back: function(e) {
 				if(this.weekData==null||this.weekData.length<=0){
 					this.modalName="Modal";
 					this.modaltitle ="Warn";
@@ -641,6 +869,242 @@
 			hideModal(e) {
 				this.modalName = null
 			},
+			Gridchange(e) {
+				this.gridCol = e.detail.value
+			},
+			Gridswitch(e) {
+				this.gridBorder = e.detail.value
+			},
+			// bimiAPI开始
+			//最新上映
+			getlatestShowAnimate()
+			{
+				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/latestShowAnimate');
+				uni.request({
+					url:linkurl,
+					success:(res)=> {
+						if(res.data!=null){
+							if(res.data.restate!=null){
+								this.modalTap("网络异常！");
+							}else{
+								for(let i=0;i<res.data.length;i++){
+									let url = res.data[i].url;
+									let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+									res.data[i].animateid = animateid;
+									res.data[i].img = this.getrandomimg();
+								}
+								debugger
+								this.latestShowAnimatedata = res.data;
+								let len = res.data.length;
+								let pagecount = Math.floor(len/3);
+								this.wTabCur =1;
+								this.curday =this.animateontime[this.wTabCur];
+								this.recentonanimate = res.data.slice(pagecount,pagecount*2);//今日上映
+							}
+						}
+					}
+				});
+			},
+			// 排行榜
+			getanimateRank()
+			{
+				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/animateRank');
+				uni.request({
+					url:linkurl,
+					success:(res)=> {
+						if(res.data!=null){
+							if(res.data.restate!=null){
+								this.modalTap("网络异常！");
+							}else{
+								for(let j=0;j<8;j++){
+									switch (j){
+										case 0:
+											if(res.data.newAnimateRank!=null){
+												for (var i = 0; i < res.data.newAnimateRank.length; i++) {
+													let url = res.data.newAnimateRank.url;
+													let animateid="";
+													if(url != null&&url != ""&&url != undefined){
+														 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+													}
+													res.data.newAnimateRank[i].animateid = animateid;
+													res.data.newAnimateRank[i].img = this.getrandomimg();
+												}
+												this.newAnimateRank = res.data.newAnimateRank;
+											}
+											break;
+										case 1:
+											if(res.data.chinaAnimateRank!=null){
+												for (var i = 0; i < res.data.chinaAnimateRank.length; i++) {
+													let url = res.data.chinaAnimateRank.url;
+													let animateid="";
+													if(url != null&&url != ""&&url != undefined){
+														 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+													}
+													res.data.chinaAnimateRank[i].animateid = animateid;
+													res.data.chinaAnimateRank[i].img = this.getrandomimg();
+												}
+												this.chinaAnimateRank = res.data.chinaAnimateRank;
+											}
+											break;
+										case 2:
+											if(res.data.animatePlanRank!=null){
+												for (var i = 0; i < res.data.animatePlanRank.length; i++) {
+													let url = res.data.animatePlanRank.url;
+													let animateid="";
+													if(url != null&&url != ""&&url != undefined){
+														 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+													}
+													res.data.animatePlanRank[i].animateid = animateid;
+													res.data.animatePlanRank[i].img = this.getrandomimg();
+												}
+												this.animatePlanRank = res.data.animatePlanRank;
+											}
+											break;
+										case 3:
+											if(res.data.movieAnimateRank!=null){
+												for (var i = 0; i < res.data.movieAnimateRank.length; i++) {
+													let url = res.data.movieAnimateRank.url;
+													let animateid="";
+													if(url != null&&url != ""&&url != undefined){
+														 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+													}
+													res.data.movieAnimateRank[i].animateid = animateid;
+													res.data.movieAnimateRank[i].img = this.getrandomimg();
+												}
+												this.movieAnimateRank = res.data.movieAnimateRank;
+											}
+											break;
+										case 4:
+											if(res.data.newAnimateScore!=null){
+												for (var i = 0; i < res.data.newAnimateScore.length; i++) {
+													let url = res.data.newAnimateScore.url;
+													let animateid="";
+													if(url != null&&url != ""&&url != undefined){
+														 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+													}
+													res.data.newAnimateScore[i].animateid = animateid;
+													res.data.newAnimateScore[i].img = this.getrandomimg();
+												}
+												this.newAnimateScore = res.data.newAnimateScore;
+											}
+											break;
+										case 5:
+											if(res.data.chinaAnimateScore!=null){
+												for (var i = 0; i < res.data.chinaAnimateScore.length; i++) {
+													let url = res.data.chinaAnimateScore.url;
+													let animateid="";
+													if(url != null&&url != ""&&url != undefined){
+														 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+													}
+													res.data.chinaAnimateScore[i].animateid = animateid;
+													res.data.chinaAnimateScore[i].img = this.getrandomimg();
+												}
+												this.chinaAnimateScore = res.data.chinaAnimateScore;
+											}
+											break;
+										case 6:
+											if(res.data.animatePlanScore!=null){
+												for (var i = 0; i < res.data.animatePlanScore.length; i++) {
+													let url = res.data.animatePlanScore.url;
+													let animateid="";
+													if(url != null&&url != ""&&url != undefined){
+														 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+													}
+													res.data.animatePlanScore[i].animateid = animateid;
+													res.data.animatePlanScore[i].img = this.getrandomimg();
+												}
+												this.animatePlanScore = res.data.animatePlanScore;
+											}
+											break;
+										case 7:
+											if(res.data.movieAnimateScore!=null){
+												for (var i = 0; i < res.data.movieAnimateScore.length; i++) {
+													let url = res.data.movieAnimateScore.url;
+													let animateid="";
+													if(url != null&&url != ""&&url != undefined){
+														 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+													}
+													
+													res.data.movieAnimateScore[i].animateid = animateid;
+													res.data.movieAnimateScore[i].img = this.getrandomimg();
+												}
+												this.movieAnimateScore = res.data.movieAnimateScore;
+											}
+											break;					
+										default:
+											break;
+									}
+								}
+								// this.animateRankdata = res.data;
+							}
+						}
+					}
+				});
+			},
+			weekDaySelect: function(e) {
+				if(this.latestShowAnimatedata==null||this.latestShowAnimatedata.length<=0){
+					this.modalName="Modal";
+					this.modaltitle ="Warn";
+					this.message = "获取番剧数据失败！";
+					return false;
+				}
+				
+				this.wTabCur = e.currentTarget.dataset.id;
+				this.wscrollLeft = (e.currentTarget.dataset.id-1 ) * 60;
+				let index = Number(this.wTabCur);
+				/* let today =  Number(new Date().getDay());
+				let zday = today-1;
+				let mday = today+1;
+				if(today == 0){
+					zday = 6;
+				}
+				else if(today == 6){
+					mday = 1;
+				} */
+				let len = this.latestShowAnimatedata.length;
+				let pagecount = Math.floor(len/3);
+				switch (index){
+					case 0:
+						this.curday = this.animateontime[0];
+						this.recentonanimate = this.latestShowAnimatedata.slice(0,pagecount);//昨日上映
+						break;
+					case 1:
+						this.curday = this.animateontime[1];
+						this.recentonanimate = this.latestShowAnimatedata.slice(pagecount,pagecount*2);//今日上映
+						break;
+					case 2:
+						this.curday = this.animateontime[2];
+						this.recentonanimate = this.latestShowAnimatedata.slice(pagecount*2,len);//明日上映
+						break;
+					// case 3:
+					// 	this.todayData = this.weekData[4];
+					// 	break;
+					// case 4:
+					// 	this.todayData = this.weekData[5];
+					// 	break;
+					// case 5:
+					// 	this.todayData = this.weekData[6];
+					// 	break;
+					// case 6:
+					// 	this.todayData = this.weekData[0];
+					// 	break;				
+					default:
+						break;
+				}
+			},
+			getrandomimg: function () {
+				let index = Math.floor(Math.random()*40);
+				let avatar= this.wallpapers[index].thumb;
+				return avatar;
+			},
+			arrayslice: function (array,num) {
+				let count = array.length;
+				let pageCount = (count % 10 == 0) ? count / 10 : count / 10 + 1;
+				let beginNum = (num - 1) * 10 + 1;
+				let endNum = (num == pageCount) ? count + 1 : num * 10 + 1;
+				return array.slice(beginNum,endNum);
+			},	
+			// bimiAPI结束
 		}
 	}
 </script>

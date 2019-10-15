@@ -51,7 +51,7 @@
         }, 
 		{
 		    "pagePath": "pages/videos/videos",
-		    "text": "短视频",
+		    "text": "番组计划",
 		    "iconPath": "static/img/videos.png",
 		    "selectedIconPath": "static/img/videosHL.png"
 		},
