@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<cu-custom bgColor="bg-gradual-blue" :isBack="false"><block slot="backText"></block><block slot="content">频道</block></cu-custom>
-		<view class="cu-bar bg-white search solid-bottom">
+		<!-- <view class="cu-bar bg-white search solid-bottom">
 			<scroll-view scroll-x class="bg-white nav" scroll-with-animation :scroll-left="scrollLeft">
 				<view class="cu-item" :class="index==TabCur?'text-blue cur':''" v-for="(item,index) in tablist" :key="index" @tap="tabSelect" :data-id="index">
 					{{item}}
@@ -16,15 +16,15 @@
 			<view class="action" style="margin-bottom: 90upx;">
 				<text class="cuIcon-search xl"></text>
 			</view>
-		</view>
+		</view> -->
 		<!--频道分类-->
-		<view class="cu-bar bg-white solid-bottom margin-top">
+		<view class="cu-bar bg-white solid-bottom">
 			<view class="action">
-				<text class="cuIcon-title text-orange "></text> 宫格列表
+				<text class="cuIcon-titles text-blue"></text> 分类列表
 			</view>
-			<view class="action">
+			<!-- <view class="action">
 				<button class="cu-btn bg-green shadow" @tap="showModal" data-target="gridModal">设置</button>
-			</view>
+			</view> -->
 		</view>
 		<!-- <view class="cu-modal" :class="modalName=='gridModal'?'show':''" @tap="hideModal">
 			<view class="cu-dialog" @tap.stop>
@@ -51,7 +51,7 @@
 			</view>
 		</view> -->
 		<view class="cu-list grid" :class="['col-' + gridCol,gridBorder?'':'no-border']">
-			<view class="cu-item" v-for="(item,index) in cuIconList" :key="index" v-if="index<gridCol*2">
+			<view class="cu-item" v-for="(item,index) in cuIconList" :key="index" v-if="index<gridCol*2" @tap="toChild" :data-url="item.linkurl">
 				<view :class="['cuIcon-' + item.cuIcon,'text-' + item.color]">
 					<view class="cu-tag badge" v-if="item.badge!=0">
 						<block v-if="item.badge!=1">{{item.badge>99?'99+':item.badge}}</block>
@@ -65,11 +65,11 @@
 			<view class="cu-item shadow">
 			<swiper class="screen-swiper" :class="dotStyle?'square-dot':'round-dot'" :indicator-dots="true" :circular="true"
 			 :autoplay="false" interval="5000" duration="500">
-				<swiper-item v-for="(item,index) in recom" :key="index">
-					<view class="bg-img bg-mask flex align-end" :style="{backgroundImage:'url('+item.url+')',height:'100%'}">
+				<swiper-item v-for="(item,index) in zixundata" :key="index">
+					<view class="bg-img bg-mask flex align-end" :style="{backgroundImage:'url('+item.img+')',height:'100%'}">
 						<view class="padding-xl text-white">
 							<view class="padding-xs text-lg">
-								{{item.name}}
+								{{item.title}}
 							</view>
 						</view>
 					</view>
@@ -79,19 +79,19 @@
 		</view>
 		<view class="cu-bar bg-white solid-bottom margin-top">
 			<view class="action">
-				<text class="cuIcon-titles text-blue"></text> 猜你在追
+				<text class="cuIcon-titles text-blue"></text> 你可能会喜欢
 			</view>
 		</view>
 		<view class="cu-card case">
 			<view class="cu-item shadow">
 				<scroll-view scroll-x class="bg-white nav" scroll-with-animation :scroll-left="scrollLeft">
-					<view class="cu-item" :class="index==TabCur?'text-blue':''" v-for="(item,index) in lastPartUpdate" :key="index" @tap="tabSelect" :data-id="index">
+					<view class="cu-item" :class="index_1==TabCur?'text-blue':''" v-for="(item,index_1) in yearAnimateList" :key="index_1" @tap="tabSelect" :data-id="index_1">
 						<!-- <view class="bg-img padding-top-xl  flex align-end margin-top" :style="{backgroundImage:'url('+item.url+')',width: '400upx',height: '250upx'}">
 							<view class="bg-shadeBottom  padding-top-xl flex-sub">
 								{{item.name}}
 							</view>
 						</view> -->
-						<view class="bg-img bg-mask flex align-center radius margin-top" :style="{backgroundImage:'url('+item.url+')',width: '400upx',height: '250upx'}">
+						<view class="bg-img bg-mask flex align-center radius margin-top" :style="{backgroundImage:'url('+item.img+')',width: '400upx',height: '250upx'}">
 							<view class="text-white">
 								<view class="padding-xs text-lg">
 									<view class="text-cut padding" style="width:220px">{{item.name}}</view>
@@ -100,9 +100,9 @@
 						</view>
 						<view class="content">
 							<view>
-								<text class="margin-right-xs">{{item.updateToTime}}</text></view>
+								<text class="margin-right-xs">{{item.number}}</text></view>
 							<view class="text-gray text-sm">
-								<view class="text-cut padding" style="width:220px">{{item.intro}}</view></view>
+								<view class="text-cut padding" style="width:220px">{{item.info}}</view></view>
 						</view>
 					</view>
 				</scroll-view>
@@ -110,18 +110,18 @@
 		</view>
 		<view class="cu-bar bg-white solid-bottom margin-top">
 			<view class="action">
-				<text class="cuIcon-titles text-blue"></text> 热剧精选等你来Pick
+				<text class="cuIcon-titles text-blue"></text> 精选剧场推荐
 			</view>
 		</view>
 		<view class="cu-card case bg-white">
 			<view class="cu-item shadow">
 			<swiper class="screen-swiper" :class="dotStyle?'square-dot':'round-dot'" :indicator-dots="true" :circular="true"
 			 :autoplay="false" interval="5000" duration="500">
-				<swiper-item v-for="(item,index) in lastPartUpdate" :key="index">
-					<view class="bg-img bg-mask flex align-end" :style="{backgroundImage:'url('+item.url+')',height:'100%'}">
+				<swiper-item v-for="(item,index) in juChangrecom" :key="index">
+					<view class="bg-img bg-mask flex align-end" :style="{backgroundImage:'url('+item.img+')',height:'100%'}">
 						<view class="padding-xl text-white">
 							<view class="padding-xs text-lg">
-								Only the guilty need fear me.
+								{{item.name}}
 							</view>
 						</view>
 					</view>
@@ -131,23 +131,23 @@
 		</view>
 		<view class="VerticalBox">
 			<scroll-view class="VerticalNav nav bg-white" scroll-y scroll-with-animation :scroll-top="verticalNavTop" style="height:calc(100vh - 375upx)">
-				<view class="cu-item" :class="index==yearTabCur?'text-blue cur':''" v-for="(item,index) in yearlist" :key="index" @tap="yearTabSelect"
-				 :data-id="index">
-					{{item.year}}
+				<view class="cu-item" :class="index_1==yearTabCur?'text-blue cur':''" v-for="(item,index_1) in juChangyearlist" :key="index_1" @tap="yearTabSelect"
+				 :data-id="index_1">
+					{{item}}
 				</view>
 			</scroll-view>
 			<scroll-view class="VerticalMain" scroll-y scroll-with-animation style="height:calc(100vh - 375upx)"
 			 :scroll-into-view="'main-'+mainCur" @scroll="VerticalMain">
-				<view class="padding-top padding-lr" v-for="(item,index) in yearlist" :key="index" :id="'main-'+index">
+				<view class="padding-top padding-lr" v-for="(item,index_2) in juChangAnimateList" :key="index_2" :id="'main-'+index_2">
 					<view class="cu-bar solid-bottom bg-white">
 						<view class="action">
 							<text class="cuIcon-title text-green"></text> {{item.year}}</view>
 					</view>
 					<view class="grid col-1">
-						<view class="cu-card case no-card" v-for="(yitem,yindex) in item.yeardata" :key="yindex">
+						<view class="cu-card case no-card" v-for="(yitem,yindex) in item.list" :key="yindex">
 							<view class="cu-item shadow">
 								<view class="image">
-									<image :src="yitem.url" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+									<image :src="yitem.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
 								</view>
 								<view class="cu-bar"> 
 									<text class="text-cut cuIcon-titles padding-left-sm">{{yitem.name}}</text>
@@ -161,18 +161,18 @@
 		
 		<view class="cu-bar bg-white solid-bottom margin-top">
 			<view class="action">
-				<text class="cuIcon-titles text-blue"></text> 热剧追追追，空调wifi和好剧更配哦
+				<text class="cuIcon-titles text-blue"></text> 国漫精选
 			</view>
 		</view>
 		<view class="cu-card case bg-white">
 			<view class="cu-item shadow">
 			<swiper class="screen-swiper" :class="dotStyle?'square-dot':'round-dot'" :indicator-dots="true" :circular="true"
 			 :autoplay="false" interval="5000" duration="500">
-				<swiper-item v-for="(item,index) in lastPartUpdate" :key="index">
-					<view class="bg-img bg-mask flex align-end" :style="{backgroundImage:'url('+item.url+')',height:'100%'}">
+				<swiper-item v-for="(item,index_2) in guoManAnimateList" :key="index_2">
+					<view class="bg-img bg-mask flex align-end" :style="{backgroundImage:'url('+item.img+')',height:'100%'}">
 						<view class="padding-xl text-white">
 							<view class="padding-xs text-lg">
-								Only the guilty need fear me.
+								{{item.name}}
 							</view>
 						</view>
 					</view>
@@ -200,16 +200,20 @@
 								</view>
 							</view>
 							<view class="cu-card case no-card"  >
-								<view class="cu-item shadow">
-									<view class="content padding-top-sm">
-										<view class="desc">
-											<view class="text-content margin-top-xs">{{item.plot}}</view>
-											<view class="text-gray text-sm text-right padding">
-												<text class="cuIcon-timefill margin-lr-xs "></text> {{item.updatenums}}
-												<text class="cuIcon-likefill margin-lr-xs padding-left"></text>评分 {{item.score}}
+								<!-- <view class="flex solid-bottom padding align-start"> -->
+									<view class="cu-item shadow">
+										<view class="content padding-top-sm">
+											<view class="desc">
+												<view class="text-content margin-top-xs">{{item.plot}}</view>
 											</view>
 										</view>
-									</view>
+										<view class="text-gray text-sm padding-top-sm">
+											<text class="cuIcon-timefill margin-lr-xs "></text> {{item.updatenums}}
+										</view>
+										<view class="text-gray text-sm padding-top-sm">
+											<text class="cuIcon-likefill margin-lr-xs "></text>评分 {{item.score}}
+										</view>
+									<!-- </view> -->
 								</view>
 							</view>
 						</view>
@@ -235,134 +239,203 @@
 				</view> -->
 			</view>
 		</view>
-		<view v-for="(item,index) in animateRankinfos" :key="index">
+		<view v-for="(item,index_rank) in animateRankinfos" :key="index_rank">
 			<view class="cu-bar bg-white solid-bottom margin-top">
 				<view class="action">
 					<text class="cuIcon-titles text-blue"></text> {{item}}
 				</view>
 			</view>
-			<view class="cu-card case bg-white">
+			<view class="cu-card case bg-white" v-if="index_rank==0">
 				<view class="cu-item shadow">
 					<view class="image">
-						<image :src="todayhot.url" mode="scaleToFill" style="height: 414upx;"></image>
-						<view class="cu-tag bg-blue">{{todayhot.name}}</view>
-						<view class="cu-bar bg-shadeBottom"> <text class="text-cut">{{todayhot.intro}}</text></view>
+						<image :src="newAnimateRank_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
+						<view class="cu-tag bg-blue">{{newAnimateRank_hot.title}}</view>
+						<view class="cu-bar bg-shadeBottom"> <text class="text-cut">播放量:{{newAnimateRank_hot.score}}</text></view>
 					</view>
 				</view>
+				<view class="grid col-2 padding-sm" >
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in newAnimateRank" :key="index1">
+						<view class="cu-item shadow">
+							<view class="image">
+								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+							</view>
+							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+							<text class="text-grey text-cut padding-left-sm">{{item1.title}}</text>
+							<view class="solid-bottom text-sm padding-sm">
+								<text class="text-grey">播放量:{{item1.score}}</text>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			<view class="cu-card case bg-white" v-else-if="index_rank==1">
+				<view class="cu-item shadow">
+					<view class="image">
+						<image :src="chinaAnimateRank_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
+						<view class="cu-tag bg-blue">{{chinaAnimateRank_hot.title}}</view>
+						<view class="cu-bar bg-shadeBottom"> <text class="text-cut">播放量:{{chinaAnimateRank_hot.score}}</text></view>
+					</view>
+				</view>		
+				<view class="grid col-2 padding-sm" >
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in chinaAnimateRank" :key="index1" >
+						<view class="cu-item shadow">
+							<view class="image">
+								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+							</view>
+							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+							<text class="text-grey text-cut padding-left-sm">{{item1.title}}</text>
+							<view class="solid-bottom text-sm padding-sm">
+								<text class="text-grey">播放量:{{item1.score}}</text>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			<view class="cu-card case bg-white" v-if="index_rank==2">
+				<view class="cu-item shadow">
+					<view class="image">
+						<image :src="animatePlanRank_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
+						<view class="cu-tag bg-blue">{{animatePlanRank_hot.title}}</view>
+						<view class="cu-bar bg-shadeBottom"> <text class="text-cut">播放量:{{animatePlanRank_hot.score}}</text></view>
+					</view>
+				</view>		
 				<view class="grid col-2 padding-sm">
-					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in newAnimateRank" :key="index1" v-if="index==0">
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in animatePlanRank" :key="index1">
 						<view class="cu-item shadow">
 							<view class="image">
-								<image :src="item1.url" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
 							</view>
-							<view class="cu-bar "> 
-								<text class="cu-avatar radius sm bg-pink" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
-								<text class="text-cut cuIcon-titles">{{item1.title}}</text>
-							</view>
-							<view class="solid-bottom text-sm">
-								<text class="text-grey">评分:{{item1.score}}</text>
+							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+							<text class="text-grey text-cut padding-left-sm">{{item1.title}}</text>
+							<view class="solid-bottom text-sm padding-sm">
+								<text class="text-grey">播放量:{{item1.score}}</text>
 							</view>
 						</view>
 					</view>
-					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in chinaAnimateRank" :key="index1" v-else-if="index==1">
+				</view>
+			</view>
+			<view class="cu-card case bg-white" v-if="index_rank==3">
+				<view class="cu-item shadow">
+					<view class="image">
+						<image :src="movieAnimateRank_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
+						<view class="cu-tag bg-blue">{{movieAnimateRank_hot.title}}</view>
+						<view class="cu-bar bg-shadeBottom"> <text class="text-cut">播放量:{{movieAnimateRank_hot.score}}</text></view>
+					</view>
+				</view>		
+				<view class="grid col-2 padding-sm">
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in movieAnimateRank" :key="index1">
 						<view class="cu-item shadow">
 							<view class="image">
-								<image :src="item1.url" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
 							</view>
-							<view class="cu-bar "> 
-								<text class="cu-avatar radius sm bg-pink" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
-								<text class="text-cut cuIcon-titles">{{item1.title}}</text>
-							</view>
-							<view class="solid-bottom text-sm">
-								<text class="text-grey">评分:{{item1.score}}</text>
+							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+							<text class="text-grey text-cut padding-left-sm">{{item1.title}}</text>
+							<view class="solid-bottom text-sm padding-sm">
+								<text class="text-grey">播放量:{{item1.score}}</text>
 							</view>
 						</view>
 					</view>
-					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in animatePlanRank" :key="index1" v-else-if="index==2">
-						<view class="cu-item shadow">
-							<view class="image">
-								<image :src="item1.url" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
-							</view>
-							<view class="cu-bar "> 
-								<text class="cu-avatar radius sm bg-pink" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
-								<text class="text-cut cuIcon-titles">{{item1.title}}</text>
-							</view>
-							<view class="solid-bottom text-sm">
-								<text class="text-grey">评分:{{item1.score}}</text>
-							</view>
-						</view>
+				</view>
+			</view>
+			<view class="cu-card case bg-white" v-if="index_rank==4">
+				<view class="cu-item shadow">
+					<view class="image">
+						<image :src="newAnimateScore_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
+						<view class="cu-tag bg-blue">{{newAnimateScore_hot.title}}</view>
+						<view class="cu-bar bg-shadeBottom"> <text class="text-cut">评分:{{newAnimateScore_hot.score}}</text></view>
 					</view>
-					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in movieAnimateRank" :key="index1" v-else-if="index==3">
+				</view>		
+				<view class="grid col-2 padding-sm">
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in newAnimateScore" :key="index1">
 						<view class="cu-item shadow">
 							<view class="image">
-								<image :src="item1.url" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
 							</view>
-							<view class="cu-bar "> 
-								<text class="cu-avatar radius sm bg-pink" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
-								<text class="text-cut cuIcon-titles">{{item1.title}}</text>
-							</view>
-							<view class="solid-bottom text-sm">
-								<text class="text-grey">评分:{{item1.score}}</text>
-							</view>
-						</view>
-					</view>
-					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in newAnimateScore" :key="index1" v-else-if="index==4">
-						<view class="cu-item shadow">
-							<view class="image">
-								<image :src="item1.url" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
-							</view>
-							<view class="cu-bar "> 
-								<text class="cu-avatar radius sm bg-pink" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
-								<text class="text-cut cuIcon-titles">{{item1.title}}</text>
-							</view>
-							<view class="solid-bottom text-sm">
-								<text class="text-grey">评分:{{item1.score}}</text>
-							</view>
-						</view>
-					</view>
-					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in chinaAnimateScore" :key="index1" v-else-if="index==5">
-						<view class="cu-item shadow">
-							<view class="image">
-								<image :src="item1.url" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
-							</view>
-							<view class="cu-bar "> 
-								<text class="cu-avatar radius sm bg-pink" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
-								<text class="text-cut cuIcon-titles">{{item1.title}}</text>
-							</view>
-							<view class="solid-bottom text-sm">
-								<text class="text-grey">评分:{{item1.score}}</text>
-							</view>
-						</view>
-					</view>
-					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in animatePlanScore" :key="index1" v-else-if="index==6">
-						<view class="cu-item shadow">
-							<view class="image">
-								<image :src="item1.url" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
-							</view>
-							<view class="cu-bar "> 
-								<text class="cu-avatar radius sm bg-pink" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
-								<text class="text-cut cuIcon-titles">{{item1.title}}</text>
-							</view>
-							<view class="solid-bottom text-sm">
-								<text class="text-grey">评分:{{item1.score}}</text>
-							</view>
-						</view>
-					</view>
-					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in movieAnimateScore" :key="index1" v-else-if="index==7">
-						<view class="cu-item shadow">
-							<view class="image">
-								<image :src="item1.url" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
-							</view>
-							<view class="cu-bar "> 
-								<text class="cu-avatar radius sm bg-pink" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
-								<text class="text-cut cuIcon-titles">{{item1.title}}</text>
-							</view>
-							<view class="solid-bottom text-sm">
+							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+							<text class="text-grey text-cut padding-left-sm">{{item1.title}}</text>
+							<view class="solid-bottom text-sm padding-sm">
 								<text class="text-grey">评分:{{item1.score}}</text>
 							</view>
 						</view>
 					</view>
 				</view>
+			</view>
+			<view class="cu-card case bg-white" v-if="index_rank==5">
+				<view class="cu-item shadow">
+					<view class="image">
+						<image :src="chinaAnimateScore_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
+						<view class="cu-tag bg-blue">{{chinaAnimateScore_hot.title}}</view>
+						<view class="cu-bar bg-shadeBottom"> <text class="text-cut">评分:{{chinaAnimateScore_hot.score}}</text></view>
+					</view>
+				</view>			
+				<view class="grid col-2 padding-sm">
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in chinaAnimateScore" :key="index1" >
+						<view class="cu-item shadow">
+							<view class="image">
+								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+							</view>
+							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+							<text class="text-grey text-cut padding-left-sm">{{item1.title}}</text>
+							<view class="solid-bottom text-sm padding-sm">
+								<text class="text-grey">评分:{{item1.score}}</text>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			<view class="cu-card case bg-white" v-if="index_rank==6">
+				<view class="cu-item shadow">
+					<view class="image">
+						<image :src="animatePlanScore_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
+						<view class="cu-tag bg-blue">{{animatePlanScore_hot.title}}</view>
+						<view class="cu-bar bg-shadeBottom"> <text class="text-cut">评分:{{animatePlanScore_hot.score}}</text></view>
+					</view>
+				</view>		
+				<view class="grid col-2 padding-sm">
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in animatePlanScore" :key="index1">
+						<view class="cu-item shadow">
+							<view class="image">
+								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+							</view>
+							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+							<text class="text-grey text-cut padding-left-sm">{{item1.title}}</text>
+							<view class="solid-bottom text-sm padding-sm">
+								<text class="text-grey">评分:{{item1.score}}</text>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			<view class="cu-card case bg-white" v-if="index_rank==7">
+				<view class="cu-item shadow">
+					<view class="image">
+						<image :src="movieAnimateScore_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
+						<view class="cu-tag bg-blue">{{movieAnimateScore_hot.title}}</view>
+						<view class="cu-bar bg-shadeBottom"> <text class="text-cut">评分:{{movieAnimateScore_hot.score}}</text></view>
+					</view>
+				</view>		
+				<view class="grid col-2 padding-sm">
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in movieAnimateScore" :key="index1">
+						<view class="cu-item shadow">
+							<view class="image">
+								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+							</view>
+							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
+							<text class="text-grey text-cut padding-left-sm">{{item1.title}}</text>
+							<view class="solid-bottom text-sm padding-sm">
+								<text class="text-grey">评分:{{item1.score}}</text>
+							</view>
+						</view>
+					</view>
+				</view>	
 			</view>
 		</view>
 		<!--弹窗-->
@@ -459,7 +532,8 @@
 					cuIcon: 'newsfill',
 					color: 'red',
 					badge: 120,
-					name: '新闻咨询'
+					name: '新闻咨询',
+					linkurl:'../newslist/newslist',
 				}, {
 					cuIcon: 'hotfill',
 					color: 'orange',
@@ -528,6 +602,20 @@
 				animateRankinfos:['新番发送排行榜','国产动漫排行榜','番组计划排行榜','剧场动画排行榜','新番发送评分榜','国产动漫评分榜','番组计划评分榜','剧场动画评分榜'],
 				recentonanimate:[],
 				animateontime:['昨日上映','今日上映','明日上映'],
+				zixundata:[],
+				yearAnimateList:[],
+				guoManAnimateList:[],
+				juChangAnimateList:[],
+				juChangyearlist:[],
+				juChangrecom:[],
+				newAnimateRank_hot:{},
+				chinaAnimateRank_hot:{},
+				animatePlanRank_hot:{},
+				movieAnimateRank_hot:{},
+				newAnimateScore_hot:{},
+				chinaAnimateScore_hot:{},
+				animatePlanScore_hot:{},
+				movieAnimateScore_hot:{},
 				// bimi数据结束
 			};
 		},
@@ -682,14 +770,18 @@
 					success:(res)=> {
 						if(res.data.res!=null&&res.data.res.vertical!=null){
 							this.wallpapers = res.data.res.vertical;
-							this.getRecomData();
-							this.getLastPartUpdate();
-							this.getYearGroup();
+							// this.getRecomData();
+							// this.getLastPartUpdate();
+							// this.getYearGroup();
 							// this.getWeekData();
 							// this.getPartData();
 							// this.getLastUpdate();
 							this.getlatestShowAnimate();
 							this.getanimateRank();
+							this.getzixun();
+							this.getyearAnimateList();
+							this.getguoManAnimateList();
+							this.getjuChangAnimateListOnTime();
 						}
 					}
 				});
@@ -890,10 +982,14 @@
 								for(let i=0;i<res.data.length;i++){
 									let url = res.data[i].url;
 									let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+									let intro = res.data[i].plot;
+									if(intro!=null&&intro.length>50){
+										intro = intro.substring(0,50)+" ...";
+									}
+									res.data[i].plot = intro;
 									res.data[i].animateid = animateid;
 									res.data[i].img = this.getrandomimg();
 								}
-								debugger
 								this.latestShowAnimatedata = res.data;
 								let len = res.data.length;
 								let pagecount = Math.floor(len/3);
@@ -920,114 +1016,174 @@
 									switch (j){
 										case 0:
 											if(res.data.newAnimateRank!=null){
-												for (var i = 0; i < res.data.newAnimateRank.length; i++) {
-													let url = res.data.newAnimateRank.url;
+												for (let i = 0; i < res.data.newAnimateRank.length; i++) {
+													let url = res.data.newAnimateRank[i].url;
 													let animateid="";
 													if(url != null&&url != ""&&url != undefined){
 														 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 													}
+													let title = res.data.newAnimateRank[i].title;
+													if(title.length>8){
+														title = title.substring(0,7)+"...";
+													}
+													res.data.newAnimateRank[i].title = title;
 													res.data.newAnimateRank[i].animateid = animateid;
 													res.data.newAnimateRank[i].img = this.getrandomimg();
 												}
+												this.newAnimateRank_hot = res.data.newAnimateRank[0];
 												this.newAnimateRank = res.data.newAnimateRank;
 											}
 											break;
 										case 1:
 											if(res.data.chinaAnimateRank!=null){
-												for (var i = 0; i < res.data.chinaAnimateRank.length; i++) {
-													let url = res.data.chinaAnimateRank.url;
+												for (let i = 0; i < res.data.chinaAnimateRank.length; i++) {
+													let url = res.data.chinaAnimateRank[i].url;
 													let animateid="";
 													if(url != null&&url != ""&&url != undefined){
 														 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 													}
+													let title = res.data.chinaAnimateRank[i].title;
+													if(title.length>8){
+														title = title.substring(0,7)+"...";
+													}
+													res.data.chinaAnimateRank[i].title = title;
+													
 													res.data.chinaAnimateRank[i].animateid = animateid;
 													res.data.chinaAnimateRank[i].img = this.getrandomimg();
+													
 												}
+												this.chinaAnimateRank_hot = res.data.chinaAnimateRank[0];
 												this.chinaAnimateRank = res.data.chinaAnimateRank;
 											}
 											break;
 										case 2:
 											if(res.data.animatePlanRank!=null){
-												for (var i = 0; i < res.data.animatePlanRank.length; i++) {
-													let url = res.data.animatePlanRank.url;
+												for (let i = 0; i < res.data.animatePlanRank.length; i++) {
+													let url = res.data.animatePlanRank[i].url;
 													let animateid="";
 													if(url != null&&url != ""&&url != undefined){
 														 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 													}
+													let title = res.data.animatePlanRank[i].title;
+													if(title.length>8){
+														title = title.substring(0,7)+"...";
+													}
+													res.data.animatePlanRank[i].title = title;
+													
 													res.data.animatePlanRank[i].animateid = animateid;
 													res.data.animatePlanRank[i].img = this.getrandomimg();
 												}
+												this.animatePlanRank_hot = res.data.animatePlanRank[0];
 												this.animatePlanRank = res.data.animatePlanRank;
 											}
 											break;
 										case 3:
 											if(res.data.movieAnimateRank!=null){
-												for (var i = 0; i < res.data.movieAnimateRank.length; i++) {
-													let url = res.data.movieAnimateRank.url;
-													let animateid="";
-													if(url != null&&url != ""&&url != undefined){
-														 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
-													}
-													res.data.movieAnimateRank[i].animateid = animateid;
-													res.data.movieAnimateRank[i].img = this.getrandomimg();
-												}
-												this.movieAnimateRank = res.data.movieAnimateRank;
-											}
-											break;
-										case 4:
-											if(res.data.newAnimateScore!=null){
-												for (var i = 0; i < res.data.newAnimateScore.length; i++) {
-													let url = res.data.newAnimateScore.url;
-													let animateid="";
-													if(url != null&&url != ""&&url != undefined){
-														 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
-													}
-													res.data.newAnimateScore[i].animateid = animateid;
-													res.data.newAnimateScore[i].img = this.getrandomimg();
-												}
-												this.newAnimateScore = res.data.newAnimateScore;
-											}
-											break;
-										case 5:
-											if(res.data.chinaAnimateScore!=null){
-												for (var i = 0; i < res.data.chinaAnimateScore.length; i++) {
-													let url = res.data.chinaAnimateScore.url;
-													let animateid="";
-													if(url != null&&url != ""&&url != undefined){
-														 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
-													}
-													res.data.chinaAnimateScore[i].animateid = animateid;
-													res.data.chinaAnimateScore[i].img = this.getrandomimg();
-												}
-												this.chinaAnimateScore = res.data.chinaAnimateScore;
-											}
-											break;
-										case 6:
-											if(res.data.animatePlanScore!=null){
-												for (var i = 0; i < res.data.animatePlanScore.length; i++) {
-													let url = res.data.animatePlanScore.url;
-													let animateid="";
-													if(url != null&&url != ""&&url != undefined){
-														 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
-													}
-													res.data.animatePlanScore[i].animateid = animateid;
-													res.data.animatePlanScore[i].img = this.getrandomimg();
-												}
-												this.animatePlanScore = res.data.animatePlanScore;
-											}
-											break;
-										case 7:
-											if(res.data.movieAnimateScore!=null){
-												for (var i = 0; i < res.data.movieAnimateScore.length; i++) {
-													let url = res.data.movieAnimateScore.url;
+												for (let i = 0; i < res.data.movieAnimateRank.length; i++) {
+													let url = res.data.movieAnimateRank[i].url;
 													let animateid="";
 													if(url != null&&url != ""&&url != undefined){
 														 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 													}
 													
+													let title = res.data.movieAnimateRank[i].title;
+													if(title.length>8){
+														title = title.substring(0,7)+"...";
+													}
+													res.data.movieAnimateRank[i].title = title;
+													
+													res.data.movieAnimateRank[i].animateid = animateid;
+													res.data.movieAnimateRank[i].img = this.getrandomimg();
+												}
+												this.movieAnimateRank_hot = res.data.movieAnimateRank[0];
+												this.movieAnimateRank = res.data.movieAnimateRank;
+											}
+											break;
+										case 4:
+											if(res.data.newAnimateScore!=null){
+												for (let i = 0; i < res.data.newAnimateScore.length; i++) {
+													let url = res.data.newAnimateScore[i].url;
+													let animateid="";
+													if(url != null&&url != ""&&url != undefined){
+														 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+													}
+													
+													let title = res.data.newAnimateScore[i].title;
+													if(title.length>8){
+														title = title.substring(0,7)+"...";
+													}
+													res.data.newAnimateScore[i].title = title;
+													
+													res.data.newAnimateScore[i].animateid = animateid;
+													res.data.newAnimateScore[i].img = this.getrandomimg();
+												}
+												this.newAnimateScore_hot = res.data.newAnimateScore[0];
+												this.newAnimateScore = res.data.newAnimateScore;
+											}
+											break;
+										case 5:
+											if(res.data.chinaAnimateScore!=null){
+												for (let i = 0; i < res.data.chinaAnimateScore.length; i++) {
+													let url = res.data.chinaAnimateScore[i].url;
+													let animateid="";
+													if(url != null&&url != ""&&url != undefined){
+														 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+													}
+													
+													let title = res.data.chinaAnimateScore[i].title;
+													if(title.length>8){
+														title = title.substring(0,7)+"...";
+													}
+													res.data.chinaAnimateScore[i].title = title;
+													
+													res.data.chinaAnimateScore[i].animateid = animateid;
+													res.data.chinaAnimateScore[i].img = this.getrandomimg();
+												}
+												this.chinaAnimateScore_hot = res.data.chinaAnimateScore[0];
+												this.chinaAnimateScore = res.data.chinaAnimateScore;
+											}
+											break;
+										case 6:
+											if(res.data.animatePlanScore!=null){
+												for (let i = 0; i < res.data.animatePlanScore.length; i++) {
+													let url = res.data.animatePlanScore[i].url;
+													let animateid="";
+													if(url != null&&url != ""&&url != undefined){
+														 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+													}
+													
+													let title = res.data.animatePlanScore[i].title;
+													if(title.length>8){
+														title = title.substring(0,7)+"...";
+													}
+													res.data.animatePlanScore[i].title = title;
+													
+													res.data.animatePlanScore[i].animateid = animateid;
+													res.data.animatePlanScore[i].img = this.getrandomimg();
+												}
+												this.animatePlanScore_hot = res.data.animatePlanScore[0];
+												this.animatePlanScore = res.data.animatePlanScore;
+											}
+											break;
+										case 7:
+											if(res.data.movieAnimateScore!=null){
+												for (let i = 0; i < res.data.movieAnimateScore.length; i++) {
+													let url = res.data.movieAnimateScore[i].url;
+													let animateid="";
+													if(url != null&&url != ""&&url != undefined){
+														 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+													}
+													
+													let title = res.data.movieAnimateScore[i].title;
+													if(title.length>8){
+														title = title.substring(0,7)+"...";
+													}
+													res.data.movieAnimateScore[i].title = title;
+													
 													res.data.movieAnimateScore[i].animateid = animateid;
 													res.data.movieAnimateScore[i].img = this.getrandomimg();
 												}
+												this.movieAnimateScore_hot = res.data.movieAnimateScore[0];
 												this.movieAnimateScore = res.data.movieAnimateScore;
 											}
 											break;					
@@ -1041,6 +1197,142 @@
 					}
 				});
 			},
+			//资讯
+			getzixun()
+			{
+				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/zixun');
+				uni.request({
+					url:linkurl,
+					success:(res)=> {
+						if(res.data!=null){
+							if(res.data.restate!=null){
+								this.modalTap("网络异常！");
+							}else{
+								if(res.data.list!=null&&res.data.list.length>0){
+									let len = res.data.list.length;
+									for(let i=0;i<len;i++){
+										let url = res.data.list[i].url;
+										let artdetailid = url.substring(url.indexOf(".tv/")+4,url.length-1);
+										res.data.list[i].artdetailid = artdetailid;
+										res.data.list[i].img = this.getrandomimg();
+									}
+									
+									if(len >5){
+										len =5;
+									}
+									this.zixundata = res.data.list.slice(0,len);//前5篇咨询
+								}
+							}
+						}
+					}
+				});
+			},
+			//新番发送
+			getyearAnimateList()
+			{
+				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/yearAnimateList');
+				uni.request({
+					url:linkurl,
+					success:(res)=> {
+						if(res.data!=null){
+							if(res.data.restate!=null){
+								this.modalTap("网络异常！");
+							}else{
+								if(res.data.list!=null&&res.data.list.length>0){
+									let len = res.data.list.length;
+									for(let i=0;i<len;i++){
+										let url = res.data.list[i].url;
+										let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+										res.data.list[i].animateid = animateid;
+										res.data.list[i].img = this.getrandomimg();
+									}
+									this.yearAnimateList = res.data.list;
+								}
+							}
+						}
+					}
+				});
+			},
+			//国漫
+			getguoManAnimateList()
+			{
+				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/guoManAnimateList');
+				uni.request({
+					url:linkurl,
+					success:(res)=> {
+						if(res.data!=null){
+							if(res.data.restate!=null){
+								this.modalTap("网络异常！");
+							}else{
+								if(res.data.list!=null&&res.data.list.length>0){
+									let len = res.data.list.length;
+									for(let i=0;i<len;i++){
+										let url = res.data.list[i].url;
+										let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+										res.data.list[i].animateid = animateid;
+										res.data.list[i].img = this.getrandomimg();
+									}
+									if(len >10){
+										len =10;
+									}
+									this.guoManAnimateList = res.data.list.slice(0,len);
+								}
+							}
+						}
+					}
+				});
+			},
+			//剧场
+			getjuChangAnimateList(year)
+			{
+				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/juChangAnimateList?year='+year);
+				uni.request({
+					url:linkurl,
+					success:(res)=> {
+						if(res.data!=null){
+							if(res.data.restate!=null){
+								this.modalTap("网络异常！");
+							}else{
+								if(res.data.list!=null&&res.data.list.length>0){
+									let len = res.data.list.length;
+									for(let i=0;i<len;i++){
+										let url = res.data.list[i].url;
+										let name = res.data.list[i].name;
+										if(name.length>15){
+											name=name.substring(0,15)+" ...";
+										}
+										let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+										res.data.list[i].name = name;
+										res.data.list[i].animateid = animateid;
+										res.data.list[i].img = this.getrandomimg();
+									}
+									res.data.year =  year+ "年剧场动画";
+									let cyear = Number(new Date().getFullYear());
+									if(cyear == year ){
+										if(len>3){
+											len =3;
+										}
+										this.juChangrecom = res.data.list.slice(0,len);
+									}
+									this.juChangAnimateList.push(res.data);
+								}
+							}
+						}
+					}
+				});
+			},
+			getjuChangAnimateListOnTime()
+			{
+				let nowyear = Number(new Date().getFullYear());
+				let startyear = Number(nowyear)-4;
+				for(let i=nowyear;i>startyear;i--){
+					let year = i+ "年剧场";
+					this.juChangyearlist.push(year);
+					setTimeout(() => {
+						this.getjuChangAnimateList(i);
+					}, 1000);
+				}
+			},	
 			weekDaySelect: function(e) {
 				if(this.latestShowAnimatedata==null||this.latestShowAnimatedata.length<=0){
 					this.modalName="Modal";
@@ -1104,6 +1396,11 @@
 				let endNum = (num == pageCount) ? count + 1 : num * 10 + 1;
 				return array.slice(beginNum,endNum);
 			},	
+			toChild(e) {
+				uni.navigateTo({
+					url: e.currentTarget.dataset.url
+				})
+			},
 			// bimiAPI结束
 		}
 	}
@@ -1170,5 +1467,9 @@
 .VerticalMain {
 	background-color: #f1f1f1;
 	flex: 1;
+}
+.cu-avatar.radius.sm_avatar{
+	width: 40upx;
+	height: 40upx;
 }
 </style>
