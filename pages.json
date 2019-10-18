@@ -50,6 +50,18 @@
             "path" : "pages/newsinfo/newsinfo",
             "style" : {}
         }
+        ,{
+            "path" : "pages/searchlist/searchlist",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/likelist/likelist",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/historylist/historylist",
+            "style" : {}
+        }
     ],
     "tabBar": {
         "color": "#7a7e83",

@@ -33,7 +33,13 @@ function getUri(sever,url)
 	// #endif
 	return linkurl;
 }
-
+function modalTap(msg) {
+	uni.showModal({
+		content: msg,
+		confirmText: "确定",
+		showCancel: false,
+	})
+}
 /**
  * 保存用户信息
  * userPic:头像
@@ -82,4 +88,5 @@ export default {
 	testurl,
 	formateDate,
 	getUri,
+	modalTap,
 };

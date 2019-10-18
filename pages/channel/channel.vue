@@ -65,7 +65,7 @@
 			<view class="cu-item shadow">
 			<swiper class="screen-swiper" :class="dotStyle?'square-dot':'round-dot'" :indicator-dots="true" :circular="true"
 			 :autoplay="false" interval="5000" duration="500">
-				<swiper-item v-for="(item,index) in zixundata" :key="index">
+				<swiper-item v-for="(item,index) in zixundata" :key="index" @tap="toChild" data-url="../newsinfo/newsinfo" :data-id="item.artdetailid">
 					<view class="bg-img bg-mask flex align-end" :style="{backgroundImage:'url('+item.img+')',height:'100%'}">
 						<view class="padding-xl text-white">
 							<view class="padding-xs text-lg">
@@ -85,7 +85,7 @@
 		<view class="cu-card case">
 			<view class="cu-item shadow">
 				<scroll-view scroll-x class="bg-white nav" scroll-with-animation :scroll-left="scrollLeft">
-					<view class="cu-item" :class="index_1==TabCur?'text-blue':''" v-for="(item,index_1) in yearAnimateList" :key="index_1" @tap="tabSelect" :data-id="index_1">
+					<view class="cu-item" :class="index_1==TabCur?'text-blue':''" v-for="(item,index_1) in yearAnimateList" :key="index_1" @tap="tabSelect" :data-id="index_1" :data-animateid="item.animateid">
 						<!-- <view class="bg-img padding-top-xl  flex align-end margin-top" :style="{backgroundImage:'url('+item.url+')',width: '400upx',height: '250upx'}">
 							<view class="bg-shadeBottom  padding-top-xl flex-sub">
 								{{item.name}}
@@ -117,7 +117,7 @@
 			<view class="cu-item shadow">
 			<swiper class="screen-swiper" :class="dotStyle?'square-dot':'round-dot'" :indicator-dots="true" :circular="true"
 			 :autoplay="false" interval="5000" duration="500">
-				<swiper-item v-for="(item,index) in juChangrecom" :key="index">
+				<swiper-item v-for="(item,index) in juChangrecom" :key="index" @tap="toChild" data-url="../plays/plays" :data-id="item.animateid">
 					<view class="bg-img bg-mask flex align-end" :style="{backgroundImage:'url('+item.img+')',height:'100%'}">
 						<view class="padding-xl text-white">
 							<view class="padding-xs text-lg">
@@ -138,7 +138,7 @@
 			</scroll-view>
 			<scroll-view class="VerticalMain" scroll-y scroll-with-animation style="height:calc(100vh - 375upx)"
 			 :scroll-into-view="'main-'+mainCur" @scroll="VerticalMain">
-				<view class="padding-top padding-lr" v-for="(item,index_2) in juChangAnimateList" :key="index_2" :id="'main-'+index_2">
+				<view class="padding-top padding-lr" v-for="(item,index_2) in juChangAnimateList" :key="index_2" :id="'main-'+index_2" @tap="toChild" data-url="../plays/plays" :data-animateid="item.animateid">
 					<view class="cu-bar solid-bottom bg-white">
 						<view class="action">
 							<text class="cuIcon-title text-green"></text> {{item.year}}</view>
@@ -168,7 +168,7 @@
 			<view class="cu-item shadow">
 			<swiper class="screen-swiper" :class="dotStyle?'square-dot':'round-dot'" :indicator-dots="true" :circular="true"
 			 :autoplay="false" interval="5000" duration="500">
-				<swiper-item v-for="(item,index_2) in guoManAnimateList" :key="index_2">
+				<swiper-item v-for="(item,index_2) in guoManAnimateList" :key="index_2" @tap="toChild" data-url="../plays/plays" :data-id="item.animateid">
 					<view class="bg-img bg-mask flex align-end" :style="{backgroundImage:'url('+item.img+')',height:'100%'}">
 						<view class="padding-xl text-white">
 							<view class="padding-xs text-lg">
@@ -186,7 +186,7 @@
 			</scroll-view>
 			<view class="cu-timeline">
 				<view class="cu-time">{{curday}}</view>
-				<view class="cu-item cur cuIcon-time" v-for="(item,index) in recentonanimate" :key="index">
+				<view class="cu-item cur cuIcon-time" v-for="(item,index) in recentonanimate" :key="index" @tap="toChild" data-url="../plays/plays" :data-id="item.animateid">
 					<view class="shadow-blur bg-white">
 						<view class="grid col-2">
 							<view class="cu-card case no-card"  >
@@ -246,7 +246,7 @@
 				</view>
 			</view>
 			<view class="cu-card case bg-white" v-if="index_rank==0">
-				<view class="cu-item shadow">
+				<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="newAnimateRank_hot.animateid">
 					<view class="image">
 						<image :src="newAnimateRank_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
 						<view class="cu-tag bg-blue">{{newAnimateRank_hot.title}}</view>
@@ -254,7 +254,7 @@
 					</view>
 				</view>
 				<view class="grid col-2 padding-sm" >
-					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in newAnimateRank" :key="index1">
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in newAnimateRank" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
 								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
@@ -270,7 +270,7 @@
 				</view>
 			</view>
 			<view class="cu-card case bg-white" v-else-if="index_rank==1">
-				<view class="cu-item shadow">
+				<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="chinaAnimateRank_hot.animateid">
 					<view class="image">
 						<image :src="chinaAnimateRank_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
 						<view class="cu-tag bg-blue">{{chinaAnimateRank_hot.title}}</view>
@@ -278,7 +278,7 @@
 					</view>
 				</view>		
 				<view class="grid col-2 padding-sm" >
-					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in chinaAnimateRank" :key="index1" >
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in chinaAnimateRank" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
 								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
@@ -294,7 +294,7 @@
 				</view>
 			</view>
 			<view class="cu-card case bg-white" v-if="index_rank==2">
-				<view class="cu-item shadow">
+				<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="animatePlanRank_hot.animateid">
 					<view class="image">
 						<image :src="animatePlanRank_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
 						<view class="cu-tag bg-blue">{{animatePlanRank_hot.title}}</view>
@@ -302,7 +302,7 @@
 					</view>
 				</view>		
 				<view class="grid col-2 padding-sm">
-					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in animatePlanRank" :key="index1">
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in animatePlanRank" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
 								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
@@ -318,7 +318,7 @@
 				</view>
 			</view>
 			<view class="cu-card case bg-white" v-if="index_rank==3">
-				<view class="cu-item shadow">
+				<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="movieAnimateRank_hot.animateid">
 					<view class="image">
 						<image :src="movieAnimateRank_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
 						<view class="cu-tag bg-blue">{{movieAnimateRank_hot.title}}</view>
@@ -326,7 +326,7 @@
 					</view>
 				</view>		
 				<view class="grid col-2 padding-sm">
-					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in movieAnimateRank" :key="index1">
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in movieAnimateRank" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
 								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
@@ -342,7 +342,7 @@
 				</view>
 			</view>
 			<view class="cu-card case bg-white" v-if="index_rank==4">
-				<view class="cu-item shadow">
+				<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="newAnimateScore_hot.animateid">
 					<view class="image">
 						<image :src="newAnimateScore_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
 						<view class="cu-tag bg-blue">{{newAnimateScore_hot.title}}</view>
@@ -350,7 +350,7 @@
 					</view>
 				</view>		
 				<view class="grid col-2 padding-sm">
-					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in newAnimateScore" :key="index1">
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in newAnimateScore" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
 								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
@@ -366,7 +366,7 @@
 				</view>
 			</view>
 			<view class="cu-card case bg-white" v-if="index_rank==5">
-				<view class="cu-item shadow">
+				<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="chinaAnimateScore_hot.animateid">
 					<view class="image">
 						<image :src="chinaAnimateScore_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
 						<view class="cu-tag bg-blue">{{chinaAnimateScore_hot.title}}</view>
@@ -374,7 +374,7 @@
 					</view>
 				</view>			
 				<view class="grid col-2 padding-sm">
-					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in chinaAnimateScore" :key="index1" >
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in chinaAnimateScore" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
 								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
@@ -390,7 +390,7 @@
 				</view>
 			</view>
 			<view class="cu-card case bg-white" v-if="index_rank==6">
-				<view class="cu-item shadow">
+				<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="animatePlanScore_hot.animateid">
 					<view class="image">
 						<image :src="animatePlanScore_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
 						<view class="cu-tag bg-blue">{{animatePlanScore_hot.title}}</view>
@@ -398,7 +398,7 @@
 					</view>
 				</view>		
 				<view class="grid col-2 padding-sm">
-					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in animatePlanScore" :key="index1">
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in animatePlanScore" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
 								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
@@ -414,7 +414,7 @@
 				</view>
 			</view>
 			<view class="cu-card case bg-white" v-if="index_rank==7">
-				<view class="cu-item shadow">
+				<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="movieAnimateScore_hot.animateid">
 					<view class="image">
 						<image :src="movieAnimateScore_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
 						<view class="cu-tag bg-blue">{{movieAnimateScore_hot.title}}</view>
@@ -422,7 +422,7 @@
 					</view>
 				</view>		
 				<view class="grid col-2 padding-sm">
-					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in movieAnimateScore" :key="index1">
+					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in movieAnimateScore" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
 								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
@@ -441,7 +441,7 @@
 		<!--弹窗-->
 		<view class="cu-modal" :class="modalName=='Modal'?'show':''">
 			<view class="cu-dialog">
-				<view class="cu-bar bg-blue justify-end">
+				<view class="cu-bar bg-gradual-orange justify-end">
 					<view class="content">{{modaltitle}}</view>
 					<view class="action" @tap="hideModal">
 						<text class="cuIcon-close text-red"></text>
@@ -531,34 +531,39 @@
 				cuIconList: [{
 					cuIcon: 'newsfill',
 					color: 'red',
-					badge: 120,
+					badge: 0,
 					name: '新闻咨询',
 					linkurl:'../newslist/newslist',
 				}, {
 					cuIcon: 'hotfill',
 					color: 'orange',
 					badge: 1,
-					name: '新番发送'
+					name: '新番发送',
+					linkurl:'../animateyearlist/animateyearlist?pagetype=1',
 				}, {
 					cuIcon: 'picfill',
 					color: 'yellow',
 					badge: 0,
-					name: '番组计划'
+					name: '番组计划',
+					linkurl:'../animateyearlist/animateyearlist?pagetype=2',
 				}, {
 					cuIcon: 'recordfill',
 					color: 'olive',
-					badge: 22,
-					name: '国产动漫'
+					badge: 0,
+					name: '国产动漫',
+					linkurl:'../animateyearlist/animateyearlist?pagetype=3',
 				}, {
 					cuIcon: 'upstagefill',
 					color: 'cyan',
 					badge: 0,
-					name: '剧场动画'
+					name: '剧场动画',
+					linkurl:'../animateyearlist/animateyearlist?pagetype=4',
 				}, {
 					cuIcon: 'videofill',
 					color: 'blue',
 					badge: 0,
-					name: '影视剧集'
+					name: '影视剧集',
+					linkurl:'../animateyearlist/animateyearlist?pagetype=5',
 				}, {
 					cuIcon: 'discoverfill',
 					color: 'purple',
@@ -630,7 +635,12 @@
 		methods: {
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
-				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
+				let index = e.currentTarget.dataset.id;
+				this.scrollLeft = index * 250;
+				let animateid = e.currentTarget.dataset.animateid;
+				uni.navigateTo({
+					url: '../plays/plays?animateid='+animateid
+				})
 			},
 			getRecomData: function() {
 				var url = 'api/b/animation/recommend';
@@ -977,7 +987,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								this.modalTap("网络异常！");
+								commonutil.modalTap("网络异常！");
 							}else{
 								for(let i=0;i<res.data.length;i++){
 									let url = res.data[i].url;
@@ -1010,7 +1020,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								this.modalTap("网络异常！");
+								commonutil.modalTap("网络异常！");
 							}else{
 								for(let j=0;j<8;j++){
 									switch (j){
@@ -1206,7 +1216,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								this.modalTap("网络异常！");
+								commonutil.modalTap("网络异常！");
 							}else{
 								if(res.data.list!=null&&res.data.list.length>0){
 									let len = res.data.list.length;
@@ -1216,7 +1226,8 @@
 										res.data.list[i].artdetailid = artdetailid;
 										res.data.list[i].img = this.getrandomimg();
 									}
-									
+									let totalCount = res.data.totalCount;
+									this.cuIconList[0].badge = totalCount;
 									if(len >5){
 										len =5;
 									}
@@ -1236,7 +1247,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								this.modalTap("网络异常！");
+								commonutil.modalTap("网络异常！");
 							}else{
 								if(res.data.list!=null&&res.data.list.length>0){
 									let len = res.data.list.length;
@@ -1262,7 +1273,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								this.modalTap("网络异常！");
+								commonutil.modalTap("网络异常！");
 							}else{
 								if(res.data.list!=null&&res.data.list.length>0){
 									let len = res.data.list.length;
@@ -1291,7 +1302,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								this.modalTap("网络异常！");
+								commonutil.modalTap("网络异常！");
 							}else{
 								if(res.data.list!=null&&res.data.list.length>0){
 									let len = res.data.list.length;
@@ -1397,8 +1408,31 @@
 				return array.slice(beginNum,endNum);
 			},	
 			toChild(e) {
+				debugger
+				let url = e.currentTarget.dataset.url;
+				let uri = "";
+				if(url!=null&&url!=""&&url!=undefined){
+					if(url.indexOf("plays")!=-1){
+						uri = '?animateid='+e.currentTarget.dataset.id;
+					}else if(url.indexOf("newsinfo")!=-1){
+						let artid = e.currentTarget.dataset.id;
+						if(artid!=null&&artid!=""&&artid!=undefined){
+							for (var i = 0; i < this.zixundata.length; i++) {
+								let newsid =  this.zixundata[i].artdetailid;
+								if(newsid == artid){
+									uni.setStorage({
+										key: 'artNewsData',
+										data: this.zixundata[i]
+									});
+									break;
+								}
+							}
+						}
+						uri = '?pageid='+e.currentTarget.dataset.id
+					}
+				}
 				uni.navigateTo({
-					url: e.currentTarget.dataset.url
+					url: e.currentTarget.dataset.url+uri
 				})
 			},
 			// bimiAPI结束

@@ -4,7 +4,7 @@
 		<view class="box">
 			<view class="cu-bar search bg-white solid-bottom ">
 				<view class="search-form round">
-					<text class="cuIcon-search"></text>
+					<text class="cuIcon-search" @tap="toChild" data-url="../searchlist/searchlist"></text>
 					<input @focus="InputFocus" @blur="InputBlur" :adjust-position="false" type="text" placeholder="请输入片名,主演或导演" confirm-type="search" @input="onKeyUserNameInput"></input>
 				</view>
 				<!-- <view class="action" @tap="searchByKeyWords">
@@ -16,7 +16,7 @@
 			<view class="cu-item shadow">
 			<swiper class="screen-swiper" :class="dotStyle?'square-dot':'round-dot'" :indicator-dots="true" :circular="true"
 			 :autoplay="false" interval="5000" duration="500">
-				<swiper-item v-for="(item,index) in carouseldata" :key="index" :data-id="item.animateid">
+				<swiper-item v-for="(item,index) in carouseldata" :key="index" @tap="toChild" data-url="../plays/plays" :data-id="item.animateid">
 					<view class="bg-img bg-mask flex align-end" :style="{backgroundImage:'url('+item.img+')',height:'100%'}">
 						<view class="padding-xl text-white">
 							<view class="padding-xs text-lg">
@@ -48,7 +48,7 @@
 		<view class="cu-card case">
 			<view class="cu-item shadow">
 				<scroll-view scroll-x class="bg-white nav" scroll-with-animation :scroll-left="scrollLeft">
-					<view class="cu-item" :class="index==TabCur?'text-blue':''" v-for="(item,index) in sliderRecomdata" :key="index" @tap="tabSelect" :data-id="item.animateid">
+					<view class="cu-item" :class="index==TabCur?'text-blue':''" v-for="(item,index) in sliderRecomdata" :key="index" @tap="tabSelect" :data-id="index" :data-animateid="item.animateid">
 						<!-- <view class="bg-img padding-top-xl  flex align-end margin-top" :style="{backgroundImage:'url('+item.url+')',width: '400upx',height: '250upx'}">
 							<view class="bg-shadeBottom  padding-top-xl flex-sub">
 								{{item.name}}
@@ -80,7 +80,7 @@
 			<view class="cu-item shadow">
 			<swiper class="screen-swiper" :class="dotStyle?'square-dot':'round-dot'" :indicator-dots="true" :circular="true"
 			 :autoplay="false" interval="5000" duration="500">
-				<swiper-item v-for="(item,index) in todayHotdata" :key="index" :data-id="item.animateid">
+				<swiper-item v-for="(item,index) in todayHotdata" :key="index" @tap="toChild" data-url="../plays/plays" :data-id="item.animateid">
 					<view class="bg-img bg-mask flex align-end" :style="{backgroundImage:'url('+item.img+')',height:'100%'}">
 						<view class="padding-xl text-white">
 							<view class="padding-xs text-lg">
@@ -101,7 +101,7 @@
 			<view class="cu-item shadow">
 			<swiper class="screen-swiper" :class="dotStyle?'square-dot':'round-dot'" :indicator-dots="true" :circular="true"
 			 :autoplay="false" interval="5000" duration="500">
-				<swiper-item v-for="(item,index) in monthRankdata" :key="index" :data-id="item.animateid">
+				<swiper-item v-for="(item,index) in monthRankdata" :key="index" @tap="toChild" data-url="../plays/plays" :data-id="item.animateid">
 					<view class="bg-img bg-mask flex align-end" :style="{backgroundImage:'url('+item.img+')',height:'100%'}">
 						<view class="padding-xl text-white">
 							<view class="padding-xs text-lg">
@@ -119,7 +119,7 @@
 			</view>
 		</view>
 		<view class="cu-card case bg-white padding-bottom">
-			<view class="cu-item shadow">
+			<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="todayhot.animateid">
 				<view class="image">
 					<image :src="todayhot.img" mode="scaleToFill" style="height: 414upx;"></image>
 					<view class="cu-tag bg-blue">{{todayhot.name}}</view>
@@ -132,7 +132,7 @@
 				</view>
 			</scroll-view>
 			<view class="grid col-2 padding-sm">
-				<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item,index) in todayofweek" :key="index" :data-id="item.animateid">
+				<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item,index) in todayofweek" :key="index" @tap="toChild" data-url="../plays/plays" :data-id="item.animateid">
 					<view class="cu-item shadow">
 						<view class="image">
 							<image :src="item.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
@@ -153,7 +153,7 @@
 		</view>
 		<view class="cu-card case bg-white">
 			<view class="cu-list menu sm-border card-menu margin-top" >
-				<view class="cu-item" :class="menuArrow?'arrow':''" v-for="(item,index) in monthRankdata" :key="index" :data-id="item.animateid">
+				<view class="cu-item" :class="menuArrow?'arrow':''" v-for="(item,index) in monthRankdata" :key="index" @tap="toChild" data-url="../plays/plays" :data-id="item.animateid">
 					<view class="content">
 						<text class="cu-avatar radius sm bg-pink" v-if="index<3">{{item.rank}}</text>
 						<text class="cu-avatar radius sm bg-grey" v-else>{{item.rank}}</text>
@@ -172,7 +172,7 @@
 			</view>
 		</view>
 		<view class="cu-card case bg-white padding-bottom">
-			<view class="cu-item shadow">
+			<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="todayhot.animateid">
 				<view class="image">
 					<image :src="todayhot.img" mode="scaleToFill" style="height: 414upx;"></image>
 					<view class="cu-tag bg-blue">{{todayhot.name}}</view>
@@ -182,7 +182,7 @@
 		</view>
 		<view class="cu-timeline">
 			<view class="cu-time">新番发送</view>
-			<view class="cu-item cur cuIcon-time" v-for="(item,index) in newAnimatedata" :key="index">
+			<view class="cu-item cur cuIcon-time" v-for="(item,index) in newAnimatedata" :key="index" @tap="toChild" data-url="../plays/plays" :data-id="item.animateid">
 				<view class="shadow-blur bg-white">
 					<view class="grid col-2">
 						<view class="cu-card case no-card"  >
@@ -219,7 +219,7 @@
 			</view>
 		</view>
 		<view class="cu-card case bg-white padding-bottom">
-			<view class="cu-item shadow">
+			<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="todayhot.animateid">
 				<view class="image">
 					<image :src="todayhot.img" mode="scaleToFill" style="height: 414upx;"></image>
 					<view class="cu-tag bg-blue">{{todayhot.name}}</view>
@@ -229,7 +229,7 @@
 		</view>
 		<view class="cu-timeline">
 			<view class="cu-time">国产动漫</view>
-			<view class="cu-item cur cuIcon-time" v-for="(item,index) in chinaAnimatedata" :key="index">
+			<view class="cu-item cur cuIcon-time" v-for="(item,index) in chinaAnimatedata" :key="index" @tap="toChild" data-url="../plays/plays" :data-id="item.animateid">
 				<view class="shadow-blur bg-white">
 					<view class="grid col-2">
 						<view class="cu-card case no-card"  >
@@ -266,7 +266,7 @@
 			</view>
 		</view>
 		<view class="cu-card case bg-white padding-bottom">
-			<view class="cu-item shadow">
+			<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="todayhot.animateid">
 				<view class="image">
 					<image :src="todayhot.img" mode="scaleToFill" style="height: 414upx;"></image>
 					<view class="cu-tag bg-blue">{{todayhot.name}}</view>
@@ -276,7 +276,7 @@
 		</view>
 		<view class="cu-timeline">
 			<view class="cu-time">番组计划</view>
-			<view class="cu-item cur cuIcon-time" v-for="(item,index) in animatePlandata" :key="index">
+			<view class="cu-item cur cuIcon-time" v-for="(item,index) in animatePlandata" :key="index" @tap="toChild" data-url="../plays/plays" :data-id="item.animateid">
 				<view class="shadow-blur bg-white">
 					<view class="grid col-2">
 						<view class="cu-card case no-card"  >
@@ -313,7 +313,7 @@
 			</view>
 		</view>
 		<view class="cu-card case bg-white padding-bottom">
-			<view class="cu-item shadow">
+			<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="todayhot.animateid">
 				<view class="image">
 					<image :src="todayhot.img" mode="scaleToFill" style="height: 414upx;"></image>
 					<view class="cu-tag bg-blue">{{todayhot.name}}</view>
@@ -323,7 +323,7 @@
 		</view>
 		<view class="cu-timeline">
 			<view class="cu-time">剧场动画</view>
-			<view class="cu-item cur cuIcon-time" v-for="(item,index) in animateMoviedata" :key="index">
+			<view class="cu-item cur cuIcon-time" v-for="(item,index) in animateMoviedata" :key="index" @tap="toChild" data-url="../plays/plays" :data-id="item.animateid">
 				<view class="shadow-blur bg-white">
 					<view class="grid col-2">
 						<view class="cu-card case no-card"  >
@@ -360,7 +360,7 @@
 			</view>
 		</view>
 		<view class="cu-card case bg-white padding-bottom">
-			<view class="cu-item shadow">
+			<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="todayhot.animateid">
 				<view class="image">
 					<image :src="todayhot.img" mode="scaleToFill" style="height: 414upx;"></image>
 					<view class="cu-tag bg-blue">{{todayhot.name}}</view>
@@ -370,7 +370,7 @@
 		</view>
 		<view class="cu-timeline">
 			<view class="cu-time">影视</view>
-			<view class="cu-item cur cuIcon-time" v-for="(item,index) in Moviesdata" :key="index">
+			<view class="cu-item cur cuIcon-time" v-for="(item,index) in Moviesdata" :key="index" @tap="toChild" data-url="../plays/plays" :data-id="item.animateid">
 				<view class="shadow-blur bg-white">
 					<view class="grid col-2">
 						<view class="cu-card case no-card"  >
@@ -403,7 +403,7 @@
 		<!--弹窗-->
 		<view class="cu-modal" :class="modalName=='Modal'?'show':''">
 			<view class="cu-dialog">
-				<view class="cu-bar bg-blue justify-end">
+				<view class="cu-bar bg-gradual-orange justify-end">
 					<view class="content">{{modaltitle}}</view>
 					<view class="action" @tap="hideModal">
 						<text class="cuIcon-close text-red"></text>
@@ -499,6 +499,7 @@
 				animatePlandata:[],
 				animateMoviedata:[],
 				Moviesdata:[],
+				keyword:'',
 				// bimi数据结束
 			};
 		},
@@ -511,7 +512,12 @@
 		methods: {
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
-				this.scrollLeft = (e.currentTarget.dataset.id ) * 300
+				let index = e.currentTarget.dataset.id;
+				this.scrollLeft = index * 250;
+				let animateid = e.currentTarget.dataset.animateid;
+				uni.navigateTo({
+					url: '../plays/plays?animateid='+animateid
+				})
 			},
 			InputFocus(e) {
 				this.InputBottom = e.detail.height
@@ -520,7 +526,7 @@
 				this.InputBottom = 0
 			},
 			onKeyUserNameInput: function(event) {
-			    this.inputword = event.target.value  
+			    this.keyword = event.target.value  
 			},
 			getRecomData: function() {
 				var url = 'api/b/animation/recommend';
@@ -833,8 +839,12 @@
 					url:linkurl,
 					success:(res)=> {
 						if(res.data!=null){
+							if(res.data.status!=200){
+								commonutil.modalTap("网络异常！");
+								return false;
+							}
 							if(res.data.restate!=null){
-								this.modalTap("网络异常！");
+								commonutil.modalTap("网络异常！");
 							}else{
 								for(let i=0;i<res.data.length;i++){
 									let url = res.data[i].url;
@@ -856,7 +866,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								this.modalTap("网络异常！");
+								commonutil.modalTap("网络异常！");
 							}else{
 								for(let i=0;i<res.data.length;i++){
 									let url = res.data[i].url;
@@ -878,7 +888,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								this.modalTap("网络异常！");
+								commonutil.modalTap("网络异常！");
 							}else{
 								for(let i=0;i<res.data.length;i++){
 									let url = res.data[i].url;
@@ -900,7 +910,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								this.modalTap("网络异常！");
+								commonutil.modalTap("网络异常！");
 							}else{
 								for(let i=0;i<res.data.length;i++){
 									let url = res.data[i].url;
@@ -922,7 +932,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								this.modalTap("网络异常！");
+								commonutil.modalTap("网络异常！");
 							}else{
 								for(let i=0;i<res.data.length;i++){
 									var weeklist = res.data[i];
@@ -957,7 +967,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								this.modalTap("网络异常！");
+								commonutil.modalTap("网络异常！");
 							}else{
 								for(let i=0;i<res.data.length;i++){
 									let url = res.data[i].url;
@@ -979,7 +989,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								this.modalTap("网络异常！");
+								commonutil.modalTap("网络异常！");
 							}else{
 								for(let i=0;i<res.data.length;i++){
 									let url = res.data[i].url;
@@ -1001,7 +1011,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								this.modalTap("网络异常！");
+								commonutil.modalTap("网络异常！");
 							}else{
 								for(let i=0;i<res.data.length;i++){
 									let url = res.data[i].url;
@@ -1023,7 +1033,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								this.modalTap("网络异常！");
+								commonutil.modalTap("网络异常！");
 							}else{
 								for(let i=0;i<res.data.length;i++){
 									let url = res.data[i].url;
@@ -1045,7 +1055,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								this.modalTap("网络异常！");
+								commonutil.modalTap("网络异常！");
 							}else{
 								for(let i=0;i<res.data.length;i++){
 									let url = res.data[i].url;
@@ -1142,6 +1152,27 @@
 				}
 				this.direction = ""
 				this.monthRankdata = this.monthRankdata
+			},
+			toChild(e) {
+				debugger
+				let url = e.currentTarget.dataset.url;
+				let uri = "";
+				if(url!=null&&url!=""&&url!=undefined){
+					if(url.indexOf("searchlist")!=-1){
+						if(this.keyword!=null&&this.keyword!=""&&this.keyword!=undefined)
+						{
+							uri = '?keyword='+this.keyword;
+						}
+						else{
+							commonutil.modalTap("请输入搜索条件后查询！");
+						}
+					}else if(url.indexOf("plays")!=-1){
+						uri = '?animateid='+e.currentTarget.dataset.id;
+					}
+				}
+				uni.navigateTo({
+					url: e.currentTarget.dataset.url+uri
+				})
 			},
 			// bimiAPI结束	
 		}

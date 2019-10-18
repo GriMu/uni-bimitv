@@ -8,7 +8,7 @@
 				</view>
 			</scroll-view>
 		</view>
-		<view class="cu-card no-card case bg-white margin-top" v-for="(item,index) in fanZuAnimateList" :key="index" @tap="toChild" data-url="../plays/plays">
+		<view class="cu-card case bg-white margin-top" v-for="(item,index) in fanZuAnimateList" :key="index" @tap="toChild" data-url="../plays/plays" :data-id="item.animateid">
 			<view class="cu-item shadow  animation-slide-left"  :style="[{animationDelay: (index*0.1 + 1)*0.2 + 's'}]">
 				<view class="bg-img bg-mask flex align-center "  :style="{backgroundImage:'url('+item.img+')',height: '414upx'}">
 					<view class="padding-xl text-white">
@@ -22,7 +22,7 @@
 				</view>
 				<view class="cu-list menu-avatar comment solids-top">
 					<view class="cu-item">
-						<view class="cu-avatar round margin-top-xs bg-gray" >
+						<view class="cu-avatar round margin-top-xs bg-gray text-sm" >
 							{{item.name.substring(0,1)}}
 						</view>
 						<view class="content">
@@ -275,9 +275,15 @@
 				});
 			},
 			toChild(e) {
-				uni.navigateTo({
-					url: e.currentTarget.dataset.url
-				})
+				let animateid = e.currentTarget.dataset.id;
+				if(animateid!=null&&animateid!=""&&animateid!=undefined){
+					uni.navigateTo({
+						url: e.currentTarget.dataset.url+'?animateid='+animateid
+					})
+				}else{
+					commonutil.modalTap("网络开小差啦！");
+				}
+				
 			},
 			// bimiAPI开始
 			getfanZuAnimateList()//番组计划
@@ -290,7 +296,7 @@
 						success:(res)=> {
 							if(res.data!=null){
 								if(res.data.restate!=null){
-									this.modalTap("网络异常！");
+									commonutil.modalTap("网络异常！");
 								}else{
 									if(res.data.list!=null){
 										for(let i=0;i<res.data.list.length;i++){
@@ -337,7 +343,7 @@
 							success:(res)=> {
 								if(res.data!=null){
 									if(res.data.restate!=null){
-										this.modalTap("网络异常！");
+										commonutil.modalTap("网络异常！");
 									}else{
 										if(res.data.list!=null){
 											for(let i=0;i<res.data.list.length;i++){
@@ -391,7 +397,7 @@
 							success:(res)=> {
 								if(res.data!=null){
 									if(res.data.restate!=null){
-										this.modalTap("网络异常！");
+										commonutil.modalTap("网络异常！");
 									}else{
 										if(res.data.list!=null){
 											for(let i=0;i<res.data.list.length;i++){

@@ -1,13 +1,13 @@
 <template>
 	<view>
-		<cu-custom bgColor="bg-gradual-blue" :isBack="false"><block slot="backText"></block><block slot="content">咨询列表</block></cu-custom>
+		<cu-custom bgColor="bg-gradual-blue" :isBack="true"><block slot="backText">返回</block><block slot="content">咨询列表</block></cu-custom>
 		<view class="uni-padding-wrap">
 			<view class="page-section swiper">
 				<view class="page-section swiper">
 					<swiper class="card-swiper" :class="dotStyle?'square-dot':'round-dot'" :indicator-dots="true" :circular="true"
 					 :autoplay="true" interval="5000" duration="500" @change="cardSwiper" indicator-color="#8799a3"
 					 indicator-active-color="#0081ff">
-						<swiper-item v-for="(item,index) in zixundata" :key="index" :class="cardCur==index?'cur':''" @tap="toChild" data-url="../article/article" :data-id="item.id">
+						<swiper-item v-for="(item,index) in zixundata" :key="index" :class="cardCur==index?'cur':''" @tap="toChild" data-url="../newsinfo/newsinfo" :data-id="item.artdetailid">
 							<view class="swiper-item">
 								<image :src="item.img" mode="aspectFill"></image>
 							</view>
@@ -17,7 +17,7 @@
 			</view>	
 		</view>
 		<view class="page-section">
-			<view class="cu-card article" :class="isCard?'no-card':''" v-for="(item,index) in zixunlist" :key="index" @tap="toChild" data-url="../article/article" :data-id="item.id">
+			<view class="cu-card article" :class="isCard?'no-card':''" v-for="(item,index) in zixunlist" :key="index" @tap="toChild" data-url="../newsinfo/newsinfo" :data-id="item.artdetailid">
 				<view class="cu-item shadow bg-blue animation-slide-left"  :style="[{animationDelay: (index*0.1 + 1)*0.1 + 's'}]">
 					<view class="title"><view class="text-cut">{{item.title}}</view></view>
 					<view class="content">
@@ -101,7 +101,7 @@
 			this.lastPage = false;
 			this.zixundata = [];
 			this.zixunlist = [];
-			this.setzixunlist();
+			this.getzixun();
 		},
 		methods: {
 			DotStyle(e) {
@@ -112,8 +112,21 @@
 				this.cardCur = e.detail.current
 			},
 			toChild(e) {
+				let artid = e.currentTarget.dataset.id;
+				if(artid!=null&&artid!=""&&artid!=undefined){
+					for (var i = 0; i < this.zixunlist.length; i++) {
+						let newsid =  this.zixunlist[i].artdetailid;
+						if(newsid == artid){
+							uni.setStorage({
+								key: 'artNewsData',
+								data: this.zixunlist[i]
+							});
+							break;
+						}
+					}
+				}
 				uni.navigateTo({
-					url: e.currentTarget.dataset.url+'?id='+e.currentTarget.dataset.id
+					url: e.currentTarget.dataset.url+'?pageid='+e.currentTarget.dataset.id
 				})
 			},
 			// bimiAPI开始
@@ -127,7 +140,7 @@
 						success:(res)=> {
 							if(res.data!=null){
 								if(res.data.restate!=null){
-									this.modalTap("网络异常！");
+									commonutil.modalTap("网络异常！");
 								}else{
 									if(res.data.list!=null&&res.data.list.length>0){
 										let len = res.data.list.length;
@@ -171,7 +184,7 @@
 						success:(res)=> {
 							if(res.data!=null){
 								if(res.data.restate!=null){
-									this.modalTap("网络异常！");
+									commonutil.modalTap("网络异常！");
 								}else{
 									if(res.data.list!=null&&res.data.list.length>0){
 										let len = res.data.list.length;
