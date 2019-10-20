@@ -6,7 +6,7 @@
 				<text class="cuIcon-titles text-blue"></text> 历史记录
 			</view>
 		</view>
-		<view class="cu-card case bg-white solid-top">
+		<view class="cu-card case bg-white solid-top" :style="{display:showhistory?'':'none'}">
 			<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="lastplaydata.animateid">
 				<view class="image">
 					<image :src="lastplaydata.img" mode="scaleToFill" style="height: 414upx;"></image>
@@ -14,7 +14,7 @@
 					<view class="cu-bar bg-shadeBottom"> <text class="text-cut">第 {{lastplaydata.playnum}} 话</text></view>
 				</view>
 			</view>
-			<view class="cu-timeline">
+			<view class="cu-timeline" >
 				<view class="cu-time">{{curday}}</view>
 				<view class="cu-item cur cuIcon-time" v-for="(item,index) in playhistory" :key="index" @tap="toChild" data-url="../plays/plays" :data-id="item.animateid">
 					<view class="shadow-blur bg-white">
@@ -37,10 +37,10 @@
 											</view>
 										</view>
 										<view class="text-gray text-sm padding-top-sm">
-											<text class="cuIcon-timefill margin-lr-xs "></text> {{item.updatetime}}
+											<text class="cuIcon-videofill margin-lr-xs "></text>第 {{item.playnum}} 话
 										</view>
 										<view class="text-gray text-sm padding-top-sm">
-											<text class="cuIcon-videofill margin-lr-xs "></text>第 {{item.playnum}} 话
+											<text class="cuIcon-timefill margin-lr-xs "></text> 上次播放: {{item.playtime}}
 										</view>
 								</view>
 							</view>
@@ -59,7 +59,9 @@
 			return {
 				playhistory:[],
 				lastplaydata:{},
-				curday:'周四',
+				curday:'',
+				weekday:['周一','周二','周三','周四','周五','周六','周日'],
+				showhistory:false,
 			}
 		},
 		onLoad(options) {
@@ -98,13 +100,19 @@
 								res.data[i].intro = intro;
 							}
 							
-							this.playhistory = res.data;
+							let today =  new Date().getDay();
+							this.curday = this.weekday[Number(today)-1];
+							
+							this.playhistory = res.data.reverse();
 							this.lastplaydata = res.data[res.data.length-1];
+							this.showhistory=true;
 						}else{
+							this.showhistory=false;
 							commonutil.modalTap("暂无播放记录！");
 						}
 					},
 					fail: () => {
+						this.showhistory=false;
 						commonutil.modalTap("暂无播放记录！");
 					}
 				})

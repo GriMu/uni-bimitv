@@ -6,7 +6,7 @@
 				<text class="cuIcon-titles text-blue"></text> 收藏列表
 			</view>
 		</view>
-		<view class="cu-card case bg-white solid-top">
+		<view class="cu-card case bg-white solid-top" :style="{display:showlike?'':'none'}">
 			<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="lastlikedata.animateid">
 				<view class="image">
 					<image :src="lastlikedata.img" mode="scaleToFill" style="height: 414upx;"></image>
@@ -37,10 +37,10 @@
 											</view>
 										</view>
 										<view class="text-gray text-sm padding-top-sm">
-											<text class="cuIcon-timefill margin-lr-xs "></text> {{item.updatetime}}
+											<text class="cuIcon-favorfill margin-lr-xs "></text>第 {{item.playnum}} 话
 										</view>
 										<view class="text-gray text-sm padding-top-sm">
-											<text class="cuIcon-favorfill margin-lr-xs "></text>第 {{item.playnum}} 话
+											<text class="cuIcon-timefill margin-lr-xs "></text> {{item.updatetime}}
 										</view>
 								</view>
 							</view>
@@ -59,7 +59,9 @@
 			return {
 				likelist:[],
 				lastlikedata:{},
-				curday:'周四',
+				curday:'',
+				weekday:['周一','周二','周三','周四','周五','周六','周日'],
+				showlike:false,
 			}
 		},
 		onLoad(options) {
@@ -97,15 +99,19 @@
 								}
 								res.data[i].intro = intro;
 							}
-							
-							this.likelist = res.data;
+							let today =  new Date().getDay();
+							this.curday = this.weekday[Number(today)-1];
+							this.likelist = res.data.reverse();
 							this.lastlikedata = res.data[res.data.length-1];
+							this.showlike=true;
 						}else{
 							commonutil.modalTap("暂无收藏记录！");
+							this.showlike=false;
 						}
 					},
 					fail: () => {
 						commonutil.modalTap("暂无收藏记录！");
+						this.showlike=false;
 					}
 				})
 			},

@@ -173,6 +173,14 @@
 			SwitchMusic(e) {
 				this.music = e.detail.value
 			},
+			clearStorage: function () {
+				uni.clearStorageSync()
+				uni.showModal({
+					title: '清除数据成功',
+					content: ' ',
+					showCancel:false
+				})
+			}
         }
     }
 </script>

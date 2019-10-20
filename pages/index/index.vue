@@ -839,10 +839,10 @@
 					url:linkurl,
 					success:(res)=> {
 						if(res.data!=null){
-							if(res.data.status!=200){
+							/* if(res.data.status!=200){
 								commonutil.modalTap("网络异常！");
 								return false;
-							}
+							} */
 							if(res.data.restate!=null){
 								commonutil.modalTap("网络异常！");
 							}else{
