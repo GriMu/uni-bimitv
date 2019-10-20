@@ -148,7 +148,9 @@
 											let url = res.data.list[i].url;
 											let artdetailid = url.substring(url.indexOf(".tv/")+4,url.length-1);
 											res.data.list[i].artdetailid = artdetailid;
-											res.data.list[i].img = this.getrandomimg();
+											if(commonutil.istest){
+												res.data.list[i].img = this.getrandomimg();
+											}
 										}
 										
 										if(len >5){
@@ -192,7 +194,9 @@
 											let url = res.data.list[i].url;
 											let artdetailid = url.substring(url.indexOf(".tv/")+4,url.length-1);
 											res.data.list[i].artdetailid = artdetailid;
-											res.data.list[i].img = this.getrandomimg();
+											if(commonutil.istest){
+												res.data.list[i].img = this.getrandomimg();
+											}
 										}
 										
 										this.page = res.data.page;

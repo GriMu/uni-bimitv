@@ -1,6 +1,32 @@
 <template>
 	<view>
 		<cu-custom bgColor="bg-gradual-blue" :isBack="true"><block slot="backText">返回</block><block slot="content">搜索列表</block></cu-custom>
+		<view class="cu-bar search bg-white">
+			<view class="search-form round">
+				<text class="cuIcon-search"></text>
+				<input @focus="InputFocus" @blur="InputBlur" :adjust-position="false" type="text" placeholder="搜索图片、文章、视频" confirm-type="search"  @confirm="onKeyUserNameInput"></input>
+			</view>
+			<view class="action"  @tap="searchByKeyWords">
+				<button class="cu-btn bg-cyan shadow-blur round">搜索</button>
+			</view>
+		</view>
+		<view v-if="isHistory">
+			<view class="cu-bar bg-white solid-bottom">
+				<view class="action">
+					<text class="cuIcon-titles text-blue"></text> 历史记录
+				</view>
+				<view class="action" @click="clearSearch">
+					<text class="cuIcon-deletefill " ></text>
+				</view>
+			</view>
+			<view class="cu-list menu sm-border">
+				<view class="cu-item" >
+					<view class="action">
+						<view class="cu-tag round bg-orange light margin-sm" v-for="(item,index) in historyList" :key="index" v-if="historyList.length > 0">{{item.name}}</view>
+					</view>
+				</view>
+			</view>
+		</view>
 		<view class="cu-bar bg-white solid-bottom ">
 			<view class="action">
 				<text class="cuIcon-titles text-blue"></text> 搜索结果
@@ -67,18 +93,34 @@
 				firstPage:true,
 				lastPage:false,
 				keyword:'',
-				isLoad:false,
+				isLoad:true,
+				isHistory: false,
+				historyList:[],
+				InputBottom: 0,
 			}
 		},
 		onLoad(options) {
-			if(options.keyword!=null&&options.keyword!=""&&options.keyword!=undefined)
+			/* if(options.keyword!=null&&options.keyword!=""&&options.keyword!=undefined)
 			{
-				this.keyword = options.keyword;
+				this.keyword = options.keyword; */
 				this.setshareimg();
-			}
+				// this.historyList = uni.getStorageSync('searchhistory');
+				uni.getStorage({
+					key: "searchhistory",
+					success: (res) => {
+						this.historyList = res.data;
+						this.isHistory = true;
+						
+					},
+					fail: () => {
+						this.isHistory = false;
+						this.historyList =[];
+					}
+				})
+			/* }
 			else{
 				commonutil.modalTap("请输入搜索条件后查询！");
-			}
+			} */
 		},
 		onUnload() {
 			this.page = 0;
@@ -122,7 +164,7 @@
 					success:(res)=> {
 						if(res.data.res!=null&&res.data.res.vertical!=null){
 							this.wallpapers = res.data.res.vertical;
-							 this.searchByKeyWords();
+							 // this.searchByKeyWords();
 						}	
 					}
 				});
@@ -135,6 +177,7 @@
 			searchByKeyWords: function () {
 				if(this.keyword!=null&&this.keyword!=""&&this.keyword!=undefined){
 					this.loadModal = true;
+					this.setHistory(this.keyword);
 					var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/searchByKeyWord?keyword='+this.keyword);
 					setTimeout(()=>{
 						uni.request({
@@ -195,7 +238,7 @@
 											let url = res.data.list[i].url;
 											let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 											res.data.list[i].animateid = animateid;
-											res.data.list[i].img = this.getrandomimg();
+											// res.data.list[i].img = this.getrandomimg();
 										}
 										
 										this.page = res.data.page;
@@ -217,8 +260,106 @@
 			},	
 			toChild(e) {
 				uni.navigateTo({
-					url: e.currentTarget.dataset.url+'?id='+e.currentTarget.dataset.id
+					url: e.currentTarget.dataset.url+'?animateid='+e.currentTarget.dataset.id
 				})
+			},
+			clearSearch() {
+				uni.showModal({
+					title: '提示',
+					content: '是否清理全部搜索历史？该操作不可逆。',
+					success: res => {
+						if (res.confirm) {
+							this.historyList = this.removeHistory();
+							this.isHistory =false;
+						}
+					}
+				});
+			},
+			removeHistory() {
+				uni.removeStorage({
+					key: 'searchhistory',
+					success: function(res) {
+					}
+				});
+				return []
+			},
+			InputFocus(e) {
+				this.InputBottom = e.detail.height
+			},
+			InputBlur(e) {
+				this.InputBottom = 0
+			},
+			onKeyUserNameInput: function(e) {
+			    this.keyword = e.target.value  
+				let text = this.keyword;
+				if (!text) {
+					this.isHistory = true;
+					this.historyList = [];
+					this.historyList = uni.getStorageSync('searchhistory');
+					uni.showModal({
+						title: '提示',
+						content: '请输入内容。',
+						success: res => {
+							if (res.confirm) {
+							}
+						}
+					});
+					return;
+				} else {
+					this.setHistory(text);
+					/* uni.showModal({
+						title: '提示',
+						content: '您输入的内容为"${text}",如果点击确定,将记录到历史搜索,并返回.如果取消不做操作',
+						success: res => {
+							if (res.confirm) {
+								this.setHistory(text);
+								// uni.navigateBack();
+							}
+						}
+					}); */
+				}
+			},
+			
+			/**
+			 * 存储历史数据
+			 * val [string | object]需要存储的内容
+			 */
+			setHistory(val) {
+				let searchHistory = uni.getStorageSync('searchhistory');
+				if (!searchHistory) searchHistory = [];
+				let serachData = {};
+				if (typeof(val) === 'string') {
+					serachData = {
+						// adcode: [],
+						// address: [],
+						// city: [],
+						// district: [],
+						// id: [],
+						// location: [],
+						name: val,
+						// typecode: []
+					};
+				} else {
+					serachData = val
+				}
+			
+				// 判断数组是否存在，如果存在，那么将放到最前面
+				for (var i = 0; i < searchHistory.length; i++) {
+					if (searchHistory[i].name === serachData.name) {
+						searchHistory.splice(i, 1);
+						break;
+					}
+				}
+			
+				// searchHistory.unshift(util.dataHandle(serachData));
+				searchHistory.push(serachData);
+				uni.setStorage({
+					key: 'searchhistory',
+					data: searchHistory,
+					success: function() {
+						// console.log('success');
+					}
+				});
 			},
 		}
 	}

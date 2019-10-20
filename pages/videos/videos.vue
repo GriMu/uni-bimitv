@@ -189,7 +189,6 @@
 					uni.request({
 						url:linkurl,
 						success: (res) => {
-							// debugger
 							let weekdata = res.data;
 							var rdata = [];
 							if(weekdata!=null&&weekdata.length>0){
@@ -304,7 +303,9 @@
 											let url = list.url;
 											let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 											res.data.list[i].animateid = animateid;
-											res.data.list[i].img = this.getrandomimg();
+											if(commonutil.istest){
+												res.data.list[i].img = this.getrandomimg();
+											}
 										}
 										this.fanZuAnimateList = res.data.list;
 										this.page = res.data.page;
@@ -325,7 +326,6 @@
 			},
 			getfanZuAnimateListBySort()//番组计划加入分类条件
 			{
-				debugger
 				this.loadModal = true;
 				let sort = this.tablist[this.TabCur];
 				if(sort!= null&&sort != ""&&sort != undefined){
@@ -351,7 +351,9 @@
 												let url = list.url;
 												let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 												res.data.list[i].animateid = animateid;
-												res.data.list[i].img = this.getrandomimg();
+												if(commonutil.istest){
+													res.data.list[i].img = this.getrandomimg();
+												}
 											}
 											this.fanZuAnimateList = res.data.list;
 											this.page = res.data.page;
@@ -405,7 +407,9 @@
 												let url = list.url;
 												let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 												res.data.list[i].animateid = animateid;
-												res.data.list[i].img = this.getrandomimg();
+												if(commonutil.istest){
+													res.data.list[i].img = this.getrandomimg();
+												}
 											}
 											// this.fanZuAnimateList = res.data.list;
 											this.page = res.data.page;

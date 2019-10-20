@@ -100,9 +100,13 @@
 								res.data[i].intro = intro;
 							}
 							let today =  new Date().getDay();
+							if(today == 0){
+								today = 7;
+							}
 							this.curday = this.weekday[Number(today)-1];
-							this.likelist = res.data.reverse();
 							this.lastlikedata = res.data[res.data.length-1];
+							this.likelist = res.data.reverse();
+							
 							this.showlike=true;
 						}else{
 							commonutil.modalTap("暂无收藏记录！");

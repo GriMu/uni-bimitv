@@ -101,10 +101,13 @@
 							}
 							
 							let today =  new Date().getDay();
+							if(today == 0){
+								today = 7;
+							}
 							this.curday = this.weekday[Number(today)-1];
-							
-							this.playhistory = res.data.reverse();
 							this.lastplaydata = res.data[res.data.length-1];
+							this.playhistory = res.data.reverse();
+							
 							this.showhistory=true;
 						}else{
 							this.showhistory=false;

@@ -26,7 +26,7 @@
 		</view>
 		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu margin-top':'']">
 			<view class="cu-item" :class="menuArrow?'arrow':''" @tap="showModal" data-target="Modal2">
-				<button class="cu-btn content" open-type="contact">
+				<button class="cu-btn content" >
 					<text class="cuIcon-vip text-blue"></text>
 					<text class="text-grey">开通VIP会员</text>
 				</button>
@@ -35,7 +35,7 @@
 				</view>
 			</view>
 			<view class="cu-item" :class="menuArrow?'arrow':''" @tap="toChild" data-url="../historylist/historylist">
-				<button class="cu-btn content" open-type="contact">
+				<button class="cu-btn content" >
 					<text class="cuIcon-people text-blue"></text>
 					<text class="text-grey">观看历史</text>
 				</button>
@@ -44,7 +44,7 @@
 				</view>
 			</view>
 			<view class="cu-item" :class="menuArrow?'arrow':''" @tap="toChild" data-url="../likelist/likelist">
-				<button class="cu-btn content" open-type="contact">
+				<button class="cu-btn content" >
 					<text class="cuIcon-list text-blue"></text>
 					<text class="text-grey">我的看单</text>
 				</button>
@@ -53,7 +53,7 @@
 				</view>
 			</view>
 			<view class="cu-item" :class="menuArrow?'arrow':''" @tap="showModal" data-target="DialogModal1">
-				<button class="cu-btn content" open-type="contact">
+				<button class="cu-btn content" >
 					<text class="cuIcon-settings text-blue"></text>
 					<text class="text-grey">设置</text>
 				</button>

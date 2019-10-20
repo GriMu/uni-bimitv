@@ -904,6 +904,9 @@
 							}
 							this.weekData = rdata;
 							let today =  new Date().getDay();
+							if(today == 0){
+								today = 7;
+							}
 							this.curday = this.weekday[1];
 							this.wTabCur = 1;
 							this.todayData = rdata[Number(today)];
@@ -998,7 +1001,9 @@
 									}
 									res.data[i].plot = intro;
 									res.data[i].animateid = animateid;
-									res.data[i].img = this.getrandomimg();
+									if(commonutil.istest){
+										res.data[i].img = this.getrandomimg();
+									}
 								}
 								this.latestShowAnimatedata = res.data;
 								let len = res.data.length;
@@ -1224,7 +1229,9 @@
 										let url = res.data.list[i].url;
 										let artdetailid = url.substring(url.indexOf(".tv/")+4,url.length-1);
 										res.data.list[i].artdetailid = artdetailid;
-										res.data.list[i].img = this.getrandomimg();
+										if(commonutil.istest){
+											res.data.list[i].img = this.getrandomimg();
+										}
 									}
 									let totalCount = res.data.totalCount;
 									this.cuIconList[0].badge = totalCount;
@@ -1255,7 +1262,9 @@
 										let url = res.data.list[i].url;
 										let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 										res.data.list[i].animateid = animateid;
-										res.data.list[i].img = this.getrandomimg();
+										if(commonutil.istest){
+											res.data.list[i].img = this.getrandomimg();
+										}
 									}
 									this.yearAnimateList = res.data.list;
 								}
@@ -1281,7 +1290,9 @@
 										let url = res.data.list[i].url;
 										let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 										res.data.list[i].animateid = animateid;
-										res.data.list[i].img = this.getrandomimg();
+										if(commonutil.istest){
+											res.data.list[i].img = this.getrandomimg();
+										}
 									}
 									if(len >10){
 										len =10;
@@ -1315,7 +1326,9 @@
 										let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 										res.data.list[i].name = name;
 										res.data.list[i].animateid = animateid;
-										res.data.list[i].img = this.getrandomimg();
+										if(commonutil.istest){
+											res.data.list[i].img = this.getrandomimg();
+										}
 									}
 									res.data.year =  year+ "年剧场动画";
 									let cyear = Number(new Date().getFullYear());
@@ -1408,7 +1421,6 @@
 				return array.slice(beginNum,endNum);
 			},	
 			toChild(e) {
-				debugger
 				let url = e.currentTarget.dataset.url;
 				let uri = "";
 				if(url!=null&&url!=""&&url!=undefined){

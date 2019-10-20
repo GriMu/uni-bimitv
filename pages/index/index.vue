@@ -3,9 +3,9 @@
 		<cu-custom bgColor="bg-gradual-blue" :isBack="false"><block slot="backText"></block><block slot="content">首页</block></cu-custom>
 		<view class="box">
 			<view class="cu-bar search bg-white solid-bottom ">
-				<view class="search-form round">
-					<text class="cuIcon-search" @tap="toChild" data-url="../searchlist/searchlist"></text>
-					<input @focus="InputFocus" @blur="InputBlur" :adjust-position="false" type="text" placeholder="请输入片名,主演或导演" confirm-type="search" @input="onKeyUserNameInput"></input>
+				<view class="search-form round" @tap="SearchInput" data-url="../searchlist/searchlist">
+					<text class="cuIcon-search"></text>
+					<input :adjust-position="false" type="text" placeholder="请输入片名,主演或导演" confirm-type="search" ></input>
 				</view>
 				<!-- <view class="action" @tap="searchByKeyWords">
 					<button class="cu-btn bg-orange shadow-blur round">搜索</button>
@@ -73,7 +73,7 @@
 		</view>
 		<view class="cu-bar bg-white solid-bottom margin-top">
 			<view class="action">
-				<text class="cuIcon-titles text-blue"></text> 热漫精选等你来Pick
+				<text class="cuIcon-titles text-blue"></text> 今日热播
 			</view>
 		</view>
 		<view class="cu-card case bg-white">
@@ -94,7 +94,7 @@
 		</view>
 		<view class="cu-bar bg-white solid-bottom margin-top">
 			<view class="action">
-				<text class="cuIcon-titles text-blue"></text> 热剧追追追，空调wifi和好剧更配哦
+				<text class="cuIcon-titles text-blue"></text> 热漫精选等你来pick
 			</view>
 		</view>
 		<view class="cu-card case bg-white">
@@ -115,7 +115,7 @@
 		</view>
 		<view class="cu-bar bg-white solid-bottom margin-top">
 			<view class="action">
-				<text class="cuIcon-titles text-blue"></text> 防御利奇马，追剧不出门
+				<text class="cuIcon-titles text-blue"></text> 新番时间表
 			</view>
 		</view>
 		<view class="cu-card case bg-white padding-bottom">
@@ -172,11 +172,11 @@
 			</view>
 		</view>
 		<view class="cu-card case bg-white padding-bottom">
-			<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="todayhot.animateid">
+			<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="newAnimatedata_hot.animateid">
 				<view class="image">
-					<image :src="todayhot.img" mode="scaleToFill" style="height: 414upx;"></image>
-					<view class="cu-tag bg-blue">{{todayhot.name}}</view>
-					<view class="cu-bar bg-shadeBottom"> <text class="text-cut">{{todayhot.updateDate}}</text></view>
+					<image :src="newAnimatedata_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
+					<view class="cu-tag bg-blue">{{newAnimatedata_hot.title}}</view>
+					<view class="cu-bar bg-shadeBottom"> <text class="text-cut">{{newAnimatedata_hot.number}}</text></view>
 				</view>
 			</view>
 		</view>
@@ -219,11 +219,11 @@
 			</view>
 		</view>
 		<view class="cu-card case bg-white padding-bottom">
-			<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="todayhot.animateid">
+			<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="chinaAnimatedata_hot.animateid">
 				<view class="image">
-					<image :src="todayhot.img" mode="scaleToFill" style="height: 414upx;"></image>
-					<view class="cu-tag bg-blue">{{todayhot.name}}</view>
-					<view class="cu-bar bg-shadeBottom"> <text class="text-cut">{{todayhot.updateDate}}</text></view>
+					<image :src="chinaAnimatedata_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
+					<view class="cu-tag bg-blue">{{chinaAnimatedata_hot.title}}</view>
+					<view class="cu-bar bg-shadeBottom"> <text class="text-cut">{{chinaAnimatedata_hot.number}}</text></view>
 				</view>
 			</view>
 		</view>
@@ -266,11 +266,11 @@
 			</view>
 		</view>
 		<view class="cu-card case bg-white padding-bottom">
-			<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="todayhot.animateid">
+			<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="animatePlandata_hot.animateid">
 				<view class="image">
-					<image :src="todayhot.img" mode="scaleToFill" style="height: 414upx;"></image>
-					<view class="cu-tag bg-blue">{{todayhot.name}}</view>
-					<view class="cu-bar bg-shadeBottom"> <text class="text-cut">{{todayhot.updateDate}}</text></view>
+					<image :src="animatePlandata_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
+					<view class="cu-tag bg-blue">{{animatePlandata_hot.title}}</view>
+					<view class="cu-bar bg-shadeBottom"> <text class="text-cut">{{animatePlandata_hot.number}}</text></view>
 				</view>
 			</view>
 		</view>
@@ -313,11 +313,11 @@
 			</view>
 		</view>
 		<view class="cu-card case bg-white padding-bottom">
-			<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="todayhot.animateid">
+			<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="animateMoviedata_hot.animateid">
 				<view class="image">
-					<image :src="todayhot.img" mode="scaleToFill" style="height: 414upx;"></image>
-					<view class="cu-tag bg-blue">{{todayhot.name}}</view>
-					<view class="cu-bar bg-shadeBottom"> <text class="text-cut">{{todayhot.updateDate}}</text></view>
+					<image :src="animateMoviedata_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
+					<view class="cu-tag bg-blue">{{animateMoviedata_hot.title}}</view>
+					<view class="cu-bar bg-shadeBottom"> <text class="text-cut">{{animateMoviedata_hot.info}}</text></view>
 				</view>
 			</view>
 		</view>
@@ -342,7 +342,7 @@
 									<view class="desc">
 										<!-- <view class="text-content margin-top-xs">{{item.intro}}</view> -->
 										<view class="text-gray text-sm text-left padding">
-											<text class="cuIcon-timefill margin-lr-xs "></text> {{item.number}}
+											<text class="cuIcon-infofill margin-lr-xs "></text> {{item.info}}
 											<!-- <text class="cuIcon-likefill margin-lr-xs padding-left"></text> {{item.followCount}} -->
 										</view>
 									</view>
@@ -360,11 +360,11 @@
 			</view>
 		</view>
 		<view class="cu-card case bg-white padding-bottom">
-			<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="todayhot.animateid">
+			<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="Moviesdata_hot.animateid">
 				<view class="image">
-					<image :src="todayhot.img" mode="scaleToFill" style="height: 414upx;"></image>
-					<view class="cu-tag bg-blue">{{todayhot.name}}</view>
-					<view class="cu-bar bg-shadeBottom"> <text class="text-cut">{{todayhot.updateDate}}</text></view>
+					<image :src="Moviesdata_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
+					<view class="cu-tag bg-blue">{{Moviesdata_hot.title}}</view>
+					<view class="cu-bar bg-shadeBottom"> <text class="text-cut">{{Moviesdata_hot.info}}</text></view>
 				</view>
 			</view>
 		</view>
@@ -389,7 +389,7 @@
 									<view class="desc">
 										<!-- <view class="text-content margin-top-xs">{{item.intro}}</view> -->
 										<view class="text-gray text-sm text-left padding">
-											<text class="cuIcon-timefill margin-lr-xs "></text> {{item.number}}
+											<text class="cuIcon-infofill margin-lr-xs "></text> {{item.info}}
 											<!-- <text class="cuIcon-likefill margin-lr-xs padding-left"></text> {{item.followCount}} -->
 										</view>
 									</view>
@@ -500,6 +500,12 @@
 				animateMoviedata:[],
 				Moviesdata:[],
 				keyword:'',
+				newAnimatedata_hot:{},
+				chinaAnimatedata_hot:{},
+				animatePlandata_hot:{},
+				animateMoviedata_hot:{},
+				Moviesdata_hot:{},
+				InputBottom: 0,
 				// bimi数据结束
 			};
 		},
@@ -623,6 +629,9 @@
 							this.weekData = rdata;
 							this.todayData = rdata[1];
 							let today =  new Date().getDay();
+							if(today == 0){
+								today = 6;
+							}
 							this.todayhot = rdata[Number(today)][0];
 							
 						}
@@ -708,7 +717,6 @@
 									}
 								}
 							}
-							// debugger
 							this.partHot = rdata;
 						}
 						else
@@ -850,7 +858,9 @@
 									let url = res.data[i].url;
 									let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 									res.data[i].animateid = animateid;
-									res.data[i].img = this.getrandomimg();
+									if(commonutil.istest){
+										res.data[i].img = this.getrandomimg();
+									}
 								}
 								this.carouseldata = res.data;
 							}
@@ -872,7 +882,9 @@
 									let url = res.data[i].url;
 									let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 									res.data[i].animateid = animateid;
-									res.data[i].img = this.getrandomimg();
+									if(commonutil.istest){
+										res.data[i].img = this.getrandomimg();
+									}
 								}
 								this.sliderRecomdata = res.data;
 							}
@@ -894,7 +906,9 @@
 									let url = res.data[i].url;
 									let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 									res.data[i].animateid = animateid;
-									res.data[i].img = this.getrandomimg();
+									if(commonutil.istest){
+										res.data[i].img = this.getrandomimg();
+									}
 								}
 								this.todayHotdata = res.data;
 							}
@@ -916,7 +930,9 @@
 									let url = res.data[i].url;
 									let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 									res.data[i].animateid = animateid;
-									res.data[i].img = this.getrandomimg();
+									// if(commonutil.istest){
+										res.data[i].img = this.getrandomimg();
+									// }
 								}
 								this.monthRankdata = res.data;
 							}
@@ -944,12 +960,17 @@
 												let url = listofday.url;
 												let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 												res.data[i].list[j].animateid = animateid;
-												res.data[i].list[j].img = this.getrandomimg();
+												if(commonutil.istest){
+													res.data[i].list[j].img = this.getrandomimg();
+												}
 											}
 										}
 									}
 								}
 								let today =  new Date().getDay();
+								if(today == 0){
+									today = 7;
+								}
 								this.todayofweek = res.data[Number(today)-1].list;
 								this.wTabCur = (Number(today)-1);
 								this.weekUpdatedata = res.data;
@@ -973,9 +994,12 @@
 									let url = res.data[i].url;
 									let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 									res.data[i].animateid = animateid;
-									res.data[i].img = this.getrandomimg();
+									if(commonutil.istest){
+										res.data[i].img = this.getrandomimg();
+									}
 								}
 								this.newAnimatedata = res.data;
+								this.newAnimatedata_hot = res.data[0];
 							}
 						}
 					}
@@ -995,9 +1019,12 @@
 									let url = res.data[i].url;
 									let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 									res.data[i].animateid = animateid;
-									res.data[i].img = this.getrandomimg();
+									if(commonutil.istest){
+										res.data[i].img = this.getrandomimg();
+									}
 								}
 								this.chinaAnimatedata = res.data;
+								this.chinaAnimatedata_hot = res.data[0];
 							}
 						}
 					}
@@ -1017,9 +1044,12 @@
 									let url = res.data[i].url;
 									let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 									res.data[i].animateid = animateid;
-									res.data[i].img = this.getrandomimg();
+									if(commonutil.istest){
+										res.data[i].img = this.getrandomimg();
+									}
 								}
 								this.animatePlandata = res.data;
+								this.animatePlandata_hot = res.data[0];
 							}
 						}
 					}
@@ -1039,9 +1069,12 @@
 									let url = res.data[i].url;
 									let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 									res.data[i].animateid = animateid;
-									res.data[i].img = this.getrandomimg();
+									if(commonutil.istest){
+										res.data[i].img = this.getrandomimg();
+									}
 								}
 								this.animateMoviedata = res.data;
+								this.animateMoviedata_hot = res.data[0];
 							}
 						}
 					}
@@ -1061,9 +1094,12 @@
 									let url = res.data[i].url;
 									let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 									res.data[i].animateid = animateid;
-									res.data[i].img = this.getrandomimg();
+									if(commonutil.istest){
+										res.data[i].img = this.getrandomimg();
+									}
 								}
 								this.Moviesdata = res.data;
+								this.Moviesdata_hot = res.data[0];
 							}
 						}
 					}
@@ -1154,9 +1190,8 @@
 				this.monthRankdata = this.monthRankdata
 			},
 			toChild(e) {
-				debugger
-				let url = e.currentTarget.dataset.url;
 				let uri = "";
+				let url = e.currentTarget.dataset.url;
 				if(url!=null&&url!=""&&url!=undefined){
 					if(url.indexOf("searchlist")!=-1){
 						if(this.keyword!=null&&this.keyword!=""&&this.keyword!=undefined)
@@ -1173,6 +1208,11 @@
 				uni.navigateTo({
 					url: e.currentTarget.dataset.url+uri
 				})
+			},
+			SearchInput(e) {
+				uni.navigateTo({
+					url: '../searchlist/searchlist'
+				});
 			},
 			// bimiAPI结束	
 		}

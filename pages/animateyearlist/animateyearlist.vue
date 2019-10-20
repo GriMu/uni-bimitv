@@ -474,7 +474,7 @@
 												let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 												res.data.list[i].icon = "../../static/img/grey.png";
 												res.data.list[i].animateid = animateid;
-												res.data.list[i].img = this.getrandomimg();
+												// res.data.list[i].img = this.getrandomimg();
 											}
 											
 											this.page = res.data.page;
@@ -547,7 +547,7 @@
 												let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 												res.data.list[i].icon = "../../static/img/grey.png";
 												res.data.list[i].animateid = animateid;
-												res.data.list[i].img = this.getrandomimg();
+												// res.data.list[i].img = this.getrandomimg();
 											}
 											
 											this.page = res.data.page;

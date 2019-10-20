@@ -162,9 +162,10 @@
 			<view class="cu-item" >
 				<scroll-view scroll-x class="nav" scroll-with-animation :scroll-left="scrollLeft">
 					<view class="cu-item"  v-for="(item,index) in playdatas" :key="index" @tap="tabSelect" :data-id="index">
-						<view class="cu-avatar radius lg" :class="index==TabCur?'bg-gray text-orange':'bg-black'" style="width: 70upx;height: 70upx;">
+						<view class="cu-avatar radius lg" :class="index==TabCur?'bg-gray text-orange':'bg-black'" style="width: 70upx;height: 70upx;" v-if="!item.ismovie">
 							<text>{{item.playnum}}</text>
 						</view>
+						<view class="cu-tag radius lg light " :class="index==TabCur?'bg-gray text-orange':'bg-black'" v-else><text>{{item.playnum}}</text></view>
 					</view>
 				</scroll-view>
 			</view>
@@ -188,7 +189,7 @@
 					<text class="text-white margin-right-xs text-bold">你可能喜欢</text>
 				</view>
 			</view>
-			<view class="cu-item shadow  animation-slide-left margin-top"  v-for="(item,index) in recommendlist" :key="index" :style="[{animationDelay: (index*0.1 + 1)*0.2 + 's'}]">
+			<view class="cu-item shadow  animation-slide-left margin-top"  v-for="(item,index) in recommendlist" :key="index" :style="[{animationDelay: (index*0.1 + 1)*0.2 + 's'}]" @tap="toChild" data-url="../plays/plays" :data-id="item.animateid">
 				<!-- <view class="cu-item bg-mask">
 					<video style="width: 100%;height: 422upx;"  src="https://dl101.yunpan.360.cn/intf.php?method=Download.downloadFile&qid=406220710&fname=/番组计划/18番组计划/8月番组/JOJO的奇妙冒险星尘十字军/01.mp4&fhash=4f9a60b9f5b0ead67c7e6b37b9b22ebe07651f3d&dt=101_.7bc9981413e643f1af28af94c9fac89f&v=1.0.1&rtick=15705005072841&open_app_id=0&host=dl101.yunpan.360.cn&devtype=ecs_web&sign=08df64fc0e42fc378efaf6629ed3b968&token=794751934.7.7c63e81a.406220710.15268730652402196.1570499655"
 					 @error="videoErrorCallback" :danmu-list="danmuList" enable-danmu danmu-btn controls :poster="wallpapers[0].thumb" objectFit="cover"></video>
@@ -328,7 +329,6 @@
 					uni.request({
 						url:linkurl,
 						success: (res) => {
-							// debugger
 							let weekdata = res.data;
 							var rdata = [];
 							if(weekdata!=null&&weekdata.length>0){
@@ -404,14 +404,13 @@
 					// url:'http://wallpaper.apc.360.cn/index.php?c=WallPaper&a=search&kw=%E9%A3%8E%E6%99%AF&start=0&count=99',
 					url:linkurl,
 					success:(res)=> {
-						debugger
 						// var index = Math.floor(Math.random()*99);
 						// this.shareimg= res.data.data[index].thumb;
 						if(res.data.res!=null&&res.data.res.vertical!=null){
 							this.wallpapers = res.data.res.vertical;
 							// this.getWeekData();
 							this.getVideoInfo();
-							this.getVideo();
+							// this.getVideo();
 						}	
 					}
 				});
@@ -532,10 +531,17 @@
 											let playnum = playarray[j].playnum;
 											if(playnum.indexOf("第")!=-1){
 												playarray[j].playnum = playnum.substring(playnum.indexOf("第")+1,playnum.indexOf("话"));
+												playarray[j].ismovie = false;
 											}
-											else if(playnum.indexOf("OAD")!=-1){
+											else{
+												playarray[j].ismovie = true;
+											}	
+											/* else if(playnum.indexOf("OAD")!=-1){
 												playarray[j].playnum = playnum.substring(playnum.indexOf("OAD")+3,playnum.length);
 											}
+											else{
+												playarray[j].playnum = playnum.substring(0,1);
+											} */
 										}
 									}
 								}
@@ -543,7 +549,13 @@
 								this.playdatas = res.data.playlist[0];
 								if(res.data.recommendlist!=null&&res.data.recommendlist!=""&&res.data.recommendlist!=undefined){
 									for (var i = 0; i < res.data.recommendlist.length; i++) {
-										res.data.recommendlist[i].img = this.getrandomimg();
+										// res.data.recommendlist[i].img = this.getrandomimg();
+										let url = res.data.recommendlist[i].url;
+										let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+										res.data.recommendlist[i].animateid = animateid;
+										if(commonutil.istest){
+											res.data.recommendlist[i].img = this.getrandomimg();
+										}
 									}
 								}
 								this.recommendlist = res.data.recommendlist;
@@ -720,6 +732,11 @@
 						}
 					})
 				}
+			},
+			toChild(e) {
+				uni.navigateTo({
+					url: e.currentTarget.dataset.url+'?animateid='+e.currentTarget.dataset.id
+				})
 			},
 		}
 	}
