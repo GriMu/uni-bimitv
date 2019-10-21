@@ -403,8 +403,8 @@
 		<!--弹窗-->
 		<view class="cu-modal" :class="modalName=='Modal'?'show':''">
 			<view class="cu-dialog">
-				<view class="cu-bar bg-gradual-orange justify-end">
-					<view class="content">{{modaltitle}}</view>
+				<view class="cu-bar bg-blue light justify-end">
+					<view class="content text-orange">{{modaltitle}}</view>
 					<view class="action" @tap="hideModal">
 						<text class="cuIcon-close text-red"></text>
 					</view>
@@ -424,7 +424,7 @@
 	export default {
 		data() {
 			return {
-				recom:[{//推荐
+				/* recom:[{//推荐
 					id: 0,
 					type: 'image',
 					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
@@ -459,7 +459,7 @@
 					type: 'image',
 					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
 					name:'光辉'
-				}],
+				}], */
 				scrollLeft: 0,
 				dotStyle: true,
 				TabCur: 0,
@@ -468,17 +468,17 @@
 				modalName: null,
 				modaltitle:'',
 				message:'',
-				recentHot:[],//最近热门
-				partHot:[],//季度热门
-				weekData:[],//一周更新
-				tagData:[],//标签
-				yearGroup:[],//年度
-				randomData:[],//自由推荐
-				lastUpdate:[],//最近更新
-				subjectData:[],//系列主题
-				lastPartUpdate:[],//上周更新
+				// recentHot:[],//最近热门
+				// partHot:[],//季度热门
+				// weekData:[],//一周更新
+				// tagData:[],//标签
+				// yearGroup:[],//年度
+				// randomData:[],//自由推荐
+				// lastUpdate:[],//最近更新
+				// subjectData:[],//系列主题
+				// lastPartUpdate:[],//上周更新
 				wallpapers:[],
-				isLoad:true,
+				isLoad:false,
 				weekday:['周一','周二','周三','周四','周五','周六','周日'],
 				wTabCur: 0,
 				wscrollLeft: 0,
@@ -525,7 +525,7 @@
 					url: '../plays/plays?animateid='+animateid
 				})
 			},
-			InputFocus(e) {
+			/*InputFocus(e) {
 				this.InputBottom = e.detail.height
 			},
 			InputBlur(e) {
@@ -534,7 +534,7 @@
 			onKeyUserNameInput: function(event) {
 			    this.keyword = event.target.value  
 			},
-			getRecomData: function() {
+			 getRecomData: function() {
 				var url = 'api/b/animation/recommend';
 				var linkurl = commonutil.getUri(commonutil.testurl,url);
 				uni.request({
@@ -767,7 +767,7 @@
 						
 					}
 				})
-			},	
+			}, */	
 			setshareimg()
 			{
 				// http://service.picasso.adesk.com/v1/vertical/category/4e4d610cdf714d2966000002/vertical?limit=40&adult=false&first=1&order=new
@@ -796,11 +796,12 @@
 							this.getanimatePlan();
 							this.getanimateMovie();
 							this.getMovies();
+							this.isLoad = true;
 						}
 					}
 				});
 			},
-			weekDaySelect_back: function(e) {
+			/* weekDaySelect_back: function(e) {
 				if(this.weekData==null||this.weekData.length<=0){
 					this.modalName="Modal";
 					this.modaltitle ="Warn";
@@ -835,7 +836,7 @@
 					default:
 						break;
 				}
-			},	
+			}, */	
 			hideModal(e) {
 				this.modalName = null
 			},

@@ -24,11 +24,11 @@
 			},
 			fix: {
 				type: Boolean,
-				value: false
+				value: true
 			},
 			fullscreen: {
 				type: Boolean,
-				value: false
+				value: true
 			},
 			custom: {
 				type: Boolean,

@@ -2,7 +2,7 @@
 var apiurl = 'http://chengzc.club:3000';
 var imgurl = 'http://service.picasso.adesk.com/';
 var testurl = 'http://www.youxihenshao.com/';
-var istest = false;
+var istest = true;
 
 function formateDate(sj)
 {

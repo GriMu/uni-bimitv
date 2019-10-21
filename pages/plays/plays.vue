@@ -228,15 +228,26 @@
 		</view>	
 		<!--加载中-->
 		<spinbox fix v-if="loadModal" :themeColor="themeColor"></spinbox>
+		<!--悬浮按钮 -->
+		<uni-fab
+			:pattern="pattern"
+			:content="content"
+			:horizontal="horizontal"
+			:vertical="vertical"
+			:direction="direction"
+			@trigger="trigger"
+		 v-if="isshowtab"></uni-fab>
 	</view>
 </template>
 
 <script>
 	import commonutil from '../../common/util.js';
 	import spinbox from '../../components/spin-box.vue';
+	import uniFab from '../../components/uni-fab.vue';
 	export default {
 		components: {
-			spinbox
+			spinbox,
+			uniFab,
 		},
 		data() {
 			return {
@@ -283,6 +294,44 @@
 				playdatas:[],
 				ColorList: this.ColorList,
 				islike:false,
+				isshowtab:false,
+				//悬浮按钮
+				directionStr: '水平',
+				horizontal: 'right',
+				vertical: 'bottom',
+				direction: 'vertical',
+				pattern: {
+					color: '#7A7E83',
+					backgroundColor: '#fff',
+					selectedColor: '#007AFF',
+					buttonColor: '#7A7E83'
+				},
+				content: [
+					{
+						iconPath: '../../static/img/home.png',
+						selectedIconPath: '../../static/img/homeHL.png',
+						text: 'Home',
+						active: false
+					},
+					{
+						iconPath: '../../static/img/videos.png',
+						selectedIconPath: '../../static/img/videosHL.png',
+						text: 'Video',
+						active: false
+					},
+					{
+						iconPath: '../../static/img/channel.png',
+						selectedIconPath: '../../static/img/channelHL.png',
+						text: 'Sort',
+						active: false
+					},
+					{
+						iconPath: '../../static/img/user.png',
+						selectedIconPath: '../../static/img/userHL.png',
+						text: 'My',
+						active: false
+					},
+				],
 			};
 		},
 		onReady: function(res) {
@@ -321,7 +370,7 @@
 				this.TabCur = e.currentTarget.dataset.id;
 				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
 			},
-			getWeekData: function() {
+			/* getWeekData: function() {
 				this.loadModal = true;
 				var url = 'api/b/animation/recent?isWeek=true';
 				var linkurl = commonutil.getUri(commonutil.testurl,url);
@@ -396,7 +445,7 @@
 						}
 					})
 				}, 1000)	
-			},
+			}, */
 			setshareimg()
 			{
 				var linkurl = commonutil.getUri(commonutil.imgurl,'v1/vertical/category/4e4d610cdf714d2966000002/vertical?limit=40&adult=false&first=1&order=new');
@@ -738,6 +787,49 @@
 					url: e.currentTarget.dataset.url+'?animateid='+e.currentTarget.dataset.id
 				})
 			},
+			trigger(e) {
+				var that = this;
+				this.content[e.index].active = !e.item.active;
+				for (let i =0;i<this.content.length;i++) {
+					if(i!=e.index)
+					{
+						this.content[i].active = false;
+					}
+				}
+				var message = {};
+				switch (e.index){
+					case 0:
+						uni.switchTab({
+						    url: '/pages/index/index'
+						});
+						break;
+					case 1:
+						uni.switchTab({
+						    url: '/pages/videos/videos'
+						});
+						break;
+					case 2:
+						uni.switchTab({
+							url: '/pages/channel/channel'
+						});
+						break;
+					case 3:
+						uni.switchTab({
+						    url: '/pages/user/user'
+						});
+						break;			
+					default:
+						break;
+				}
+			},
+			onPageScroll(e) {
+				if(e.scrollTop>this.screenHeight){
+					this.isshowtab = true;
+				}
+				else{
+					this.isshowtab = false;
+				}
+			},	
 		}
 	}
 </script>

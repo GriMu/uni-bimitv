@@ -44,8 +44,8 @@
 		<!--弹窗-->
 		<view class="cu-modal" :class="modalName=='Modal'?'show':''">
 			<view class="cu-dialog">
-				<view class="cu-bar bg-orange justify-end">
-					<view class="content">{{modaltitle}}</view>
+				<view class="cu-bar bg-blue light justify-end">
+					<view class="content text-orange">{{modaltitle}}</view>
 					<view class="action" @tap="hideModal">
 						<text class="cuIcon-close text-red"></text>
 					</view>
@@ -59,22 +59,33 @@
 		<spinbox fix v-if="loadModal" :themeColor="themeColor"></spinbox>
 		<!--下拉加载 -->
 		<view class="cu-load" :class="!isLoad?'loading':'over'"></view>
+		<!--悬浮按钮 -->
+		<uni-fab
+			:pattern="pattern"
+			:content="content"
+			:horizontal="horizontal"
+			:vertical="vertical"
+			:direction="direction"
+			@trigger="trigger"
+		 v-if="isshowtab"></uni-fab>
 	</view>
 </template>
 
 <script>
 	import commonutil from '../../common/util.js';
 	import spinbox from '../../components/spin-box.vue';
+	import uniFab from '../../components/uni-fab.vue';
 	export default {
 		components: {
-			spinbox
+			spinbox,
+			uniFab,
 		},
 		data() {
 			return {
 				tablist:['全部','热血','冒险','搞笑','运动','竞技','装逼','剧情','青春','后宫','校园','励志','恋爱','百合','耽美','战斗','机战','科幻','萝莉','奇幻','魔法','动画','治愈','美食','萌系','偶像','泡面','漫改','轻改','催泪','日常','少儿','少女','社团','推理','乙女','其他'],
 				TabCur: 0,
 				scrollLeft: 0,
-				isLoad:true,
+				isLoad:false,//false :正在加载 true:加载完成
 				weekData:[],//一周更新
 				wallpapers:[],
 				themeColor: '#0081ff',
@@ -90,6 +101,32 @@
 				totalPage:0,
 				firstPage:true,
 				lastPage:false,
+				//悬浮按钮
+				directionStr: '水平',
+				horizontal: 'right',
+				vertical: 'bottom',
+				direction: 'vertical',
+				pattern: {
+					color: '#7A7E83',
+					backgroundColor: '#fff',
+					selectedColor: '#007AFF',
+					buttonColor: '#7A7E83'
+				},
+				content: [
+					{
+						iconPath: '../../static/img/top.png',
+						selectedIconPath: '../../static/img/topHL.png',
+						text: 'Top',
+						active: false
+					},
+					/* {
+						iconPath: '../../static/img/home.png',
+						selectedIconPath: '../../static/img/homeHL.png',
+						text: 'Home',
+						active: false
+					}, */
+				],
+				isshowtab:false,
 				// bimi数据结束
 			}
 		},
@@ -181,7 +218,7 @@
 				this.lastPage = false;
 				this.getfanZuAnimateListBySort();
 			},
-			getWeekData: function() {
+			/* getWeekData: function() {
 				this.loadModal = true;
 				var url = 'api/b/animation/recent?isWeek=true';
 				var linkurl = commonutil.getUri(commonutil.testurl,url);
@@ -255,7 +292,7 @@
 						}
 					})
 				}, 1000)	
-			},
+			}, */
 			setshareimg()
 			{
 				var linkurl = commonutil.getUri(commonutil.imgurl,'v1/vertical/category/4e4d610cdf714d2966000002/vertical?limit=40&adult=false&first=1&order=new');
@@ -441,6 +478,46 @@
 				let avatar= this.wallpapers[index].thumb;
 				return avatar;
 			},
+			trigger(e) {
+				console.log(e);
+				var that = this;
+				this.content[e.index].active = !e.item.active;
+				for (let i =0;i<this.content.length;i++) {
+					if(i!=e.index)
+					{
+						this.content[i].active = false;
+					}
+				}
+				var message = {};
+				switch (e.index){
+					case 0:
+						uni.pageScrollTo({
+						scrollTop: 0,
+						duration: 300
+						});
+						this.isshowtab =false;
+						break;
+					case 1:
+						uni.switchTab({
+						    url: '/pages/index/index'
+						});
+						break;
+					case 2:
+						break;
+					case 3:
+						break;			
+					default:
+						break;
+				}
+			},
+			onPageScroll(e) {
+				if(e.scrollTop>this.screenHeight){
+					this.isshowtab = true;
+				}
+				else{
+					this.isshowtab = false;
+				}
+			},	
 			// bimiAPI结束
 		}
 	}

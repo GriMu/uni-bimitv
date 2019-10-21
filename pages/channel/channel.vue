@@ -441,8 +441,8 @@
 		<!--弹窗-->
 		<view class="cu-modal" :class="modalName=='Modal'?'show':''">
 			<view class="cu-dialog">
-				<view class="cu-bar bg-gradual-orange justify-end">
-					<view class="content">{{modaltitle}}</view>
+				<view class="cu-bar bg-blue light justify-end">
+					<view class="content text-orange">{{modaltitle}}</view>
 					<view class="action" @tap="hideModal">
 						<text class="cuIcon-close text-red"></text>
 					</view>
@@ -464,12 +464,12 @@
 			return {
 				TabCur: 0,
 				scrollLeft: 0,
-				tablist:['电视剧','综艺','电影','动漫'],
-				catsData:['偶像爱情','玄幻史诗','全部分类'],
+				// tablist:['电视剧','综艺','电影','动漫'],
+				// catsData:['偶像爱情','玄幻史诗','全部分类'],
 				curtagindex:-1,
 				isCard:false,
 				dotStyle: true,
-				recom:[{
+				/* recom:[{
 					id: 0,
 					type: 'image',
 					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
@@ -504,7 +504,7 @@
 					type: 'image',
 					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
 					name:'光辉'
-				}],
+				}], */
 				recentHot:[],//最近热门
 				lastPartUpdate:[],//上周更新
 				yearGroup:[],//年度
@@ -517,7 +517,7 @@
 				modalName: null,
 				modaltitle:'',
 				message:'',
-				isLoad:true,
+				isLoad:false,
 				todayhot:{},
 				weekday:['昨日','今日','明日'],
 				wTabCur: 0,
@@ -642,7 +642,7 @@
 					url: '../plays/plays?animateid='+animateid
 				})
 			},
-			getRecomData: function() {
+			/* getRecomData: function() {
 				var url = 'api/b/animation/recommend';
 				var linkurl = commonutil.getUri(commonutil.testurl,url);
 				uni.request({
@@ -771,7 +771,7 @@
 						
 					}
 				})
-			},
+			}, */
 			setshareimg()
 			{
 				var linkurl = commonutil.getUri(commonutil.imgurl,'v1/vertical/category/4e4d610cdf714d2966000002/vertical?limit=40&adult=false&first=1&order=new');
@@ -792,6 +792,7 @@
 							this.getyearAnimateList();
 							this.getguoManAnimateList();
 							this.getjuChangAnimateListOnTime();
+							this.isLoad = true;
 						}
 					}
 				});
@@ -830,7 +831,7 @@
 					}
 				}
 			},
-			getWeekData: function() {
+			/* getWeekData: function() {
 				var url = 'api/b/animation/recent?isWeek=true';
 				var linkurl = commonutil.getUri(commonutil.testurl,url);
 				uni.request({
@@ -970,7 +971,7 @@
 					default:
 						break;
 				}
-			},
+			}, */
 			hideModal(e) {
 				this.modalName = null
 			},

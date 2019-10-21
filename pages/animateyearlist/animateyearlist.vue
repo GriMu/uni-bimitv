@@ -188,8 +188,8 @@
 		<!--弹窗-->
 		<view class="cu-modal" :class="modalName=='Modal'?'show':''">
 			<view class="cu-dialog">
-				<view class="cu-bar bg-gradual-orange justify-end">
-					<view class="content">{{modaltitle}}</view>
+				<view class="cu-bar bg-blue light justify-end">
+					<view class="content text-orange">{{modaltitle}}</view>
 					<view class="action" @tap="hideModal">
 						<text class="cuIcon-close text-red"></text>
 					</view>
@@ -382,9 +382,9 @@
 					if(this.pagetype == "1"){
 						pageuri = '/bimianimate/yearAnimateList';
 					}else if(this.pagetype == "2"){
-						pageuri = '/bimianimate/guoManAnimateList';
-					}else if(this.pagetype == "3"){
 						pageuri = '/bimianimate/fanZuAnimateList';
+					}else if(this.pagetype == "3"){
+						pageuri = '/bimianimate/guoManAnimateList';
 					}else if(this.pagetype == "4"){
 						pageuri = '/bimianimate/juChangAnimateList';
 					}else if(this.pagetype == "5"){
@@ -406,7 +406,16 @@
 												let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 												res.data.list[i].icon = "../../static/img/grey.png";
 												res.data.list[i].animateid = animateid;
-												res.data.list[i].img = this.getrandomimg();
+												let comments = Math.floor((Math.random()*99))
+												let likes = Math.floor((Math.random()*comments)+comments);//喜欢
+												let views = Math.floor((Math.random()*likes)+likes);//查看
+												res.data.list[i].likes=likes;
+												res.data.list[i].views=views;
+												res.data.list[i].comments = comments;
+												
+												if(commonutil.istest){
+													res.data.list[i].img = this.getrandomimg();
+												}
 											}
 											this.page = res.data.page;
 											this.pageSize = res.data.pageSize;
@@ -417,9 +426,9 @@
 											if(this.pagetype == "1"){
 												this.yearAnimateList = res.data.list;
 											}else if(this.pagetype == "2"){
-												this.guoManAnimateList = res.data.list;
+												this.fanZuAnimateList  = res.data.list;
 											}else if(this.pagetype == "3"){
-												this.fanZuAnimateList = res.data.list;
+												this.guoManAnimateList= res.data.list;
 											}else if(this.pagetype == "4"){
 												this.juChangAnimateList = res.data.list;
 											}else if(this.pagetype == "5"){
@@ -449,9 +458,9 @@
 					if(this.pagetype == "1"){
 						pageuri = '/bimianimate/yearAnimateList?&sort='+this.selecttype+'&year='+this.selectyear+'&letter='+this.selectletter+'&ver='+this.selectver;
 					}else if(this.pagetype == "2"){
-						pageuri = '/bimianimate/guoManAnimateList?&sort='+this.selecttype+'&year='+this.selectyear+'&letter='+this.selectletter+'&ver='+this.selectver;
-					}else if(this.pagetype == "3"){
 						pageuri = '/bimianimate/fanZuAnimateList?&sort='+this.selecttype+'&year='+this.selectyear+'&letter='+this.selectletter+'&ver='+this.selectver;
+					}else if(this.pagetype == "3"){
+						pageuri = '/bimianimate/guoManAnimateList?&sort='+this.selecttype+'&year='+this.selectyear+'&letter='+this.selectletter+'&ver='+this.selectver;
 					}else if(this.pagetype == "4"){
 						pageuri = '/bimianimate/juChangAnimateList?&sort='+this.selecttype+'&year='+this.selectyear+'&letter='+this.selectletter+'&ver='+this.selectver;
 					}else if(this.pagetype == "5"){
@@ -474,7 +483,16 @@
 												let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 												res.data.list[i].icon = "../../static/img/grey.png";
 												res.data.list[i].animateid = animateid;
-												// res.data.list[i].img = this.getrandomimg();
+												let comments = Math.floor((Math.random()*99))
+												let likes = Math.floor((Math.random()*comments)+comments);//喜欢
+												let views = Math.floor((Math.random()*likes)+likes);//查看
+												res.data.list[i].likes=likes;
+												res.data.list[i].views=views;
+												res.data.list[i].comments = comments;
+												
+												if(commonutil.istest){
+													res.data.list[i].img = this.getrandomimg();
+												}
 											}
 											
 											this.page = res.data.page;
@@ -487,9 +505,9 @@
 											if(this.pagetype == "1"){
 												this.yearAnimateList = res.data.list;
 											}else if(this.pagetype == "2"){
-												this.guoManAnimateList = res.data.list;
+												this.fanZuAnimateList= res.data.list;
 											}else if(this.pagetype == "3"){
-												this.fanZuAnimateList = res.data.list;
+												this.guoManAnimateList  = res.data.list;
 											}else if(this.pagetype == "4"){
 												this.juChangAnimateList = res.data.list;
 											}else if(this.pagetype == "5"){
@@ -522,9 +540,9 @@
 					if(this.pagetype == "1"){
 						pageuri = '/bimianimate/yearAnimateList?page='+cpage+'&sort='+this.selecttype+'&year='+this.selectyear+'&letter='+this.selectletter+'&ver='+this.selectver;
 					}else if(this.pagetype == "2"){
-						pageuri = '/bimianimate/guoManAnimateList?page='+cpage+'&sort='+this.selecttype+'&year='+this.selectyear+'&letter='+this.selectletter+'&ver='+this.selectver;
-					}else if(this.pagetype == "3"){
 						pageuri = '/bimianimate/fanZuAnimateList?page='+cpage+'&sort='+this.selecttype+'&year='+this.selectyear+'&letter='+this.selectletter+'&ver='+this.selectver;
+					}else if(this.pagetype == "3"){
+						pageuri = '/bimianimate/guoManAnimateList?page='+cpage+'&sort='+this.selecttype+'&year='+this.selectyear+'&letter='+this.selectletter+'&ver='+this.selectver;
 					}else if(this.pagetype == "4"){
 						pageuri = '/bimianimate/juChangAnimateList?page='+cpage+'&sort='+this.selecttype+'&year='+this.selectyear+'&letter='+this.selectletter+'&ver='+this.selectver;
 					}else if(this.pagetype == "5"){
@@ -547,7 +565,16 @@
 												let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 												res.data.list[i].icon = "../../static/img/grey.png";
 												res.data.list[i].animateid = animateid;
-												// res.data.list[i].img = this.getrandomimg();
+												let comments = Math.floor((Math.random()*99))
+												let likes = Math.floor((Math.random()*comments)+comments);//喜欢
+												let views = Math.floor((Math.random()*likes)+likes);//查看
+												res.data.list[i].likes=likes;
+												res.data.list[i].views=views;
+												res.data.list[i].comments = comments;
+												
+												if(commonutil.istest){
+													res.data.list[i].img = this.getrandomimg();
+												}
 											}
 											
 											this.page = res.data.page;
@@ -560,9 +587,9 @@
 											if(this.pagetype == "1"){
 												this.yearAnimateList = this.yearAnimateList.concat(res.data.list);
 											}else if(this.pagetype == "2"){
-												this.guoManAnimateList = this.guoManAnimateList.concat(res.data.list);
+												this.fanZuAnimateList  = this.fanZuAnimateList.concat(res.data.list);
 											}else if(this.pagetype == "3"){
-												this.fanZuAnimateList = this.fanZuAnimateList.concat(res.data.list);
+												this.guoManAnimateList= this.guoManAnimateList.concat(res.data.list);
 											}else if(this.pagetype == "4"){
 												this.juChangAnimateList = this.juChangAnimateList.concat(res.data.list);
 											}else if(this.pagetype == "5"){
@@ -605,7 +632,7 @@
 			},
 			toChild(e) {
 				uni.navigateTo({
-					url: e.currentTarget.dataset.url+'?id='+e.currentTarget.dataset.id
+					url: e.currentTarget.dataset.url+'?animateid='+e.currentTarget.dataset.id
 				})
 			},
 			hideModal(e) {

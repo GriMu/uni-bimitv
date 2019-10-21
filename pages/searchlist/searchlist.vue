@@ -4,7 +4,7 @@
 		<view class="cu-bar search bg-white">
 			<view class="search-form round">
 				<text class="cuIcon-search"></text>
-				<input @focus="InputFocus" @blur="InputBlur" :adjust-position="false" type="text" placeholder="搜索图片、文章、视频" confirm-type="search"  @confirm="onKeyUserNameInput"></input>
+				<input @focus="InputFocus" @blur="InputBlur" :adjust-position="false" type="text" placeholder="搜索图片、文章、视频" confirm-type="search"  @confirm="onKeyUserNameInput" @input="getinputword"></input>
 			</view>
 			<view class="action"  @tap="searchByKeyWords">
 				<button class="cu-btn bg-cyan shadow-blur round">搜索</button>
@@ -22,7 +22,7 @@
 			<view class="cu-list menu sm-border">
 				<view class="cu-item" >
 					<view class="action">
-						<view class="cu-tag round bg-orange light margin-sm" v-for="(item,index) in historyList" :key="index" v-if="historyList.length > 0">{{item.name}}</view>
+						<view class="cu-tag round bg-orange light margin-sm" v-for="(item,index) in historyList" :key="index" >{{item.name}}</view>
 					</view>
 				</view>
 			</view>
@@ -93,7 +93,7 @@
 				firstPage:true,
 				lastPage:false,
 				keyword:'',
-				isLoad:true,
+				isLoad:false,
 				isHistory: false,
 				historyList:[],
 				InputBottom: 0,
@@ -145,6 +145,7 @@
 			}, 300);
 		},
 		onPullDownRefresh() {
+			debugger
 			//变更分类初始化数据
 			this.page = 0;
 			this.pageSize = 0;
@@ -164,6 +165,7 @@
 					success:(res)=> {
 						if(res.data.res!=null&&res.data.res.vertical!=null){
 							this.wallpapers = res.data.res.vertical;
+							this.isLoad = true;
 							 // this.searchByKeyWords();
 						}	
 					}
@@ -177,6 +179,7 @@
 			searchByKeyWords: function () {
 				if(this.keyword!=null&&this.keyword!=""&&this.keyword!=undefined){
 					this.loadModal = true;
+					this.isLoad = false;
 					this.setHistory(this.keyword);
 					var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/searchByKeyWord?keyword='+this.keyword);
 					setTimeout(()=>{
@@ -222,6 +225,7 @@
 			setmoresearchlist()//加载更多
 			{
 				this.loadModal = true;
+				this.isLoad = false;
 				let cpage = Number(this.page)+1;
 				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/searchByKeyWord?page='+cpage+'&keyword'+this.keyword);
 				setTimeout(()=>{
@@ -289,15 +293,17 @@
 			InputBlur(e) {
 				this.InputBottom = 0
 			},
+			getinputword: function(event) {  
+                this.keyword = event.target.value  
+            }, 
 			onKeyUserNameInput: function(e) {
 			    this.keyword = e.target.value  
 				let text = this.keyword;
 				if (!text) {
-					this.isHistory = true;
 					this.historyList = [];
 					this.historyList = uni.getStorageSync('searchhistory');
 					uni.showModal({
-						title: '提示',
+						title: 'Tip',
 						content: '请输入内容。',
 						success: res => {
 							if (res.confirm) {
@@ -306,7 +312,9 @@
 					});
 					return;
 				} else {
-					this.setHistory(text);
+					// this.isHistory = true;
+					this.searchByKeyWords();
+					// this.setHistory(text);
 					/* uni.showModal({
 						title: '提示',
 						content: '您输入的内容为"${text}",如果点击确定,将记录到历史搜索,并返回.如果取消不做操作',
@@ -353,11 +361,12 @@
 			
 				// searchHistory.unshift(util.dataHandle(serachData));
 				searchHistory.push(serachData);
+				this.isHistory = true;
+				this.historyList = searchHistory;
 				uni.setStorage({
 					key: 'searchhistory',
 					data: searchHistory,
 					success: function() {
-						// console.log('success');
 					}
 				});
 			},
