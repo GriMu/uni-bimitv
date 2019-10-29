@@ -10,7 +10,7 @@
 		</view>
 		<view class="cu-card case bg-white margin-top" v-for="(item,index) in fanZuAnimateList" :key="index" @tap="toChild" data-url="../plays/plays" :data-id="item.animateid">
 			<view class="cu-item shadow  animation-slide-left"  :style="[{animationDelay: (index*0.1 + 1)*0.2 + 's'}]">
-				<view class="bg-img bg-mask flex align-center "  :style="{backgroundImage:'url('+item.img+')',height: '414upx'}">
+				<view class="bg-img bg-mask flex align-center videos-img"  :style="{backgroundImage:'url('+item.img+')'}">
 					<view class="padding-xl text-white">
 						<view class="padding-xs text-xxl text-bold">
 							{{item.name}}
@@ -74,7 +74,7 @@
 <script>
 	import commonutil from '../../common/util.js';
 	import spinbox from '../../components/spin-box.vue';
-	import uniFab from '../../components/uni-fab.vue';
+	import uniFab from '../../components/uni-fab/uni-fab.vue';
 	export default {
 		components: {
 			spinbox,
@@ -325,6 +325,7 @@
 			getfanZuAnimateList()//番组计划
 			{
 				this.loadModal = true;
+				this.isLoad = false;
 				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/fanZuAnimateList');
 				setTimeout(()=>{
 					uni.request({
@@ -351,12 +352,18 @@
 										this.totalPage = res.data.totalPage;
 										this.lastPage = res.data.lastPage;
 										this.firstPage = res.data.firstPage;
-										
-										this.loadModal = false;//页面渲染成功隐藏加载
-										uni.stopPullDownRefresh();
 									}
 								}
 							}
+							this.loadModal = false;//页面渲染成功隐藏加载
+							this.isLoad = true;
+							uni.stopPullDownRefresh();
+						},
+						fail: () => {
+							commonutil.modalTap("网络出小差了！");
+							this.loadModal = false;//页面渲染成功隐藏加载
+							this.isLoad = true;
+							uni.stopPullDownRefresh();
 						}
 					});
 				}, 1000)	
@@ -364,6 +371,7 @@
 			getfanZuAnimateListBySort()//番组计划加入分类条件
 			{
 				this.loadModal = true;
+				this.isLoad = false;
 				let sort = this.tablist[this.TabCur];
 				if(sort!= null&&sort != ""&&sort != undefined){
 					let burl = "";
@@ -405,6 +413,15 @@
 										}
 									}
 								}
+								this.loadModal = false;//页面渲染成功隐藏加载
+								this.isLoad = true;
+								uni.stopPullDownRefresh();
+							},
+							fail: () => {
+								commonutil.modalTap("网络出小差了！");
+								this.loadModal = false;//页面渲染成功隐藏加载
+								this.isLoad = true;
+								uni.stopPullDownRefresh();
 							}
 						});
 					}, 1000)
@@ -419,6 +436,7 @@
 			setfanZuAnimateList()//番组计划加载更多
 			{
 				this.loadModal = true;
+				this.isLoad = false;
 				let sort = this.tablist[this.TabCur];
 				let cpage = Number(this.page)+1;
 				if(sort!= null&&sort != ""&&sort != undefined){
@@ -462,6 +480,15 @@
 										}
 									}
 								}
+								this.loadModal = false;//页面渲染成功隐藏加载
+								this.isLoad = true;
+								uni.stopPullDownRefresh();
+							},
+							fail: () => {
+								commonutil.modalTap("网络出小差了！");
+								this.loadModal = false;//页面渲染成功隐藏加载
+								this.isLoad = true;
+								uni.stopPullDownRefresh();
 							}
 						});
 					}, 1000)
@@ -525,4 +552,7 @@
 
 <style>
 	@import "../../components/colorui/animation.css";
+	.videos-img{
+		height: calc(100vh/3);
+	}
 </style>

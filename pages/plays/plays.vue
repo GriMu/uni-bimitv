@@ -17,7 +17,7 @@
 			</cover-view>
 		</view> -->
 		<view class="cu-item bg-mask">
-			<video style="width: 100%;height: 422upx;" id="myVideo" :src="videourl"
+			<video style="width: 100%;height: calc(100vh/3);" id="myVideo" :src="videourl"
 			 @error="videoErrorCallback" :danmu-list="danmuList" enable-danmu danmu-btn controls :poster="avatarimg" objectFit="cover"></video>
 		</view>	 
 			<!-- #ifndef MP-ALIPAY -->
@@ -169,8 +169,8 @@
 					</view>
 				</scroll-view>
 			</view>
-			<view class="bottom-tv">  </view>
 		</view>
+		<view class="top-tv">  </view>
 		<!-- <view class="cu-list menu sm-border" style="margin-top: 0upx;">
 			<view class="cu-item text-xxl text-white" >
 				<view class="content" style="font-size: 48upx;">
@@ -194,7 +194,7 @@
 					<video style="width: 100%;height: 422upx;"  src="https://dl101.yunpan.360.cn/intf.php?method=Download.downloadFile&qid=406220710&fname=/番组计划/18番组计划/8月番组/JOJO的奇妙冒险星尘十字军/01.mp4&fhash=4f9a60b9f5b0ead67c7e6b37b9b22ebe07651f3d&dt=101_.7bc9981413e643f1af28af94c9fac89f&v=1.0.1&rtick=15705005072841&open_app_id=0&host=dl101.yunpan.360.cn&devtype=ecs_web&sign=08df64fc0e42fc378efaf6629ed3b968&token=794751934.7.7c63e81a.406220710.15268730652402196.1570499655"
 					 @error="videoErrorCallback" :danmu-list="danmuList" enable-danmu danmu-btn controls :poster="wallpapers[0].thumb" objectFit="cover"></video>
 				</view> -->
-					<view class="bg-img bg-mask flex align-center "  :style="{backgroundImage:'url('+item.img+')',height: '414upx'}">
+					<view class="bg-img bg-mask flex align-center "  :style="{backgroundImage:'url('+item.img+')',height: 'calc(100vh/3)'}">
 						<view class="padding-xl text-white">
 							<view class="padding-xs text-xxl text-bold">
 								{{item.name}}
@@ -223,7 +223,7 @@
 							</view>
 						</view>
 					</view>
-				<view class="bottom-tv" v-if="index<(weekData.length-1)">  </view>
+				<!-- <view class="bottom-tv" v-if="index<(recommendlist.length-1)">  </view> -->
 			</view>
 		</view>	
 		<!--加载中-->
@@ -243,7 +243,7 @@
 <script>
 	import commonutil from '../../common/util.js';
 	import spinbox from '../../components/spin-box.vue';
-	import uniFab from '../../components/uni-fab.vue';
+	import uniFab from '../../components/uni-fab/uni-fab.vue';
 	export default {
 		components: {
 			spinbox,
@@ -368,7 +368,9 @@
 		methods: {
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
-				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
+				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60;
+				this.playnum = Number(this.TabCur )+1;
+				this.getVideo();
 			},
 			/* getWeekData: function() {
 				this.loadModal = true;
@@ -459,7 +461,7 @@
 							this.wallpapers = res.data.res.vertical;
 							// this.getWeekData();
 							this.getVideoInfo();
-							// this.getVideo();
+							this.getVideo();
 						}	
 					}
 				});
@@ -498,6 +500,9 @@
 									this.getRealPyerUrl(res.data.playurl);
 								}
 							}
+						},
+						fail: () => {
+							commonutil.modalTap("网络出小差了！");
 							this.loadModal = false;//页面渲染成功隐藏加载
 						}
 					});
@@ -518,7 +523,12 @@
 							else{
 								commonutil.modalTap( "网络异常！");
 							}
-						}	
+						}
+						this.loadModal = false;//页面渲染成功隐藏加载	
+					},
+					fail: () => {
+						commonutil.modalTap("网络出小差了！");
+						this.loadModal = false;//页面渲染成功隐藏加载
 					}
 				});
 			},
@@ -564,9 +574,9 @@
 								this.arealsit = res.data.arealsit;
 								
 								if(res.data.playlist!=null&&res.data.playlist!=""&&res.data.playlist!=undefined){
-									this.playtype = res.data.playlist.length-1;
+									this.playtype = res.data.playlist.length;
 									if(this.playtype>3){
-										this.playtype=3;
+										this.playtype=2;
 									}
 									this.picker = this.pickerist.slice(0,this.playtype);
 									this.season = 1;//初始化播放线路
@@ -636,8 +646,13 @@
 				this.index = e.detail.value
 				this.season = Number(this.index ) +1;//切换线路
 				//设置playlist 和 获取播放真实地址
+				if(this.index == -1){
+					this.index = 0;
+				}
 				this.playdatas = this.playlist[this.index];
-				this.getVideo();
+				
+				commonutil.modalTap("当前线路已切换为："+ this.pickerist[this.index]);
+				// this.getVideo();
 			},
 			sendDanmu: function() {
 				this.videoContext.sendDanmu({

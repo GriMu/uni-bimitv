@@ -208,7 +208,6 @@
 			},
 			SwitchStorage(e) {
 				this.storageflag = e.detail.value
-				debugger
 				if(this.storageflag){//选择清除
 				this.hideModal();
 					uni.showModal({

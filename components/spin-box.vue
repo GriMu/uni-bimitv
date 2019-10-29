@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="i-class i-spin i-spin-default" :class="[fix?'i-spin-fix':'',custom?'i-spin-show-text':'',fullscreen?'i-spin-fullscreen':'']">
+		<view class="i-class i-spin i-spin-default" :class="[fix?'i-spin-fix':'',custom?'i-spin-show-text':'',fullscreen?'i-spin-fullscreen-wrapper':'']">
 			<view class="i-spin-main" :style="{color:themeColor}">
 				<view class="i-spin-dot"></view>
 					<!-- <text class="cuIcon-loading2 text-red load-cuIcon"></text>

@@ -2,18 +2,18 @@
 	<view>
 		<cu-custom bgColor="bg-gradual-blue" :isBack="true"><block slot="backText">返回</block><block slot="content">{{pagename}}</block></cu-custom>
 		<view class="cu-bar bg-white search solid-bottom">
+			<text class="cuIcon-titles text-blue "></text>
+			<text class="text-bold" style="white-space: nowrap;">类型：</text> 
 			<scroll-view scroll-x class="bg-white nav" scroll-with-animation :scroll-left="scrollLeft">
-				<text class="cuIcon-titles text-blue "></text> 
-				<text class="text-bold" style="white-space: nowrap;">类型：</text> 
 				<view class="cu-item" :class="index==typeTabCur?'text-blue cur':''" v-for="(item,index) in type" :key="index" @tap="typetabSelect" :data-id="index">
 					{{item}}
 				</view>
 			</scroll-view>
 		</view>
 		<view class="cu-bar bg-white search solid-bottom">
+			<text class="cuIcon-titles text-blue "></text>
+			<text class="text-bold" style="white-space: nowrap;">年份：</text> 
 			<scroll-view scroll-x class="bg-white nav" scroll-with-animation :scroll-left="scrollLeft">
-				<text class="cuIcon-titles text-blue "></text>
-				<text class="text-bold" style="white-space: nowrap;">年份：</text> 
 				<view class="cu-item" :class="index==yearTabCur?'text-blue cur':''" v-for="(item,index) in year" :key="index" @tap="yeartabSelect" :data-id="index">
 					{{item}}
 				</view>
@@ -47,7 +47,7 @@
 			<view class="cu-card case" :class="isCard?'no-card':''" v-for="(citem,index) in yearAnimateList" :key="index" @tap="toChild" data-url="../plays/plays" :data-id="citem.animateid">
 				<view class="cu-item shadow animation-slide-left"  :style="[{animationDelay: (index*0.1 + 1)*0.2 + 's'}]">
 					<view class="image">
-						<image :src="citem.img?citem.img:avatarimg" mode="aspectFill" style="height: 414upx;"></image>
+						<image :src="citem.img?citem.img:avatarimg" mode="aspectFill" style="height: calc(100vh/3);"></image>
 						<view class="cu-tag bg-blue">{{citem.name}}</view>
 						<view class="cu-bar bg-shadeBottom"> <text class="text-cut">{{citem.info}}</text></view>
 					</view>
@@ -377,6 +377,7 @@
 			getpagelist()
 			{
 				this.loadModal = true;
+				this.isLoad = false;
 				let pageuri ='';
 				if(this.pagetype != null &&this.pagetype != "" &&this.pagetype != undefined ){
 					if(this.pagetype == "1"){
@@ -434,11 +435,18 @@
 											}else if(this.pagetype == "5"){
 												this.moveAnimateList = res.data.list;
 											}
-											this.loadModal = false;//页面渲染成功隐藏加载
-											uni.stopPullDownRefresh();
 										}
 									}
 								}
+								this.loadModal = false;//页面渲染成功隐藏加载
+								this.isLoad = true;
+								uni.stopPullDownRefresh();
+							},
+							fail: () => {
+								commonutil.modalTap("网络出小差了！");
+								this.loadModal = false;//页面渲染成功隐藏加载
+								this.isLoad = true;
+								uni.stopPullDownRefresh();
 							}
 						});
 					}, 1000)
@@ -453,6 +461,7 @@
 			setpagelistbysort()
 			{
 				this.loadModal = true;
+				this.isLoad = false;
 				let pageuri ='';
 				if(this.pagetype != null &&this.pagetype != "" &&this.pagetype != undefined ){
 					if(this.pagetype == "1"){
@@ -519,6 +528,15 @@
 										}
 									}
 								}
+								this.loadModal = false;//页面渲染成功隐藏加载
+								this.isLoad = true;
+								uni.stopPullDownRefresh();
+							},
+							fail: () => {
+								commonutil.modalTap("网络出小差了！");
+								this.loadModal = false;//页面渲染成功隐藏加载
+								this.isLoad = true;
+								uni.stopPullDownRefresh();
 							}
 						});
 					}, 1000)
@@ -533,6 +551,7 @@
 			setpagelist()
 			{
 				this.loadModal = true;
+				this.isLoad = false;
 				let cpage = Number(this.page)+1;
 				let pageuri ='';
 				
@@ -601,6 +620,15 @@
 										}
 									}
 								}
+								this.loadModal = false;//页面渲染成功隐藏加载
+								this.isLoad = true;
+								uni.stopPullDownRefresh();
+							},
+							fail: () => {
+								commonutil.modalTap("网络出小差了！");
+								this.loadModal = false;//页面渲染成功隐藏加载
+								this.isLoad = true;
+								uni.stopPullDownRefresh();
 							}
 						});
 					}, 1000)

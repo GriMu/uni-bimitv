@@ -54,7 +54,7 @@
 								{{item.name}}
 							</view>
 						</view> -->
-						<view class="bg-img bg-mask flex align-center radius margin-top" :style="{backgroundImage:'url('+item.img+')',width: '400upx',height: '250upx'}">
+						<view class="bg-img bg-mask flex align-center radius margin-top" :style="{backgroundImage:'url('+item.img+')',width: '400upx',height: 'calc(100vh/5)'}">
 							<view class="text-white">
 								<view class="padding-xs text-lg">
 									<view class="text-cut padding" style="width:220px">{{item.title}}</view>
@@ -135,7 +135,7 @@
 				<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item,index) in todayofweek" :key="index" @tap="toChild" data-url="../plays/plays" :data-id="item.animateid">
 					<view class="cu-item shadow">
 						<view class="image">
-							<image :src="item.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+							<image :src="item.img" mode="scaleToFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
 						</view>
 						<view class="cu-bar "> <text class="text-cut cuIcon-titles">{{item.name}}</text></view>
 						<view class="solid-bottom text-sm">

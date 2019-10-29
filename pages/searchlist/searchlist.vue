@@ -145,7 +145,6 @@
 			}, 300);
 		},
 		onPullDownRefresh() {
-			debugger
 			//变更分类初始化数据
 			this.page = 0;
 			this.pageSize = 0;
@@ -213,6 +212,15 @@
 										}
 									}
 								}
+								this.loadModal = false;//页面渲染成功隐藏加载
+								this.isLoad = true;
+								uni.stopPullDownRefresh();
+							},
+							fail: () => {
+								commonutil.modalTap("网络出小差了！");
+								this.loadModal = false;//页面渲染成功隐藏加载
+								this.isLoad = true;
+								uni.stopPullDownRefresh();
 							}
 						});
 					}, 1000)
@@ -253,11 +261,18 @@
 										this.firstPage = res.data.firstPage;
 										
 										this.searchlist = this.searchlist.concat(res.data.list);
-										this.loadModal = false;//页面渲染成功隐藏加载
-										uni.stopPullDownRefresh();
 									}
 								}
 							}
+							this.loadModal = false;//页面渲染成功隐藏加载
+							this.isLoad = true;
+							uni.stopPullDownRefresh();
+						},
+						fail: () => {
+							commonutil.modalTap("网络出小差了！");
+							this.loadModal = false;//页面渲染成功隐藏加载
+							this.isLoad = true;
+							uni.stopPullDownRefresh();
 						}
 					});
 				}, 1000)

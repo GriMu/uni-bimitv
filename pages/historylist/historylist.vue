@@ -122,7 +122,7 @@
 			},
 			toChild(e) {
 				uni.navigateTo({
-					url: e.currentTarget.dataset.url+'?id='+e.currentTarget.dataset.id
+					url: e.currentTarget.dataset.url+'?animateid='+e.currentTarget.dataset.id
 				})
 			},
 		}

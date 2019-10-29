@@ -91,7 +91,7 @@
 								{{item.name}}
 							</view>
 						</view> -->
-						<view class="bg-img bg-mask flex align-center radius margin-top" :style="{backgroundImage:'url('+item.img+')',width: '400upx',height: '250upx'}">
+						<view class="bg-img bg-mask flex align-center radius margin-top" :style="{backgroundImage:'url('+item.img+')',width: '400upx',height: 'calc(100vh/5)'}">
 							<view class="text-white">
 								<view class="padding-xs text-lg">
 									<view class="text-cut padding" style="width:220px">{{item.name}}</view>
@@ -138,16 +138,16 @@
 			</scroll-view>
 			<scroll-view class="VerticalMain" scroll-y scroll-with-animation style="height:calc(100vh - 375upx)"
 			 :scroll-into-view="'main-'+mainCur" @scroll="VerticalMain">
-				<view class="padding-top padding-lr" v-for="(item,index_2) in juChangAnimateList" :key="index_2" :id="'main-'+index_2" @tap="toChild" data-url="../plays/plays" :data-animateid="item.animateid">
+				<view class="padding-top padding-lr" v-for="(item,index_2) in juChangAnimateList" :key="index_2" :id="'main-'+index_2" >
 					<view class="cu-bar solid-bottom bg-white">
 						<view class="action">
 							<text class="cuIcon-title text-green"></text> {{item.year}}</view>
 					</view>
 					<view class="grid col-1">
-						<view class="cu-card case no-card" v-for="(yitem,yindex) in item.list" :key="yindex">
+						<view class="cu-card case no-card" v-for="(yitem,yindex) in item.list" :key="yindex" @tap="toChild" data-url="../plays/plays" :data-id="yitem.animateid">
 							<view class="cu-item shadow">
 								<view class="image">
-									<image :src="yitem.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+									<image :src="yitem.img" mode="scaleToFill" style="height: calc(100vh/5);border-radius: 10upx;"></image>
 								</view>
 								<view class="cu-bar"> 
 									<text class="text-cut cuIcon-titles padding-left-sm">{{yitem.name}}</text>
@@ -257,7 +257,7 @@
 					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in newAnimateRank" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
-								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+								<image :src="item1.img" mode="scaleToFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
 							</view>
 							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
 							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
@@ -281,7 +281,7 @@
 					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in chinaAnimateRank" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
-								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+								<image :src="item1.img" mode="scaleToFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
 							</view>
 							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
 							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
@@ -305,7 +305,7 @@
 					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in animatePlanRank" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
-								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+								<image :src="item1.img" mode="scaleToFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
 							</view>
 							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
 							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
@@ -329,7 +329,7 @@
 					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in movieAnimateRank" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
-								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+								<image :src="item1.img" mode="scaleToFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
 							</view>
 							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
 							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
@@ -353,7 +353,7 @@
 					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in newAnimateScore" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
-								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+								<image :src="item1.img" mode="scaleToFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
 							</view>
 							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
 							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
@@ -377,7 +377,7 @@
 					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in chinaAnimateScore" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
-								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+								<image :src="item1.img" mode="scaleToFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
 							</view>
 							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
 							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
@@ -401,7 +401,7 @@
 					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in animatePlanScore" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
-								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+								<image :src="item1.img" mode="scaleToFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
 							</view>
 							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
 							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
@@ -425,7 +425,7 @@
 					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in movieAnimateScore" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
-								<image :src="item1.img" mode="scaleToFill" style="height: 200upx;border-radius: 10upx;"></image>
+								<image :src="item1.img" mode="scaleToFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
 							</view>
 							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
 							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
@@ -1445,7 +1445,7 @@
 					}
 				}
 				uni.navigateTo({
-					url: e.currentTarget.dataset.url+uri
+					url: url+uri
 				})
 			},
 			// bimiAPI结束
