@@ -28,6 +28,23 @@
 5. vip
 6. 我的看单 like
 7. api animateDetail 需要新增返回图
+#### 2019-10-31 Todo
+1. 打包h5替换
+function getUri(sever,url)
+{
+	var linkurl = url;
+	// linkurl = sever+url;
+	return linkurl;
+}
+
+function getUri(sever,url)
+{
+	var linkurl = url;
+	// #ifndef H5
+		linkurl = sever+url;
+	// #endif
+	return linkurl;
+}
 #### 参与贡献
 
 1. Fork 本仓库

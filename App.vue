@@ -109,6 +109,21 @@
 		},
 		onShow: function() {
 			console.log('App Show');
+			// #ifndef MP-WEIXIN
+			try {
+				const login_user_data = uni.getStorageSync('login_user_data');
+				if (!login_user_data) {
+					 // setTimeout(function(){
+						uni.reLaunch({
+							url: 'pages/login/login'
+						});
+					 // },2000)
+				}
+			} catch (e) {
+				
+				console.log('获取用户令牌异常');
+			}
+			// #endif
 		},
 		onHide: function() {
 			console.log('App Hide');

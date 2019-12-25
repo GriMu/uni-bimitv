@@ -95,7 +95,7 @@
 							this.newsintro = this.newsintro.substring(0,50)+" ...";
 						}
 						var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/artDetail?page='+this.pageid);
-						setTimeout(()=>{
+						var time = setInterval(
 							uni.request({
 								url:linkurl,
 								success:(res)=> {
@@ -127,8 +127,8 @@
 										}
 									}
 								}
-							});
-						}, 1000)
+							}), 1000);
+							clearInterval(time);
 					},
 					fail: () => {
 						commonutil.modalTap("页面参数初始化失败！");

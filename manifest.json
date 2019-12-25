@@ -84,16 +84,27 @@
                     "secure" : false
                 },
                 "/bimianimate" : {
-                    "target" : "http://chengzc.club:3000/",
+                    "target" : "https://wxapi.chengzc.club/",
                     "changeOrigin" : true,
                     "secure" : false
-                }
-            }
+                },
+				"/login" : {
+				    "target" : "http://chengzc.club:84/",
+				    "changeOrigin" : true,
+				    "secure" : false
+				},
+				"/api.php" : {
+				    "target" : "http://chengzc.club:84/",
+				    "changeOrigin" : true,
+				    "secure" : false
+				}
+            },
+            "https" : false
         },
         "domain" : "http://chengzc.club:87/"
     },
-	"networkTimeout" : {
-	    "request" : 60000,
-		"connectSocket" : 60000
-	}
+    "networkTimeout" : {
+        "request" : 60000,
+        "connectSocket" : 60000
+    }
 }

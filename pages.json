@@ -3,7 +3,12 @@
         {
             "path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "首页"
+				"navigationBarTitleText": "首页",
+				"enablePullDownRefresh": true,
+				"pullToRefresh":
+				{
+					"color": "#0081ff"
+				}
 			}
         }, {
             "path": "pages/login/login",
@@ -28,11 +33,25 @@
         },
 		{
 		    "path" : "pages/videos/videos",
-		    "style" : {}
+		    "style": {
+		    	"navigationBarTitleText": "番组计划",
+		    	"enablePullDownRefresh": true,
+		    	"pullToRefresh":
+		    	{
+		    		"color": "#0081ff"
+		    	}
+		    }
 		}
 		,{
 		    "path" : "pages/channel/channel",
-		    "style" : {}
+			"style": {
+				"navigationBarTitleText": "频道",
+				"enablePullDownRefresh": true,
+				"pullToRefresh":
+				{
+					"color": "#0081ff"
+				}
+			}
 		}
         ,{
             "path" : "pages/plays/plays",

@@ -301,9 +301,10 @@
 				this.isLoad = true;
 				return;
 			}
-			setTimeout(() => {
-				this.setpagelist();
-			}, 300);
+			var time = setInterval(
+				this.setpagelist(),
+			300);
+			clearInterval(time);
 		},
 		onPullDownRefresh() {
 			//变更分类初始化数据
@@ -392,7 +393,7 @@
 						pageuri = '/bimianimate/moveAnimateList';
 					}	
 					var linkurl = commonutil.getUri(commonutil.apiurl,pageuri);
-					setTimeout(()=>{
+					var time = setInterval(
 						uni.request({
 							url:linkurl,
 							success:(res)=> {
@@ -448,8 +449,8 @@
 								this.isLoad = true;
 								uni.stopPullDownRefresh();
 							}
-						});
-					}, 1000)
+						}), 1000);
+						clearInterval(time);
 				}
 				else{
 					this.modalName="Modal";
@@ -477,7 +478,7 @@
 					}
 					
 					var linkurl = commonutil.getUri(commonutil.apiurl,pageuri);
-					setTimeout(()=>{
+					var time = setInterval(
 						uni.request({
 							url:linkurl,
 							success:(res)=> {
@@ -538,8 +539,8 @@
 								this.isLoad = true;
 								uni.stopPullDownRefresh();
 							}
-						});
-					}, 1000)
+						}), 1000);
+						clearInterval(time);
 				}
 				else{
 					this.modalName="Modal";
@@ -569,7 +570,7 @@
 					}
 					
 					var linkurl = commonutil.getUri(commonutil.apiurl,pageuri);
-					setTimeout(()=>{
+					var time = setInterval(
 						uni.request({
 							url:linkurl,
 							success:(res)=> {
@@ -630,8 +631,8 @@
 								this.isLoad = true;
 								uni.stopPullDownRefresh();
 							}
-						});
-					}, 1000)
+						}), 1000);
+						clearInterval(time);
 				}
 				else{
 					this.modalName="Modal";

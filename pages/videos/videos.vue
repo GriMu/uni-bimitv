@@ -8,7 +8,59 @@
 				</view>
 			</scroll-view>
 		</view>
-		<view class="cu-card case bg-white margin-top" v-for="(item,index) in fanZuAnimateList" :key="index" @tap="toChild" data-url="../plays/plays" :data-id="item.animateid">
+		<view class="grid col-2 bg-white">
+			<view class="cu-card  case "  v-for="(item,index) in fanZuAnimateList" :key="index" @tap="toChild" data-url="../plays/plays" :data-id="item.animateid">
+				<view class="cu-item shadow animation-slide-left" :style="[{animationDelay: (index*0.1 + 1)*0.2 + 's'}]">
+					<view class="image">
+						<image :src="item.img" mode="scaleToFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
+						<view class="cu-tag bg-blue">{{item.name}}</view>
+						<view class="cu-bar bg-shadeBottom"> <text class="text-cut">{{item.number}}</text></view>
+					</view>
+					
+						<!-- <view class="cu-card case no-card"  >
+							<view class="cu-item shadow">
+								<view class="text-gray text-sm padding-top-sm">
+									<text class="cuIcon-timefill margin-lr-xs "></text> {{item.updatenums}}
+								</view>
+								<view class="text-gray text-sm padding-top-sm">
+									<text class="cuIcon-likefill margin-lr-xs "></text>评分 {{item.score}}
+								</view>
+							</view>
+						</view>	 -->
+					<view class="cu-bar bg-white search solid-bottom">
+						<view class="text-grey border-title">
+							<view class="text-sm text-bold text-cut"><text class="cuIcon-friendadd margin-right-xs "></text>{{item.info.substring(3,item.info.length)?item.info.substring(3,item.info.length):"佚名"}}</view>
+						</view>
+						<view class="action ">
+							<text class="cuIcon-share padding-xs"></text>
+							<text class="cuIcon-delete padding-xs"></text>
+						</view>
+					</view>	
+					<!-- <view class="cu-list menu-avatar comment ">
+						<view class="cu-item">
+							<view class="cu-avatar round  bg-gray text-sm" >
+								{{item.name.substring(0,1)}}
+							</view> 
+							<view class="text-grey border-title">
+								<view class="text-sm text-bold text-cut">{{item.info.substring(3,item.info.length)?item.info.substring(3,item.info.length):"佚名"}}</view>
+							</view>
+							<view class="content">
+								 
+								<view class="text-grey border-title">
+									<view class="text-sm text-bold">{{item.number}}</view>
+								</view> 
+							</view>
+							<view class="action ">
+								<text class="cuIcon-share padding-xs"></text>
+								<text class="cuIcon-delete padding-xs"></text>
+							</view>
+						</view>
+					</view> -->
+				</view>
+			</view>
+		</view>	 
+		
+		<!-- <view class="cu-card case bg-white margin-top" v-for="(item,index) in fanZuAnimateList" :key="index" @tap="toChild" data-url="../plays/plays" :data-id="item.animateid">
 			<view class="cu-item shadow  animation-slide-left"  :style="[{animationDelay: (index*0.1 + 1)*0.2 + 's'}]">
 				<view class="bg-img bg-mask flex align-center videos-img"  :style="{backgroundImage:'url('+item.img+')'}">
 					<view class="padding-xl text-white">
@@ -40,7 +92,7 @@
 					</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
 		<!--弹窗-->
 		<view class="cu-modal" :class="modalName=='Modal'?'show':''">
 			<view class="cu-dialog">
@@ -127,6 +179,7 @@
 					}, */
 				],
 				isshowtab:false,
+				isCard:false,
 				// bimi数据结束
 			}
 		},
@@ -158,9 +211,9 @@
 					this.isLoad = true;
 					return;
 				}
-				setTimeout(() => {
-					this.setfanZuAnimateList();
-				}, 300);
+				var time = setInterval(
+					this.setfanZuAnimateList(), 300);
+				clearInterval(time);
 				
 				
 				/* if (this.currentindex > this.newslength) {
@@ -203,7 +256,9 @@
 			this.totalPage = 0;
 			this.firstPage = true;
 			this.lastPage = false;
-			this.getfanZuAnimateListBySort();
+			this.TabCur = 0;
+			this.fanZuAnimateList = [];
+			this.setshareimg();
 		},
 		methods: {
 			tabSelect(e) {
@@ -309,6 +364,7 @@
 						}	
 					}
 				});
+				uni.stopPullDownRefresh();
 			},
 			toChild(e) {
 				let animateid = e.currentTarget.dataset.id;
@@ -327,7 +383,7 @@
 				this.loadModal = true;
 				this.isLoad = false;
 				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/fanZuAnimateList');
-				setTimeout(()=>{
+				var time = setInterval(
 					uni.request({
 						url:linkurl,
 						success:(res)=> {
@@ -365,8 +421,8 @@
 							this.isLoad = true;
 							uni.stopPullDownRefresh();
 						}
-					});
-				}, 1000)	
+					}), 1000);
+					clearInterval(time);	
 			},
 			getfanZuAnimateListBySort()//番组计划加入分类条件
 			{
@@ -382,7 +438,7 @@
 						burl = '/bimianimate/fanZuAnimateList?sort='+sort;
 					}
 					var linkurl = commonutil.getUri(commonutil.apiurl,burl);
-					setTimeout(()=>{
+					var time = setInterval(
 						uni.request({
 							url:linkurl,
 							success:(res)=> {
@@ -423,8 +479,8 @@
 								this.isLoad = true;
 								uni.stopPullDownRefresh();
 							}
-						});
-					}, 1000)
+						}), 1000);
+						clearInterval(time);
 				}
 				else
 				{
@@ -448,7 +504,7 @@
 						burl = '/bimianimate/fanZuAnimateList?sort='+sort+'&page='+cpage;
 					}
 					var linkurl = commonutil.getUri(commonutil.apiurl, burl);
-					setTimeout(()=>{
+					var time = setInterval(
 						uni.request({
 							url:linkurl,
 							success:(res)=> {
@@ -490,8 +546,8 @@
 								this.isLoad = true;
 								uni.stopPullDownRefresh();
 							}
-						});
-					}, 1000)
+						}), 1000);
+					clearInterval(time);	
 				}
 				else
 				{
@@ -555,4 +611,7 @@
 	.videos-img{
 		height: calc(100vh/3);
 	}
+	.cu-card>.cu-item {
+		margin: 10px;	
+	}	
 </style>

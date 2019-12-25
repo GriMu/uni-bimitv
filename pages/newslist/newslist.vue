@@ -87,9 +87,8 @@
 				this.isLoad = true;
 				return;
 			}
-			setTimeout(() => {
-				this.setzixunlist();
-			}, 300);
+			var time = setInterval(this.setzixunlist(), 300);
+			clearInterval(time);	
 		},
 		onPullDownRefresh() {
 			//变更分类初始化数据
@@ -134,7 +133,7 @@
 			{
 				this.loadModal = true;
 				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/zixun');
-				setTimeout(()=>{
+				var time = setInterval(
 					uni.request({
 						url:linkurl,
 						success:(res)=> {
@@ -172,15 +171,15 @@
 								}
 							}
 						}
-					});
-				}, 1000)
+					}), 1000);
+					clearInterval(time);
 			},
 			setzixunlist()
 			{
 				this.loadModal = true;
 				let cpage = Number(this.page)+1;
 				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/zixun?page='+cpage);
-				setTimeout(()=>{
+				var time = setInterval(
 					uni.request({
 						url:linkurl,
 						success:(res)=> {
@@ -214,8 +213,8 @@
 								}
 							}
 						}
-					});
-				}, 1000)
+					}), 1000);
+					clearInterval(time);
 			},
 			setshareimg()
 			{

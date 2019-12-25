@@ -515,6 +515,29 @@
 			// this.getWeekData();
 			// this.getRecentHotData();
 		},
+		onPullDownRefresh() {
+			this.wallpapers = [];
+			this.carouseldata = [];
+			this.sliderRecomdata = [];
+			this.todayHotdata = [];
+			this.monthRankdata = [];
+			this.todayofweek = [];
+			this.wTabCur = 0;
+			this.weekUpdatedata = [];
+			this.todayhot = {};
+			this.newAnimatedata = [];
+			this.newAnimatedata_hot = {};
+			this.chinaAnimatedata = [];
+			this.chinaAnimatedata_hot = {};
+			this.animatePlandata = [];
+			this.animatePlandata_hot = {};
+			this.animateMoviedata = [];
+			this.animateMoviedata_hot = {};
+			this.Moviesdata = [];
+			this.Moviesdata_hot = {};
+			this.todayofweek = [];
+			this.setshareimg();
+		},
 		methods: {
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
@@ -800,6 +823,7 @@
 						}
 					}
 				});
+				uni.stopPullDownRefresh();
 			},
 			/* weekDaySelect_back: function(e) {
 				if(this.weekData==null||this.weekData.length<=0){
@@ -931,9 +955,9 @@
 									let url = res.data[i].url;
 									let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
 									res.data[i].animateid = animateid;
-									// if(commonutil.istest){
+									if(commonutil.istest){
 										res.data[i].img = this.getrandomimg();
-									// }
+									}
 								}
 								this.monthRankdata = res.data;
 							}

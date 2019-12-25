@@ -376,7 +376,7 @@
 				this.loadModal = true;
 				var url = 'api/b/animation/recent?isWeek=true';
 				var linkurl = commonutil.getUri(commonutil.testurl,url);
-				setTimeout(()=>{
+				var time = setInterval(
 					uni.request({
 						url:linkurl,
 						success: (res) => {
@@ -445,8 +445,8 @@
 							this.loadModal = false;//页面渲染成功隐藏加载
 							uni.stopPullDownRefresh();
 						}
-					})
-				}, 1000)	
+					}), 1000);
+					clearInterval(time);	
 			}, */
 			setshareimg()
 			{
@@ -481,7 +481,7 @@
 			getVideo:function(){
 				this.loadModal = true;
 				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/animatePlayByPT/?animateid='+this.animateid+'&season='+this.season+'&playnum='+this.playnum);
-				setTimeout(()=>{
+				var time = setInterval(
 					uni.request({
 						// url:'http://wallpaper.apc.360.cn/index.php?c=WallPaper&a=search&kw=%E9%A3%8E%E6%99%AF&start=0&count=99',
 						url:linkurl,
@@ -500,13 +500,15 @@
 									this.getRealPyerUrl(res.data.playurl);
 								}
 							}
+							this.loadModal = false;//页面渲染成功隐藏加载
 						},
 						fail: () => {
 							commonutil.modalTap("网络出小差了！");
 							this.loadModal = false;//页面渲染成功隐藏加载
 						}
-					});
-				}, 300)	
+					}),
+				 300);
+				clearInterval(time);	
 			},
 			getRealPyerUrl:function(relurl){
 				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/animateGetRealUrl/?relurl='+relurl);
@@ -550,7 +552,11 @@
 								this.animateDetail.comment = res.data.comment;
 								this.animateDetail.updatetime = res.data.updatetime;
 								this.animateDetail.intro = res.data.intro;
-								this.animateDetail.img = this.getrandomimg();//暂无
+								this.animateDetail.img = res.data.img;
+								// this.animateDetail.img = this.getrandomimg();//暂无
+								if(commonutil.istest){
+									this.animateDetail.img = this.getrandomimg();
+								}
 								this.voicelsit = res.data.voicelsit;
 								if(this.voicelsit!=null&&this.voicelsit!=""&&this.voicelsit!=undefined){
 									if(this.voicelsit.length>4){

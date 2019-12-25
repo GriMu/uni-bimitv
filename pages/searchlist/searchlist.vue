@@ -140,9 +140,9 @@
 				this.isLoad = true;
 				return;
 			}
-			setTimeout(() => {
-				this.setmoresearchlist();
-			}, 300);
+			var time = setInterval(
+				this.setmoresearchlist(), 300);
+			clearInterval(time);
 		},
 		onPullDownRefresh() {
 			//变更分类初始化数据
@@ -181,7 +181,7 @@
 					this.isLoad = false;
 					this.setHistory(this.keyword);
 					var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/searchByKeyWord?keyword='+this.keyword);
-					setTimeout(()=>{
+					var time = setInterval(
 						uni.request({
 							url:linkurl,
 							success:(res)=> {
@@ -222,8 +222,8 @@
 								this.isLoad = true;
 								uni.stopPullDownRefresh();
 							}
-						});
-					}, 1000)
+						}), 1000);
+						clearInterval(time);
 				}
 				else{
 					commonutil.modalTap("请输入番剧名称！");
@@ -236,7 +236,7 @@
 				this.isLoad = false;
 				let cpage = Number(this.page)+1;
 				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/searchByKeyWord?page='+cpage+'&keyword'+this.keyword);
-				setTimeout(()=>{
+				var time = setInterval(
 					uni.request({
 						url:linkurl,
 						success:(res)=> {
@@ -274,8 +274,8 @@
 							this.isLoad = true;
 							uni.stopPullDownRefresh();
 						}
-					});
-				}, 1000)
+					}), 1000);
+					clearInterval(time);
 			},	
 			toChild(e) {
 				uni.navigateTo({

@@ -147,7 +147,7 @@
 						<view class="cu-card case no-card" v-for="(yitem,yindex) in item.list" :key="yindex" @tap="toChild" data-url="../plays/plays" :data-id="yitem.animateid">
 							<view class="cu-item shadow">
 								<view class="image">
-									<image :src="yitem.img" mode="scaleToFill" style="height: calc(100vh/5);border-radius: 10upx;"></image>
+									<image :src="yitem.img" mode="aspectFill" style="height: calc(100vh/5);border-radius: 10upx;"></image>
 								</view>
 								<view class="cu-bar"> 
 									<text class="text-cut cuIcon-titles padding-left-sm">{{yitem.name}}</text>
@@ -192,7 +192,7 @@
 							<view class="cu-card case no-card"  >
 								<view class="cu-item shadow">
 									<view class="image">
-										<image :src="item.img" mode="scaleToFill" style="height: 300upx;border-radius: 10upx;"></image>
+										<image :src="item.img" mode="aspectFill" style="height: 300upx;border-radius: 10upx;"></image>
 									</view>
 									<view class="cu-bar"> 
 										<text class="text-cut cuIcon-titles padding-left-sm">{{item.name}}</text>
@@ -239,6 +239,7 @@
 				</view> -->
 			</view>
 		</view>
+		
 		<view v-for="(item,index_rank) in animateRankinfos" :key="index_rank">
 			<view class="cu-bar bg-white solid-bottom margin-top">
 				<view class="action">
@@ -248,7 +249,7 @@
 			<view class="cu-card case bg-white" v-if="index_rank==0">
 				<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="newAnimateRank_hot.animateid">
 					<view class="image">
-						<image :src="newAnimateRank_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
+						<image :src="newAnimateRank_hot.img" mode="aspectFill" style="height: 414upx;"></image>
 						<view class="cu-tag bg-blue">{{newAnimateRank_hot.title}}</view>
 						<view class="cu-bar bg-shadeBottom"> <text class="text-cut">播放量:{{newAnimateRank_hot.score}}</text></view>
 					</view>
@@ -257,7 +258,7 @@
 					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in newAnimateRank" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
-								<image :src="item1.img" mode="scaleToFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
+								<image :src="item1.img" mode="aspectFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
 							</view>
 							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
 							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
@@ -272,7 +273,7 @@
 			<view class="cu-card case bg-white" v-else-if="index_rank==1">
 				<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="chinaAnimateRank_hot.animateid">
 					<view class="image">
-						<image :src="chinaAnimateRank_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
+						<image :src="chinaAnimateRank_hot.img" mode="aspectFill" style="height: 414upx;"></image>
 						<view class="cu-tag bg-blue">{{chinaAnimateRank_hot.title}}</view>
 						<view class="cu-bar bg-shadeBottom"> <text class="text-cut">播放量:{{chinaAnimateRank_hot.score}}</text></view>
 					</view>
@@ -281,7 +282,7 @@
 					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in chinaAnimateRank" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
-								<image :src="item1.img" mode="scaleToFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
+								<image :src="item1.img" mode="aspectFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
 							</view>
 							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
 							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
@@ -296,7 +297,7 @@
 			<view class="cu-card case bg-white" v-if="index_rank==2">
 				<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="animatePlanRank_hot.animateid">
 					<view class="image">
-						<image :src="animatePlanRank_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
+						<image :src="animatePlanRank_hot.img" mode="aspectFill" style="height: 414upx;"></image>
 						<view class="cu-tag bg-blue">{{animatePlanRank_hot.title}}</view>
 						<view class="cu-bar bg-shadeBottom"> <text class="text-cut">播放量:{{animatePlanRank_hot.score}}</text></view>
 					</view>
@@ -305,7 +306,7 @@
 					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in animatePlanRank" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
-								<image :src="item1.img" mode="scaleToFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
+								<image :src="item1.img" mode="aspectFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
 							</view>
 							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
 							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
@@ -320,7 +321,7 @@
 			<view class="cu-card case bg-white" v-if="index_rank==3">
 				<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="movieAnimateRank_hot.animateid">
 					<view class="image">
-						<image :src="movieAnimateRank_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
+						<image :src="movieAnimateRank_hot.img" mode="aspectFill" style="height: 414upx;"></image>
 						<view class="cu-tag bg-blue">{{movieAnimateRank_hot.title}}</view>
 						<view class="cu-bar bg-shadeBottom"> <text class="text-cut">播放量:{{movieAnimateRank_hot.score}}</text></view>
 					</view>
@@ -329,7 +330,7 @@
 					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in movieAnimateRank" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
-								<image :src="item1.img" mode="scaleToFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
+								<image :src="item1.img" mode="aspectFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
 							</view>
 							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
 							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
@@ -344,7 +345,7 @@
 			<view class="cu-card case bg-white" v-if="index_rank==4">
 				<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="newAnimateScore_hot.animateid">
 					<view class="image">
-						<image :src="newAnimateScore_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
+						<image :src="newAnimateScore_hot.img" mode="aspectFill" style="height: 414upx;"></image>
 						<view class="cu-tag bg-blue">{{newAnimateScore_hot.title}}</view>
 						<view class="cu-bar bg-shadeBottom"> <text class="text-cut">评分:{{newAnimateScore_hot.score}}</text></view>
 					</view>
@@ -353,7 +354,7 @@
 					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in newAnimateScore" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
-								<image :src="item1.img" mode="scaleToFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
+								<image :src="item1.img" mode="aspectFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
 							</view>
 							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
 							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
@@ -368,7 +369,7 @@
 			<view class="cu-card case bg-white" v-if="index_rank==5">
 				<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="chinaAnimateScore_hot.animateid">
 					<view class="image">
-						<image :src="chinaAnimateScore_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
+						<image :src="chinaAnimateScore_hot.img" mode="aspectFill" style="height: 414upx;"></image>
 						<view class="cu-tag bg-blue">{{chinaAnimateScore_hot.title}}</view>
 						<view class="cu-bar bg-shadeBottom"> <text class="text-cut">评分:{{chinaAnimateScore_hot.score}}</text></view>
 					</view>
@@ -377,7 +378,7 @@
 					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in chinaAnimateScore" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
-								<image :src="item1.img" mode="scaleToFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
+								<image :src="item1.img" mode="aspectFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
 							</view>
 							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
 							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
@@ -392,7 +393,7 @@
 			<view class="cu-card case bg-white" v-if="index_rank==6">
 				<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="animatePlanScore_hot.animateid">
 					<view class="image">
-						<image :src="animatePlanScore_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
+						<image :src="animatePlanScore_hot.img" mode="aspectFill" style="height: 414upx;"></image>
 						<view class="cu-tag bg-blue">{{animatePlanScore_hot.title}}</view>
 						<view class="cu-bar bg-shadeBottom"> <text class="text-cut">评分:{{animatePlanScore_hot.score}}</text></view>
 					</view>
@@ -401,7 +402,7 @@
 					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in animatePlanScore" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
-								<image :src="item1.img" mode="scaleToFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
+								<image :src="item1.img" mode="aspectFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
 							</view>
 							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
 							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
@@ -416,7 +417,7 @@
 			<view class="cu-card case bg-white" v-if="index_rank==7">
 				<view class="cu-item shadow" @tap="toChild" data-url="../plays/plays" :data-id="movieAnimateScore_hot.animateid">
 					<view class="image">
-						<image :src="movieAnimateScore_hot.img" mode="scaleToFill" style="height: 414upx;"></image>
+						<image :src="movieAnimateScore_hot.img" mode="aspectFill" style="height: 414upx;"></image>
 						<view class="cu-tag bg-blue">{{movieAnimateScore_hot.title}}</view>
 						<view class="cu-bar bg-shadeBottom"> <text class="text-cut">评分:{{movieAnimateScore_hot.score}}</text></view>
 					</view>
@@ -425,7 +426,7 @@
 					<view class="cu-card case" :class="isCard?'no-card':''" v-for="(item1,index1) in movieAnimateScore" :key="index1" @tap="toChild" data-url="../plays/plays" :data-id="item1.animateid">
 						<view class="cu-item shadow">
 							<view class="image">
-								<image :src="item1.img" mode="scaleToFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
+								<image :src="item1.img" mode="aspectFill" style="height: calc(100vh/3);border-radius: 10upx;"></image>
 							</view>
 							<text class="cu-avatar radius sm_avatar bg-pink text-sm" v-if="index1<3">{{item1.rank.substring(0,item1.rank.length-1)}}</text>
 							<text class="cu-avatar radius sm_avatar bg-grey text-sm" v-else>{{item1.rank.substring(0,item1.rank.length-1)}}</text>
@@ -454,12 +455,18 @@
 		</view>
 		<!--加载-->
 		<view class="cu-load" :class="!isLoad?'loading':'over'"></view>
+		<!--加载中-->
+		<spinbox fix v-if="loadModal" :themeColor="themeColor"></spinbox>
 	</view>
 </template>
 
 <script>
 	import commonutil from '../../common/util.js';
+	import spinbox from '../../components/spin-box.vue';
 	export default {
+		components: {
+			spinbox,
+		},
 		data() {
 			return {
 				TabCur: 0,
@@ -505,6 +512,8 @@
 					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg',
 					name:'光辉'
 				}], */
+				themeColor: '#0081ff',
+				loadModal: false,
 				recentHot:[],//最近热门
 				lastPartUpdate:[],//上周更新
 				yearGroup:[],//年度
@@ -621,6 +630,7 @@
 				chinaAnimateScore_hot:{},
 				animatePlanScore_hot:{},
 				movieAnimateScore_hot:{},
+				juChangAnimateListAll:[],
 				// bimi数据结束
 			};
 		},
@@ -632,6 +642,38 @@
 		},
 		onReady() {
 		},
+		onPullDownRefresh() {
+			this.wallpapers = [];
+			this.latestShowAnimatedata = [];
+			this.wTabCur =0;
+			this.curday ='';
+			this.recentonanimate = [];//今日上映
+			
+			this.newAnimateRank = [];
+			this.chinaAnimateRank = [];
+			this.animatePlanRank = [];
+			this.movieAnimateRank = [];
+			this.newAnimateScore = [];
+			this.chinaAnimateScore = [];
+			this.animatePlanScore = [];
+			this.movieAnimateScore = [];
+			this.newAnimateRank_hot = {};
+			this.chinaAnimateRank_hot= {};
+			this.animatePlanRank_hot= {};
+			this.movieAnimateRank_hot= {};
+			this.newAnimateScore_hot= {};
+			this.chinaAnimateScore_hot= {};
+			this.animatePlanScore_hot= {};
+			this.movieAnimateScore_hot= {};
+			this.zixundata = [];
+			this.yearAnimateList = [];
+			this.guoManAnimateList = [];
+			this.juChangAnimateList = [];
+			this.juChangyearlist = [];
+			this.juChangrecom = [];
+			this.setshareimg();
+		},
+		
 		methods: {
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
@@ -786,6 +828,7 @@
 							// this.getWeekData();
 							// this.getPartData();
 							// this.getLastUpdate();
+							this.loadModal = true;
 							this.getlatestShowAnimate();
 							this.getanimateRank();
 							this.getzixun();
@@ -793,9 +836,11 @@
 							this.getguoManAnimateList();
 							this.getjuChangAnimateListOnTime();
 							this.isLoad = true;
+							
 						}
 					}
 				});
+				uni.stopPullDownRefresh();
 			},
 			yearTabSelect(e) {
 				this.yearTabCur = e.currentTarget.dataset.id;
@@ -1020,7 +1065,15 @@
 			// 排行榜
 			getanimateRank()
 			{
-				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/animateRank');
+				this.getanimateRank0();
+				this.getanimateRank1();
+				this.getanimateRank2();
+				this.getanimateRank3();
+				this.getanimateRank4();
+				this.getanimateRank5();
+				this.getanimateRank6();
+				this.getanimateRank7();
+				/* var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/animateRank');
 				uni.request({
 					url:linkurl,
 					success:(res)=> {
@@ -1044,7 +1097,10 @@
 													}
 													res.data.newAnimateRank[i].title = title;
 													res.data.newAnimateRank[i].animateid = animateid;
-													res.data.newAnimateRank[i].img = this.getrandomimg();
+													 // = this.getrandomimg();
+													if(commonutil.istest){
+														res.data.newAnimateRank[i].img = this.getrandomimg();
+													}
 												}
 												this.newAnimateRank_hot = res.data.newAnimateRank[0];
 												this.newAnimateRank = res.data.newAnimateRank;
@@ -1065,7 +1121,10 @@
 													res.data.chinaAnimateRank[i].title = title;
 													
 													res.data.chinaAnimateRank[i].animateid = animateid;
-													res.data.chinaAnimateRank[i].img = this.getrandomimg();
+													// res.data.chinaAnimateRank[i].img = this.getrandomimg();
+													if(commonutil.istest){
+														res.data.chinaAnimateRank[i].img = this.getrandomimg();
+													}
 													
 												}
 												this.chinaAnimateRank_hot = res.data.chinaAnimateRank[0];
@@ -1087,7 +1146,10 @@
 													res.data.animatePlanRank[i].title = title;
 													
 													res.data.animatePlanRank[i].animateid = animateid;
-													res.data.animatePlanRank[i].img = this.getrandomimg();
+													// res.data.animatePlanRank[i].img = this.getrandomimg();
+													if(commonutil.istest){
+														res.data.animatePlanRank[i].img = this.getrandomimg();
+													}
 												}
 												this.animatePlanRank_hot = res.data.animatePlanRank[0];
 												this.animatePlanRank = res.data.animatePlanRank;
@@ -1109,7 +1171,10 @@
 													res.data.movieAnimateRank[i].title = title;
 													
 													res.data.movieAnimateRank[i].animateid = animateid;
-													res.data.movieAnimateRank[i].img = this.getrandomimg();
+													// res.data.movieAnimateRank[i].img = this.getrandomimg();
+													if(commonutil.istest){
+														res.data.movieAnimateRank[i].img = this.getrandomimg();
+													}
 												}
 												this.movieAnimateRank_hot = res.data.movieAnimateRank[0];
 												this.movieAnimateRank = res.data.movieAnimateRank;
@@ -1131,7 +1196,10 @@
 													res.data.newAnimateScore[i].title = title;
 													
 													res.data.newAnimateScore[i].animateid = animateid;
-													res.data.newAnimateScore[i].img = this.getrandomimg();
+													// res.data.newAnimateScore[i].img = this.getrandomimg();
+													if(commonutil.istest){
+														res.data.newAnimateScore[i].img = this.getrandomimg();
+													}
 												}
 												this.newAnimateScore_hot = res.data.newAnimateScore[0];
 												this.newAnimateScore = res.data.newAnimateScore;
@@ -1153,7 +1221,10 @@
 													res.data.chinaAnimateScore[i].title = title;
 													
 													res.data.chinaAnimateScore[i].animateid = animateid;
-													res.data.chinaAnimateScore[i].img = this.getrandomimg();
+													// res.data.chinaAnimateScore[i].img = this.getrandomimg();
+													if(commonutil.istest){
+														res.data.chinaAnimateScore[i].img = this.getrandomimg();
+													}
 												}
 												this.chinaAnimateScore_hot = res.data.chinaAnimateScore[0];
 												this.chinaAnimateScore = res.data.chinaAnimateScore;
@@ -1175,7 +1246,10 @@
 													res.data.animatePlanScore[i].title = title;
 													
 													res.data.animatePlanScore[i].animateid = animateid;
-													res.data.animatePlanScore[i].img = this.getrandomimg();
+													// res.data.animatePlanScore[i].img = this.getrandomimg();
+													if(commonutil.istest){
+														res.data.animatePlanScore[i].img = this.getrandomimg();
+													}
 												}
 												this.animatePlanScore_hot = res.data.animatePlanScore[0];
 												this.animatePlanScore = res.data.animatePlanScore;
@@ -1197,7 +1271,10 @@
 													res.data.movieAnimateScore[i].title = title;
 													
 													res.data.movieAnimateScore[i].animateid = animateid;
-													res.data.movieAnimateScore[i].img = this.getrandomimg();
+													// res.data.movieAnimateScore[i].img = this.getrandomimg();
+													if(commonutil.istest){
+														res.data.movieAnimateScore[i].img = this.getrandomimg();
+													}
 												}
 												this.movieAnimateScore_hot = res.data.movieAnimateScore[0];
 												this.movieAnimateScore = res.data.movieAnimateScore;
@@ -1210,9 +1287,342 @@
 								// this.animateRankdata = res.data;
 							}
 						}
+						this.loadModal = false;//页面渲染成功隐藏加载
+					},
+					fail: () => {
+						commonutil.modalTap("网络出小差了！");
+						this.loadModal = false;//页面渲染成功隐藏加载
+					}
+				}); */
+			},
+			getanimateRank0()
+			{
+				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/animateRank?animatetype=0');
+				uni.request({
+					url:linkurl,
+					success:(res)=> {
+						if(res.data!=null){
+							if(res.data.restate!=null){
+								commonutil.modalTap("网络异常！");
+							}else{
+								if(res.data.newAnimateRank!=null){
+									for (let i = 0; i < res.data.newAnimateRank.length; i++) {
+										let url = res.data.newAnimateRank[i].url;
+										let animateid="";
+										if(url != null&&url != ""&&url != undefined){
+											 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+										}
+										let title = res.data.newAnimateRank[i].title;
+										if(title.length>8){
+											title = title.substring(0,7)+"...";
+										}
+										res.data.newAnimateRank[i].title = title;
+										res.data.newAnimateRank[i].animateid = animateid;
+										 // = this.getrandomimg();
+										if(commonutil.istest){
+											res.data.newAnimateRank[i].img = this.getrandomimg();
+										}
+									}
+									this.newAnimateRank_hot = res.data.newAnimateRank[0];
+									this.newAnimateRank = res.data.newAnimateRank;
+								}
+							}
+						}
+					},
+					fail: () => {
+						commonutil.modalTap("网络出小差了！");
 					}
 				});
 			},
+			getanimateRank1()
+			{
+				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/animateRank?animatetype=1');
+				uni.request({
+					url:linkurl,
+					success:(res)=> {
+						if(res.data!=null){
+							if(res.data.restate!=null){
+								commonutil.modalTap("网络异常！");
+							}else{
+								if(res.data.chinaAnimateRank!=null){
+									for (let i = 0; i < res.data.chinaAnimateRank.length; i++) {
+										let url = res.data.chinaAnimateRank[i].url;
+										let animateid="";
+										if(url != null&&url != ""&&url != undefined){
+											 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+										}
+										let title = res.data.chinaAnimateRank[i].title;
+										if(title.length>8){
+											title = title.substring(0,7)+"...";
+										}
+										res.data.chinaAnimateRank[i].title = title;
+										
+										res.data.chinaAnimateRank[i].animateid = animateid;
+										// res.data.chinaAnimateRank[i].img = this.getrandomimg();
+										if(commonutil.istest){
+											res.data.chinaAnimateRank[i].img = this.getrandomimg();
+										}
+										
+									}
+									this.chinaAnimateRank_hot = res.data.chinaAnimateRank[0];
+									this.chinaAnimateRank = res.data.chinaAnimateRank;
+								}
+							}
+						}
+					},
+					fail: () => {
+						commonutil.modalTap("网络出小差了！");
+					}
+				});
+			},
+			getanimateRank2()
+			{
+				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/animateRank?animatetype=2');
+				uni.request({
+					url:linkurl,
+					success:(res)=> {
+						if(res.data!=null){
+							if(res.data.restate!=null){
+								commonutil.modalTap("网络异常！");
+							}else{
+								if(res.data.animatePlanRank!=null){
+									for (let i = 0; i < res.data.animatePlanRank.length; i++) {
+										let url = res.data.animatePlanRank[i].url;
+										let animateid="";
+										if(url != null&&url != ""&&url != undefined){
+											 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+										}
+										let title = res.data.animatePlanRank[i].title;
+										if(title.length>8){
+											title = title.substring(0,7)+"...";
+										}
+										res.data.animatePlanRank[i].title = title;
+										
+										res.data.animatePlanRank[i].animateid = animateid;
+										// res.data.animatePlanRank[i].img = this.getrandomimg();
+										if(commonutil.istest){
+											res.data.animatePlanRank[i].img = this.getrandomimg();
+										}
+									}
+									this.animatePlanRank_hot = res.data.animatePlanRank[0];
+									this.animatePlanRank = res.data.animatePlanRank;
+								}
+							}
+						}
+					},
+					fail: () => {
+						commonutil.modalTap("网络出小差了！");
+					}
+				});
+			},
+			getanimateRank3()
+			{
+				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/animateRank?animatetype=3');
+				uni.request({
+					url:linkurl,
+					success:(res)=> {
+						if(res.data!=null){
+							if(res.data.restate!=null){
+								commonutil.modalTap("网络异常！");
+							}else{
+								if(res.data.movieAnimateRank!=null){
+									for (let i = 0; i < res.data.movieAnimateRank.length; i++) {
+										let url = res.data.movieAnimateRank[i].url;
+										let animateid="";
+										if(url != null&&url != ""&&url != undefined){
+											 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+										}
+										
+										let title = res.data.movieAnimateRank[i].title;
+										if(title.length>8){
+											title = title.substring(0,7)+"...";
+										}
+										res.data.movieAnimateRank[i].title = title;
+										
+										res.data.movieAnimateRank[i].animateid = animateid;
+										// res.data.movieAnimateRank[i].img = this.getrandomimg();
+										if(commonutil.istest){
+											res.data.movieAnimateRank[i].img = this.getrandomimg();
+										}
+									}
+									this.movieAnimateRank_hot = res.data.movieAnimateRank[0];
+									this.movieAnimateRank = res.data.movieAnimateRank;
+								}
+							}
+						}
+					},
+					fail: () => {
+						commonutil.modalTap("网络出小差了！");
+					}
+				});
+			},
+			getanimateRank4()
+			{
+				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/animateRank?animatetype=4');
+				uni.request({
+					url:linkurl,
+					success:(res)=> {
+						if(res.data!=null){
+							if(res.data.restate!=null){
+								commonutil.modalTap("网络异常！");
+							}else{
+								if(res.data.newAnimateScore!=null){
+									for (let i = 0; i < res.data.newAnimateScore.length; i++) {
+										let url = res.data.newAnimateScore[i].url;
+										let animateid="";
+										if(url != null&&url != ""&&url != undefined){
+											 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+										}
+										
+										let title = res.data.newAnimateScore[i].title;
+										if(title.length>8){
+											title = title.substring(0,7)+"...";
+										}
+										res.data.newAnimateScore[i].title = title;
+										
+										res.data.newAnimateScore[i].animateid = animateid;
+										// res.data.newAnimateScore[i].img = this.getrandomimg();
+										if(commonutil.istest){
+											res.data.newAnimateScore[i].img = this.getrandomimg();
+										}
+									}
+									this.newAnimateScore_hot = res.data.newAnimateScore[0];
+									this.newAnimateScore = res.data.newAnimateScore;
+								}
+							}
+						}
+					},
+					fail: () => {
+						commonutil.modalTap("网络出小差了！");
+					}
+				});
+			},
+			getanimateRank5()
+			{
+				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/animateRank?animatetype=5');
+				uni.request({
+					url:linkurl,
+					success:(res)=> {
+						if(res.data!=null){
+							if(res.data.restate!=null){
+								commonutil.modalTap("网络异常！");
+							}else{
+								if(res.data.chinaAnimateScore!=null){
+									for (let i = 0; i < res.data.chinaAnimateScore.length; i++) {
+										let url = res.data.chinaAnimateScore[i].url;
+										let animateid="";
+										if(url != null&&url != ""&&url != undefined){
+											 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+										}
+										
+										let title = res.data.chinaAnimateScore[i].title;
+										if(title.length>8){
+											title = title.substring(0,7)+"...";
+										}
+										res.data.chinaAnimateScore[i].title = title;
+										
+										res.data.chinaAnimateScore[i].animateid = animateid;
+										// res.data.chinaAnimateScore[i].img = this.getrandomimg();
+										if(commonutil.istest){
+											res.data.chinaAnimateScore[i].img = this.getrandomimg();
+										}
+									}
+									this.chinaAnimateScore_hot = res.data.chinaAnimateScore[0];
+									this.chinaAnimateScore = res.data.chinaAnimateScore;
+								}
+							}
+						}
+					},
+					fail: () => {
+						commonutil.modalTap("网络出小差了！");
+					}
+				});
+			},
+			getanimateRank6()
+			{
+				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/animateRank?animatetype=6');
+				uni.request({
+					url:linkurl,
+					success:(res)=> {
+						if(res.data!=null){
+							if(res.data.restate!=null){
+								commonutil.modalTap("网络异常！");
+							}else{
+								if(res.data.animatePlanScore!=null){
+									for (let i = 0; i < res.data.animatePlanScore.length; i++) {
+										let url = res.data.animatePlanScore[i].url;
+										let animateid="";
+										if(url != null&&url != ""&&url != undefined){
+											 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+										}
+										
+										let title = res.data.animatePlanScore[i].title;
+										if(title.length>8){
+											title = title.substring(0,7)+"...";
+										}
+										res.data.animatePlanScore[i].title = title;
+										
+										res.data.animatePlanScore[i].animateid = animateid;
+										// res.data.animatePlanScore[i].img = this.getrandomimg();
+										if(commonutil.istest){
+											res.data.animatePlanScore[i].img = this.getrandomimg();
+										}
+									}
+									this.animatePlanScore_hot = res.data.animatePlanScore[0];
+									this.animatePlanScore = res.data.animatePlanScore;
+								}
+							}
+						}
+					},
+					fail: () => {
+						commonutil.modalTap("网络出小差了！");
+					}
+				});
+			},
+			getanimateRank7()
+			{
+				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/animateRank?animatetype=7');
+				uni.request({
+					url:linkurl,
+					success:(res)=> {
+						if(res.data!=null){
+							if(res.data.restate!=null){
+								commonutil.modalTap("网络异常！");
+							}else{
+								if(res.data.movieAnimateScore!=null){
+									for (let i = 0; i < res.data.movieAnimateScore.length; i++) {
+										let url = res.data.movieAnimateScore[i].url;
+										let animateid="";
+										if(url != null&&url != ""&&url != undefined){
+											 animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+										}
+										
+										let title = res.data.movieAnimateScore[i].title;
+										if(title.length>8){
+											title = title.substring(0,7)+"...";
+										}
+										res.data.movieAnimateScore[i].title = title;
+										
+										res.data.movieAnimateScore[i].animateid = animateid;
+										// res.data.movieAnimateScore[i].img = this.getrandomimg();
+										if(commonutil.istest){
+											res.data.movieAnimateScore[i].img = this.getrandomimg();
+										}
+									}
+									this.movieAnimateScore_hot = res.data.movieAnimateScore[0];
+									this.movieAnimateScore = res.data.movieAnimateScore;
+								}
+							}
+						}
+						this.loadModal = false;//页面渲染成功隐藏加载
+					},
+					fail: () => {
+						commonutil.modalTap("网络出小差了！");
+						this.loadModal = false;//页面渲染成功隐藏加载
+					}
+				});
+			},
+			
 			//资讯
 			getzixun()
 			{
@@ -1308,54 +1718,92 @@
 			//剧场
 			getjuChangAnimateList(year)
 			{
-				var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/juChangAnimateList?year='+year);
-				uni.request({
-					url:linkurl,
-					success:(res)=> {
-						if(res.data!=null){
-							if(res.data.restate!=null){
-								commonutil.modalTap("网络异常！");
-							}else{
-								if(res.data.list!=null&&res.data.list.length>0){
-									let len = res.data.list.length;
-									for(let i=0;i<len;i++){
-										let url = res.data.list[i].url;
-										let name = res.data.list[i].name;
-										if(name.length>15){
-											name=name.substring(0,15)+" ...";
+				return new Promise((resolve, reject) => {
+				        // uni.request({
+				        //     url: BASE_URL + 'class/getClassList',
+				        //     success: (res) => {
+				        //         store.commit('setAllClass', res.data);
+				        //         resolve('suc');
+				        //     },
+				        //     fail: (err) => {
+				        //         reject('err')
+				        //     }
+				        // });
+				   
+					var that =this;
+					var linkurl = commonutil.getUri(commonutil.apiurl,'/bimianimate/juChangAnimateList?year='+year);
+					uni.request({
+						url:linkurl,
+						success:(res)=> {
+							if(res.data!=null){
+								if(res.data.restate!=null){
+									commonutil.modalTap("网络异常！");
+								}else{
+									if(res.data.list!=null&&res.data.list.length>0){
+										let len = res.data.list.length;
+										for(let i=0;i<len;i++){
+											let url = res.data.list[i].url;
+											let name = res.data.list[i].name;
+											if(name.length>15){
+												name=name.substring(0,15)+" ...";
+											}
+											let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
+											res.data.list[i].name = name;
+											res.data.list[i].animateid = animateid;
+											if(commonutil.istest){
+												res.data.list[i].img = this.getrandomimg();
+											}
 										}
-										let animateid = url.substring(url.indexOf("/bi/")+4,url.length-1);
-										res.data.list[i].name = name;
-										res.data.list[i].animateid = animateid;
-										if(commonutil.istest){
-											res.data.list[i].img = this.getrandomimg();
+										res.data.year =  year+ "年剧场动画";
+										let cyear = Number(new Date().getFullYear());
+										if(cyear == year ){
+											if(len>3){
+												len =3;
+											}
+											this.juChangrecom = res.data.list.slice(0,len);
 										}
+										resolve(res.data);
+										// debugger
+										// let nowyear = Number(new Date().getFullYear());
+										// let startyear = Number(nowyear)-4;
+										// for(let k=0,j=nowyear;j>startyear;j--,k++){
+										// 	if(j==year){
+										// 		that.juChangAnimateList[k]=res.data;
+										// 		break;
+										// 	}
+										// }
+										// for(let m=0;m<that.juChangAnimateListAll.length;m++){
+										// 	let jcAnimate = that.juChangAnimateListAll[m];
+										// 	if(jcAnimate!=null&&jcAnimate!=""&&jcAnimate!=undefined){
+										// 		that.juChangAnimateList.push(jcAnimate);
+										// 	}
+										// }
+										// for (var i = 0; i < that.juChangyearlist.length; i++) {
+										// 	let jyear = that.juChangyearlist[i].substring(0,that.juChangyearlist[i].indexOf('年'));
+											
+										// }
+										
 									}
-									res.data.year =  year+ "年剧场动画";
-									let cyear = Number(new Date().getFullYear());
-									if(cyear == year ){
-										if(len>3){
-											len =3;
-										}
-										this.juChangrecom = res.data.list.slice(0,len);
-									}
-									this.juChangAnimateList.push(res.data);
 								}
 							}
 						}
-					}
-				});
+					});
+				
+				 })
 			},
-			getjuChangAnimateListOnTime()
+			async getjuChangAnimateListOnTime()
 			{
 				let nowyear = Number(new Date().getFullYear());
 				let startyear = Number(nowyear)-4;
+				debugger
 				for(let i=nowyear;i>startyear;i--){
 					let year = i+ "年剧场";
 					this.juChangyearlist.push(year);
-					setTimeout(() => {
-						this.getjuChangAnimateList(i);
-					}, 1000);
+					// setTimeout(() => {
+					// 	this.getjuChangAnimateList(i);
+					// }, 1000);
+					let jcAnimate = await this.getjuChangAnimateList(i);
+					this.juChangAnimateList.push(jcAnimate);
 				}
 			},	
 			weekDaySelect: function(e) {

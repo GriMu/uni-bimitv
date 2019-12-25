@@ -1,7 +1,11 @@
 // api接口地址
-var apiurl = 'http://chengzc.club:3000';
-var imgurl = 'http://service.picasso.adesk.com/';
+var apiurl = 'https://wxapi.chengzc.club';
+var imgurl = 'https://service.picasso.adesk.com/';
 var testurl = 'http://www.youxihenshao.com/';
+var loginurl = 'http://chengzc.club:84/';
+var appid = 'wxa6a2f198185bd3a3';
+var secret = '5a01105a33207a74088987ead194753c';
+var grant_type = 'authorization_code';
 var istest = false;
 
 function formateDate(sj)
@@ -26,14 +30,24 @@ function getFormate(arg)
 	return  arg>=10?arg:"0"+arg;
 }	
 
+//打包h5替换
 function getUri(sever,url)
+{
+	var linkurl = url;
+	linkurl = sever+url;
+	return linkurl;
+}
+
+
+/* function getUri(sever,url)
 {
 	var linkurl = url;
 	// #ifndef H5
 		linkurl = sever+url;
 	// #endif
 	return linkurl;
-}
+} */
+
 function modalTap(msg) {
 	uni.showModal({
 		content: msg,
@@ -102,9 +116,13 @@ export default {
 	apiurl,
 	imgurl,
 	testurl,
+	loginurl,
 	formateDate,
 	getUri,
 	modalTap,
 	timeformt,
 	istest,
+	appid,
+	secret,
+	grant_type,
 };
