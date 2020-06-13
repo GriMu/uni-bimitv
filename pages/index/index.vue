@@ -157,7 +157,7 @@
 					<view class="content">
 						<text class="cu-avatar radius sm bg-pink" v-if="index<3">{{item.rank}}</text>
 						<text class="cu-avatar radius sm bg-grey" v-else>{{item.rank}}</text>
-						<text class="text-grey text-cut padding-left-sm">{{item.title}}</text>
+						<text class="text-grey text-cut padding-left-sm">{{item.title.length>18?item.title.substring(0,13):item.title}}</text>
 					</view>
 					<view class="action">
 						<text class="text-grey text-sm">{{item.number}}</text>

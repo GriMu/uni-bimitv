@@ -1,17 +1,19 @@
-# uni-tencenttv-app
+# uni-bimitv
 
 #### 介绍
-腾讯视频demo
+uniapp使用demo
 
 #### 软件架构
-软件架构说明
+uni-app 是一个使用 Vue.js 开发小程序、H5、App的统一前端框架。官网地址：https://uniapp.dcloud.io
+
+开发者使用 Vue 语法编写代码，uni-app 框架将其编译到 小程序（微信/支付宝/百度/字节跳动/QQ/钉钉）、App（iOS/Android）、H5等多个平台，保证其正确运行并达到优秀体验。
 
 
 #### 安装教程
 
-1. xxxx
-2. xxxx
-3. xxxx
+1. git clone https://github.com/GriMu/uni-bimitv.git
+2. 使用HBuilderX导入项目
+3. 选择运行到浏览器，小程序模拟器，手机模拟器进行查看
 
 #### 使用说明
 
@@ -45,19 +47,3 @@ function getUri(sever,url)
 	// #endif
 	return linkurl;
 }
-#### 参与贡献
-
-1. Fork 本仓库
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
-
-
-#### 码云特技
-
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)

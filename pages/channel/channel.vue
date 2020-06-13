@@ -1036,7 +1036,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								commonutil.modalTap("网络异常！");
+								//commonutil.modalTap("网络异常！");
 							}else{
 								for(let i=0;i<res.data.length;i++){
 									let url = res.data[i].url;
@@ -1079,7 +1079,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								commonutil.modalTap("网络异常！");
+								//commonutil.modalTap("网络异常！");
 							}else{
 								for(let j=0;j<8;j++){
 									switch (j){
@@ -1303,7 +1303,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								commonutil.modalTap("网络异常！");
+								//commonutil.modalTap("网络异常！");
 							}else{
 								if(res.data.newAnimateRank!=null){
 									for (let i = 0; i < res.data.newAnimateRank.length; i++) {
@@ -1340,9 +1340,10 @@
 				uni.request({
 					url:linkurl,
 					success:(res)=> {
+						debugger
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								commonutil.modalTap("网络异常！");
+								//commonutil.modalTap("网络异常！");
 							}else{
 								if(res.data.chinaAnimateRank!=null){
 									for (let i = 0; i < res.data.chinaAnimateRank.length; i++) {
@@ -1383,7 +1384,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								commonutil.modalTap("网络异常！");
+								//commonutil.modalTap("网络异常！");
 							}else{
 								if(res.data.animatePlanRank!=null){
 									for (let i = 0; i < res.data.animatePlanRank.length; i++) {
@@ -1423,7 +1424,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								commonutil.modalTap("网络异常！");
+								//commonutil.modalTap("网络异常！");
 							}else{
 								if(res.data.movieAnimateRank!=null){
 									for (let i = 0; i < res.data.movieAnimateRank.length; i++) {
@@ -1464,7 +1465,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								commonutil.modalTap("网络异常！");
+								//commonutil.modalTap("网络异常！");
 							}else{
 								if(res.data.newAnimateScore!=null){
 									for (let i = 0; i < res.data.newAnimateScore.length; i++) {
@@ -1505,7 +1506,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								commonutil.modalTap("网络异常！");
+								//commonutil.modalTap("网络异常！");
 							}else{
 								if(res.data.chinaAnimateScore!=null){
 									for (let i = 0; i < res.data.chinaAnimateScore.length; i++) {
@@ -1546,7 +1547,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								commonutil.modalTap("网络异常！");
+								//commonutil.modalTap("网络异常！");
 							}else{
 								if(res.data.animatePlanScore!=null){
 									for (let i = 0; i < res.data.animatePlanScore.length; i++) {
@@ -1587,7 +1588,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								commonutil.modalTap("网络异常！");
+								//commonutil.modalTap("网络异常！");
 							}else{
 								if(res.data.movieAnimateScore!=null){
 									for (let i = 0; i < res.data.movieAnimateScore.length; i++) {
@@ -1632,7 +1633,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								commonutil.modalTap("网络异常！");
+								//commonutil.modalTap("网络异常！");
 							}else{
 								if(res.data.list!=null&&res.data.list.length>0){
 									let len = res.data.list.length;
@@ -1665,7 +1666,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								commonutil.modalTap("网络异常！");
+								//commonutil.modalTap("网络异常！");
 							}else{
 								if(res.data.list!=null&&res.data.list.length>0){
 									let len = res.data.list.length;
@@ -1693,7 +1694,7 @@
 					success:(res)=> {
 						if(res.data!=null){
 							if(res.data.restate!=null){
-								commonutil.modalTap("网络异常！");
+								//commonutil.modalTap("网络异常！");
 							}else{
 								if(res.data.list!=null&&res.data.list.length>0){
 									let len = res.data.list.length;
@@ -1737,7 +1738,7 @@
 						success:(res)=> {
 							if(res.data!=null){
 								if(res.data.restate!=null){
-									commonutil.modalTap("网络异常！");
+									//commonutil.modalTap("网络异常！");
 								}else{
 									if(res.data.list!=null&&res.data.list.length>0){
 										let len = res.data.list.length;

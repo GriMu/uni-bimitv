@@ -297,6 +297,7 @@
 				})
 			},
 			onGotUserInfo(e) {
+				debugger
 				console.log(e.detail.errMsg)
 				console.log(e.detail.userInfo)
 				console.log(e.detail.rawData)
@@ -308,6 +309,8 @@
 					key: 'login_user_data',
 					success: (res) => {
 						if (res.data) {
+							that.avatarUrl = res.data.avatarUrl;
+							that.nickName = res.data.nickName;
 							return;
 						}
 					},
@@ -315,83 +318,17 @@
 						uni.showLoading({
 							title: '授权中',
 						})
-						wx.login({
-						     success: res => {
-						       // 发送 res.code 到后台换取 openId, sessionKey
-						       console.log(res.code)
-						       if(res.code){
-						         console.log(res.code)
-						         wx.request({
-						           url: 'https://api.weixin.qq.com/sns/jscode2session',//微信服务器获取appid的网址 不用变
-						           method:'post',//必须是post方法
-						           data:{
-						             js_code:res.code,
-						             appid:commonutil.appid,//仅为实例appid
-						             secret:commonutil.secret,//仅为实例secret
-						             grant_type:commonutil.grant_type
-						           },
-						           header: {
-						             'content-type': 'application/x-www-form-urlencoded',
-						           },
-						           success:function(response){
-						             // console.log(response.data)
-									 let openid = response.data.openid;
-									 if(openid!=null&&openid!=""&&openid!=undefined){
-										 e.detail.userInfo.openid = openid;
-										 // that.logined=true;
-										 //向后台加入授权微信号
-										 var linkurl ='http://chengzc.club:84/api.php/common/userRegsiter.html';
-										 // #ifndef MP-WEIXIN
-										 uni.request({
-										 // #endif
-										 // #ifdef MP-WEIXIN
-										 wx.request({	
-										 // #endif
-										 	url:linkurl,
-										 	data:{
-										 		nickname: e.detail.userInfo.nickName,
-										 		access_token:that.access_token,
-										 		gender:e.detail.userInfo.gender,//1:男
-										 		language:e.detail.userInfo.language,
-										 		city:e.detail.userInfo.city,
-										 		province:e.detail.userInfo.province,
-										 		country:e.detail.userInfo.country,
-										 		avatarUrl:e.detail.userInfo.avatarUrl,
-										 		fromsystem:'1',//来源微信
-										 		usercode:response.data.openid,
-										 	},
-										 	method:'POST',
-										 	header:{'content-type': 'application/x-www-form-urlencoded;charset=UTF-8'},
-										 	success: (res) => {
-										 		// let avatarUrl = e.detail.userInfo.avatarUrl;
-										 		// let temp = avatarUrl.substring(0,avatarUrl.lastIndexOf("/"));
-										 		// avatarUrl = temp.substring(temp.lastIndexOf("/")+1);
-										 		// let username = e.detail.userInfo.nickName +"_"+ avatarUrl;
-										 		// that.adduser(username);
-										 		that.logined = true;
-										 		that.showloginout = true;
-												
-												uni.setStorage({
-													key: 'login_user_data',
-													data: e.detail.userInfo
-												})
-										 	},
-										 })	
-										 that.avatarUrl = e.detail.userInfo.avatarUrl;
-										 that.nickName = e.detail.userInfo.nickName;
-										 uni.hideLoading()
-									 }
-									 
-									 
-						             // wx.setStorageSync('app_openid', response.data.openid); //将openid存入本地缓存
-						             // wx.setStorageSync('sessionKey', response.data.session_key)//将session_key 存入本地缓存命名为SessionKey
-						           }
-						         })
-						       }else{
-						         console.log("登陆失败");
-						       }
-						     }
-						   })
+						//todo
+						//加上wx.login授权获取openid，并保存用户信息到后台
+						that.logined = true;
+						that.showloginout = true;
+						uni.setStorage({
+							key: 'login_user_data',
+							data: e.detail.userInfo
+						})
+						that.avatarUrl = e.detail.userInfo.avatarUrl;
+						that.nickName = e.detail.userInfo.nickName;
+						uni.hideLoading()
 					}
 				});
 			},

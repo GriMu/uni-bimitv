@@ -3,9 +3,6 @@ var apiurl = 'https://wxapi.chengzc.club';
 var imgurl = 'https://service.picasso.adesk.com/';
 var testurl = 'http://www.youxihenshao.com/';
 var loginurl = 'http://chengzc.club:84/';
-var appid = 'wxa6a2f198185bd3a3';
-var secret = '5a01105a33207a74088987ead194753c';
-var grant_type = 'authorization_code';
 var istest = false;
 
 function formateDate(sj)
@@ -122,7 +119,7 @@ export default {
 	modalTap,
 	timeformt,
 	istest,
-	appid,
-	secret,
-	grant_type,
+	// appid,
+	// secret,
+	// grant_type,
 };
