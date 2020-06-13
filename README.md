@@ -3,16 +3,16 @@
 #### 介绍
 uniapp使用demo
 
-#### 软件架构
-uni-app 是一个使用 Vue.js 开发小程序、H5、App的统一前端框架。官网地址：https://uniapp.dcloud.io
-
+uniapp是一个使用 Vue.js 开发小程序、H5、App的统一前端框架。官网地址：https://uniapp.dcloud.io
 开发者使用 Vue 语法编写代码，uni-app 框架将其编译到 小程序（微信/支付宝/百度/字节跳动/QQ/钉钉）、App（iOS/Android）、H5等多个平台，保证其正确运行并达到优秀体验。
+#### 软件架构
+使用uni-app以及ColorUI插件
 
 
 #### 安装教程
 
-1. git clone https://github.com/GriMu/uni-bimitv.git
-2. 使用HBuilderX导入项目
+1. git clone [](https://github.com/GriMu/uni-bimitv.git)
+2. 使用HBuilderX[](https://uniapp.dcloud.io/quickstart?id=_1-%e9%80%9a%e8%bf%87-hbuilderx-%e5%8f%af%e8%a7%86%e5%8c%96%e7%95%8c%e9%9d%a2)导入项目
 3. 选择运行到浏览器，小程序模拟器，手机模拟器进行查看
 
 #### 使用说明
